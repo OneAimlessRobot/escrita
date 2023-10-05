@@ -16,6 +16,8 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include "embeded.h"
+#include "auxFuncs.h"
 #include "fileCopier.h"
 #include "broadcaster.h"
 
@@ -41,6 +43,6 @@
 #define EGG_DIR_PATH(cwd) (strcat(cwd,EGG_DIR_NAME))
 #define EGG_DIR_PATH_INC (strlen(EGG_DIR_NAME))
 
-#define HOW_MANY_COPIES 10
+#define HOW_MANY_COPIES 3
 #define MAX_LEVELS 10
 #endif

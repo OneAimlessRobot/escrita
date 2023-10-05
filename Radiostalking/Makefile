@@ -14,13 +14,17 @@ CFLAGS= -Wall -DPROGRAMPATHAUX="$(CURRDIR)"  -Wextra -g $(foreach D, $(INCLUDE),
 
 SOURCEFILES=$(foreach D,$(SOURCES), $(wildcard $(D)/*.c))
 
+RESOURCEFILES=$(foreach D,$(RESDIR), $(wildcard $(D)/*.res))
+
 
 RESOURCEFILES=$(wildcard $(RESDIR)/*.o)
 
 
+RESBINS=$(patsubst %.res,%.o,$(RESOURCEFILES))
+
 OBJECTS=$(patsubst %.c,%.o,$(SOURCEFILES))
 
-ALLMODULES= $(RESOURCEFILES) $(OBJECTS)
+ALLMODULES= $(RESBINS) $(OBJECTS)
 
 DEPFILES= $(patsubst %.c,%.d,$(SOURCEFILES))
 
@@ -29,8 +33,9 @@ all: $(BINARY)
 	echo $(CURRDIR)
 
 
-$(BINARY): $(OBJECTS)
-	$(CC) -g -v  $(CFLAGS) -o  $@ $^ $(RESOURCEFILES)  $(LDLIBS)
+$(BINARY): $(ALLMODULES)
+	make -C $(RESDIR)
+	$(CC) -g -v  $(CFLAGS) -o  $@ $^  $(LDLIBS)
 
 
 %.o:%.c

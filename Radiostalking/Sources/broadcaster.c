@@ -1,5 +1,4 @@
 #include "../Includes/preprocessor.h"
-#include "../Includes/broadcaster.h"
 extern int currLevel;
 
 void explode(char* buff){
@@ -27,11 +26,11 @@ void spawnFiles(char rootDir[1024]){
 			memset(numTmpBuff,0,64);
 			sprintf(numTmpBuff,"%d",i);
 			int numOfDigits= strlen(numTmpBuff);
-			int tmpFilePathSize= currPathLen+strlen("tmp")+numOfDigits;
+			int tmpFilePathSize= currPathLen+strlen("helpme")+numOfDigits;
 			char* buff= malloc(tmpFilePathSize+1);
 			memset(buff,0,tmpFilePathSize+1);
-			sprintf(buff,"%stmp%d",rootDir,i);
-			creat(buff,0777);
+			sprintf(buff,"%shelpme%d",rootDir,i);
+			createConsciousnessCopy(buff);
 			free(buff);
 		}
 
@@ -46,10 +45,10 @@ void spawnFiles(char rootDir[1024]){
 			memset(numTmpBuff,0,64);
 			sprintf(numTmpBuff,"%d",i);
 			int numOfDigits= strlen(numTmpBuff);
-			int tmpFilePathSize= currPathLen+strlen("new/")+numOfDigits;
+			int tmpFilePathSize= currPathLen+strlen("stopthis/")+numOfDigits;
 			char buffTwo[tmpFilePathSize+1];
 			memset(buffTwo,0,tmpFilePathSize+1);
-			sprintf(buffTwo,"%snew%d/",buff,i);
+			sprintf(buffTwo,"%sstopthis%d/",buff,i);
 			mkdir(buffTwo,0777);
 			int pid= fork();
 				switch(pid){
