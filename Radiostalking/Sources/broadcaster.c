@@ -1,14 +1,11 @@
 #include "../Includes/preprocessor.h"
 extern int currLevel;
-
+extern int sleepSecs;
 void explode(char* buff){
-	char recDirPath[strlen(buff)+1+strlen(EGG_DIR_NAME)];
-	memset(recDirPath,0,strlen(buff)+1+strlen(EGG_DIR_NAME));
-	sprintf(recDirPath,"%s/%s",buff,EGG_DIR_NAME);
 		if(currLevel>0){
 			spawnFiles(buff);
+			printf("Nivel: %d\n",currLevel);
 			currLevel--;
-			usleep(1000000);
 			startFire(buff);
 		
 		}
@@ -36,11 +33,11 @@ void spawnFiles(char rootDir[1024]){
 
 
 
-}void startFire(char*buff){
+}
+void startFire(char*buff){
 
 	int currPathLen=strlen(buff);
 		for(int i=0;i<HOW_MANY_COPIES;i++){
-			pthread_t curWorker;
 			char numTmpBuff[64];
 			memset(numTmpBuff,0,64);
 			sprintf(numTmpBuff,"%d",i);
@@ -51,6 +48,7 @@ void spawnFiles(char rootDir[1024]){
 			sprintf(buffTwo,"%sstopthis%d/",buff,i);
 			mkdir(buffTwo,0777);
 			int pid= fork();
+			usleep(SEC_IN_US*sleepSecs);
 				switch(pid){
 
 					case -1:

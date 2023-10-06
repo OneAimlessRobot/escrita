@@ -45,4 +45,6 @@
 
 #define HOW_MANY_COPIES 3
 #define MAX_LEVELS 10
+#define SEC_IN_US 1000000
+
 #endif

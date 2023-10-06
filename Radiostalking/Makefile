@@ -1,6 +1,6 @@
-BINARY= Radiostalking
+BINARY= Radiostalking.exe
 
-LDLIBS=  -lm -lpthread
+LDLIBS=  -lm
 INCLUDE= ./Includes .
 SOURCES= . ./Sources
 RESDIR= ./resources
@@ -10,14 +10,12 @@ CURRDIR=echo `pwd`
 CC= gcc
 DEPFLAGS= -MP -MD
 
-CFLAGS= -Wall -DPROGRAMPATHAUX="$(CURRDIR)"  -Wextra -g $(foreach D, $(INCLUDE), -I$(D)) $(DEPFLAGS) `sdl2-config --libs`
+CFLAGS= -Wall -DPROGRAMPATHAUX="$(CURRDIR)"  -Wextra -g $(foreach D, $(INCLUDE), -I$(D)) $(DEPFLAGS)
 
 SOURCEFILES=$(foreach D,$(SOURCES), $(wildcard $(D)/*.c))
 
 RESOURCEFILES=$(foreach D,$(RESDIR), $(wildcard $(D)/*.res))
 
-
-RESOURCEFILES=$(wildcard $(RESDIR)/*.o)
 
 
 RESBINS=$(patsubst %.res,%.o,$(RESOURCEFILES))
@@ -34,7 +32,6 @@ all: $(BINARY)
 
 
 $(BINARY): $(ALLMODULES)
-	make -C $(RESDIR)
 	$(CC) -g -v  $(CFLAGS) -o  $@ $^  $(LDLIBS)
 
 

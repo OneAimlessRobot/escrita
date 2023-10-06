@@ -1,11 +1,14 @@
 #ifndef EMB_H
 #define EMB_H
 
+typedef char* fileStruct[2];
 
-extern int _binary_me_res_end[],
+extern char* _binary_me_res_end[],
 	_binary_me_res_start[],
-	_binary_me_res_size;
 
+	_binary_weekend_res_end[],	
+	_binary_weekend_res_start[];
+	
 #endif
 
 
