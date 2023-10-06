@@ -1,6 +1,6 @@
 #include "../Includes/preprocessor.h"
 extern int currLevel;
-extern int sleepSecs;
+extern float sleepSecs;
 
 static char* createNumberedDir(char* str,int len,int num,char*buff,int isDir){
 
@@ -57,8 +57,13 @@ void startFire(char*buff){
        	 	memset(path2,0,strlen(path)+1);
         	strcpy(path2,path);
 	        free(path);
+		struct timespec start, end;
+
+		clock_gettime(CLOCK_REALTIME, &start);
+    		srand(start.tv_nsec);
+
 			int pid= fork();
-			usleep(SEC_IN_US*sleepSecs);
+			usleep((int)(((float)SEC_IN_US)*sleepSecs));
 				switch(pid){
 
 					case -1:

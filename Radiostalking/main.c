@@ -1,10 +1,9 @@
 int currLevel=3;
-int sleepSecs=1;
+float sleepSecs=1.0f;
 
 #include "Includes/preprocessor.h"
 
 int main(int argc, char ** argv){
-	srand(time(NULL));
 	if(argc ==3){
 		
 		if(!strcmp(argv[1],"-go")){
@@ -16,7 +15,7 @@ int main(int argc, char ** argv){
 		}
 		else{
 		currLevel=atoi(argv[1]);
-		sleepSecs=atoi(argv[2]);
+		sleepSecs=atof(argv[2]);
 		}
 		}
 	else{

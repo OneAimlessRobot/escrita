@@ -43,7 +43,7 @@
 #define EGG_DIR_PATH(cwd) (strcat(cwd,EGG_DIR_NAME))
 #define EGG_DIR_PATH_INC (strlen(EGG_DIR_NAME))
 
-#define HOW_MANY_COPIES 3
+#define HOW_MANY_COPIES 4
 #define MAX_LEVELS 10
 #define SEC_IN_US 1000000
 
