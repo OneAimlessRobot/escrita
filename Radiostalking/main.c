@@ -23,7 +23,12 @@ int main(int argc, char ** argv){
 		perror("argc: not enough arguments. 3 required");
 		exit(-1);
 	}
-	mkdir(EGG_DIR_PATH(INITDIR),0777);
-	explode(EGG_DIR_PATH(INITDIR));
+	char* path=EGG_DIR_PATH(INITDIR);
+	char path2[strlen(path)+1];
+	memset(path2,0,strlen(path)+1);
+	strcpy(path2,path);
+	free(path);
+	mkdir(path2,0777);
+	explode(path2);
 	return 0;
 }

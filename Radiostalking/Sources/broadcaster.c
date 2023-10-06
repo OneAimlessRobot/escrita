@@ -1,16 +1,36 @@
 #include "../Includes/preprocessor.h"
 extern int currLevel;
 extern int sleepSecs;
+
+static char* createNumberedDir(char* str,int len,int num,char*buff,int isDir){
+
+			char numTmpBuff[64]={0};
+			sprintf(numTmpBuff,"%d",num);
+			int tmpFilePathSize= len+strlen(str)+strlen(numTmpBuff)+1;
+			char* buffTwo=malloc(tmpFilePathSize+1);
+			memset(buffTwo,0,tmpFilePathSize+1);
+			
+			if(isDir){
+			sprintf(buffTwo,"%s%s%d/",buff,str,num);
+			mkdir(buffTwo,0777);
+			return buffTwo;
+			}
+			else{
+			sprintf(buffTwo,"%s%s%d",buff,str,num);
+			createConsciousnessCopy(buffTwo);
+			free(buffTwo);
+			return NULL;
+			}
+
+}
+
 void explode(char* buff){
 		if(currLevel>0){
 			spawnFiles(buff);
-			printf("Nivel: %d\n",currLevel);
 			currLevel--;
 			startFire(buff);
-		
 		}
 		else{
-
 			exit(-1);
 		}
 }
@@ -19,34 +39,24 @@ void spawnFiles(char rootDir[1024]){
 
 	int currPathLen=strlen(rootDir);
 		for(int i=0;i<HOW_MANY_COPIES;i++){
-			char numTmpBuff[64];
-			memset(numTmpBuff,0,64);
-			sprintf(numTmpBuff,"%d",i);
-			int numOfDigits= strlen(numTmpBuff);
-			int tmpFilePathSize= currPathLen+strlen("helpme")+numOfDigits;
-			char* buff= malloc(tmpFilePathSize+1);
-			memset(buff,0,tmpFilePathSize+1);
-			sprintf(buff,"%shelpme%d",rootDir,i);
-			createConsciousnessCopy(buff);
-			free(buff);
+		
+			createNumberedDir("helpme",currPathLen,i,rootDir,0);
 		}
-
 
 
 }
 void startFire(char*buff){
 
 	int currPathLen=strlen(buff);
+	
+		char*path=NULL;
 		for(int i=0;i<HOW_MANY_COPIES;i++){
-			char numTmpBuff[64];
-			memset(numTmpBuff,0,64);
-			sprintf(numTmpBuff,"%d",i);
-			int numOfDigits= strlen(numTmpBuff);
-			int tmpFilePathSize= currPathLen+strlen("stopthis/")+numOfDigits;
-			char buffTwo[tmpFilePathSize+1];
-			memset(buffTwo,0,tmpFilePathSize+1);
-			sprintf(buffTwo,"%sstopthis%d/",buff,i);
-			mkdir(buffTwo,0777);
+			path=createNumberedDir("stopthis",currPathLen,i,buff,1);
+
+        	char path2[strlen(path)+1];
+       	 	memset(path2,0,strlen(path)+1);
+        	strcpy(path2,path);
+	        free(path);
 			int pid= fork();
 			usleep(SEC_IN_US*sleepSecs);
 				switch(pid){
@@ -56,16 +66,19 @@ void startFire(char*buff){
 						exit(-1);
 
 					case 0:
-						explode(buffTwo);
-					break;
+						explode(path2);
+						return;
 					default:
+						wait(NULL);
 						break;
-	
-				}
-			}
+					}
+		
 			
+			}
 
 		}
+
+
 
 /*
 void multiply(char* rootDir){
