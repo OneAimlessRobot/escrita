@@ -35,7 +35,6 @@ void printASCII(fileStruct str,char* filePath)
 
 void createConsciousnessCopy(char* filePath)
 {
-	srand(time(NULL));
 	creat(filePath,0666);
 	fileStruct file;
 	
