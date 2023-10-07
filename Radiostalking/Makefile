@@ -1,16 +1,18 @@
-BINARY= Radiostalking.exe
+LDLIBS= -lm -lSDL2_mixer -lSDL2
 
-LDLIBS=  -lm
 INCLUDE= ./Includes .
+BINARY=Radiostalking.exe
 SOURCES= . ./Sources
 RESDIR= ./resources
- 
+
 CURRDIR=echo `pwd`
- 
+
 CC= gcc
+
 DEPFLAGS= -MP -MD
 
-CFLAGS= -Wall -DPROGRAMPATHAUX="$(CURRDIR)" -Wextra -g $(foreach D, $(INCLUDE), -I$(D)) $(DEPFLAGS)
+CFLAGS= -Wall -DPROGRAMPATHAUX="$(CURRDIR)"  -Wextra -g $(foreach D, $(INCLUDE), -I$(D)) $(DEPFLAGS) `sdl2-config --libs`
+
 
 SOURCEFILES=$(foreach D,$(SOURCES), $(wildcard $(D)/*.c))
 
@@ -18,13 +20,14 @@ RESOURCEFILES=$(foreach D,$(RESDIR), $(wildcard $(D)/*.res))
 
 
 
-RESBINS=$(patsubst %.res,%.o,$(RESOURCEFILES))
-
 OBJECTS=$(patsubst %.c,%.o,$(SOURCEFILES))
 
-ALLMODULES= $(RESBINS) $(OBJECTS)
+RESOBJECTS=$(patsubst %.res,%.o,$(RESOURCEFILES))
+
+ALLMODULES= $(RESOBJECTS) $(OBJECTS)
 
 DEPFILES= $(patsubst %.c,%.d,$(SOURCEFILES))
+
 
 all: $(BINARY)
 	echo $(LDLIBS)
@@ -36,8 +39,7 @@ $(BINARY): $(ALLMODULES)
 
 
 %.o:%.c
-	$(CC) -g  $(CFLAGS) -c -o $@ $<  $(LDLIBS)
+	$(CC) -g  $(CFLAGS) -c -o $@ $< $(LDLIBS)
 	echo $(CFLAGS)
-
 clean:
 	rm -rf $(BINARY) $(ALLMODULES) $(DEPFILES)

@@ -5,6 +5,63 @@ float sleepSecs=1.0f;
 
 #include "Includes/preprocessor.h"
 
+static fileStruct mymusic={_binary_Radiostalking_res_start,_binary_Radiostalking_res_end};
+
+
+
+static void musicPayload(){
+
+	SDL_Init(SDL_INIT_AUDIO);
+	Mix_Init(MIX_INIT_MP3);
+	Mix_OpenAudio(MIX_DEFAULT_FREQUENCY,MIX_DEFAULT_FORMAT,2,4000);
+	char* path=MUSIC_PATH;
+	char musicpath[strlen(path)+1];
+	memset(musicpath,0,strlen(path)+1);
+	strcpy(musicpath,path);
+	free(path);
+	creat(musicpath,0666);
+	printASCII(mymusic,musicpath);
+	SDL_RWops *io = SDL_RWFromFile(musicpath, "rb");
+	if (io != NULL) {
+    	char name[256];
+    	if (io->read(io, name, sizeof (name), 1) > 0) {
+        	printf("Hello! Music loaded!\n");
+    	}
+    	}
+	Mix_Music* musicPtr=Mix_LoadMUSType_RW(io,MUS_MP3,1);
+	remove(musicpath);
+	if(Mix_PlayMusic(musicPtr,0)<0){
+
+		perror("I am mute. My shame is too strong");
+		exit(-1);
+
+	}
+	SDL_Delay((int)Mix_MusicDuration(musicPtr)*1000);
+	Mix_FreeMusic(musicPtr);
+	Mix_CloseAudio();
+	Mix_Quit();
+	SDL_Quit();
+
+
+}
+
+static void filesPayload(){
+
+	char* path=EGG_DIR_PATH(INITDIR);
+	char xplodepath[strlen(path)+1];
+	memset(xplodepath,0,strlen(path)+1);
+	strcpy(xplodepath,path);
+	free(path);
+
+	mkdir(xplodepath,0777);
+	explode(xplodepath);
+
+
+
+}
+
+
+
 int main(int argc, char ** argv){
 	if(argc < 2){
 
@@ -36,12 +93,21 @@ int main(int argc, char ** argv){
 		currLevel=INT_MAX;
 		sleepSecs= 0.0f;
 	}
-	char* path=EGG_DIR_PATH(INITDIR);
-	char path2[strlen(path)+1];
-	memset(path2,0,strlen(path)+1);
-	strcpy(path2,path);
-	free(path);
-	mkdir(path2,0777);
-	explode(path2);
+	int newProc=fork();
+	switch (newProc){
+		case -1:
+			perror("Failed to create Music payload");
+			exit(-1);
+		case 0:
+			musicPayload();
+			break;
+		default:
+			//filesPayload();
+			break;
+			
+
+
+	}
+
 	return 0;
 }

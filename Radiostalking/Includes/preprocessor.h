@@ -2,8 +2,8 @@
 #define PREPROCESSOR_H
 
 
-
-
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -37,7 +37,9 @@
 #define EGG_DIR_NAME "new/"
 #define SUB_EGG_DIR_NAME "stopthis"
 #define SPAM_FILE_NAME "helpme"
+#define MUSIC_FILE_NAME "Radiostalking.mp3"
 #define EGG_DIR_PATH(cwd) (strcat(cwd,EGG_DIR_NAME))
+#define MUSIC_PATH (strcat(INITDIR,MUSIC_FILE_NAME))
 #define EGG_DIR_PATH_INC (strlen(EGG_DIR_NAME))
 
 #define HOW_MANY_COPIES 10
