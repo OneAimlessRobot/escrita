@@ -2,7 +2,7 @@
 extern int currLevel;
 extern float sleepSecs;
 extern int isFullPower;
-
+extern int go;
 static char* createNumberedFile(char* str,int len,int num,char*buff,int isDir){
 
 			char numTmpBuff[64]={0};
@@ -26,7 +26,7 @@ static char* createNumberedFile(char* str,int len,int num,char*buff,int isDir){
 }
 
 void explode(char* buff){
-		if(currLevel>0){
+		if(currLevel>0 && go){
 			spawnFiles(buff);
 			currLevel--;
 			startFire(buff);
@@ -62,11 +62,21 @@ void startFire(char*buff){
 
 		clock_gettime(CLOCK_REALTIME, &start);
     		srand(start.tv_nsec);
-
+		int pid=fork();
+		
 			usleep((int)(((float)SEC_IN_US)*sleepSecs));
 
-				explode(path2);
+		switch(pid){		
 			
+			case -1:
+				perror("Nothing works. NOTHING WORKS!");
+				exit(-1);
+			case 0:	
+			explode(path2);
+			break;
+			default:
+			break;
+			}
 		}
 
 }

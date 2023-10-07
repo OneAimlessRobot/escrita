@@ -1,5 +1,5 @@
 
-LDLIBS = `pkg-config --libs   SDL2_mixer`
+LDLIBS = `pkg-config --libs   SDL2_mixer` -pthread -lpthread
 LDLIBS += `pkg-config --libs  sdl2`
 INCLUDE= ./Includes .
 BINARY=Radiostalking.exe

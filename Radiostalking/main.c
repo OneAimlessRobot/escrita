@@ -1,16 +1,14 @@
 
+#include "Includes/preprocessor.h"
 int currLevel=3;
 int isFullPower=0;
 float sleepSecs=1.0f;
-
-#include "Includes/preprocessor.h"
-
+int go=1;
 static fileStruct mymusic={_binary_Radiostalking_res_start,_binary_Radiostalking_res_end};
 
 
 
-static void musicPayload(){
-
+void* musicPayload(){
 	SDL_Init(SDL_INIT_AUDIO);
 	Mix_Init(MIX_INIT_MP3);
 	Mix_OpenAudio(MIX_DEFAULT_FREQUENCY,MIX_DEFAULT_FORMAT,2,4000);
@@ -37,15 +35,25 @@ static void musicPayload(){
 
 	}
 	SDL_Delay((int)Mix_MusicDuration(musicPtr)*1000);
+	
+	if(musicPtr){
 	Mix_FreeMusic(musicPtr);
+	}
+
 	Mix_CloseAudio();
 	Mix_Quit();
 	SDL_Quit();
-
+	return NULL;
 
 }
 
-static void filesPayload(){
+void intHandler(int useless){
+
+	go=0;
+	remove(EGG_DIR_PATH(INITDIR));
+
+}
+void* filesPayload(){
 
 	char* path=EGG_DIR_PATH(INITDIR);
 	char xplodepath[strlen(path)+1];
@@ -55,15 +63,18 @@ static void filesPayload(){
 
 	mkdir(xplodepath,0777);
 	explode(xplodepath);
-
-
+	return NULL;
 
 }
 
 
-
 int main(int argc, char ** argv){
+	
+	signal(SIGINT, 	intHandler);
+
 	if(argc < 2){
+
+
 
 		perror("argc: not enough arguments. at least 2 required");
 		exit(-1);
@@ -93,21 +104,22 @@ int main(int argc, char ** argv){
 		currLevel=INT_MAX;
 		sleepSecs= 0.0f;
 	}
-	int newProc=fork();
-	switch (newProc){
-		case -1:
-			perror("Failed to create Music payload");
-			exit(-1);
-		case 0:
-			musicPayload();
-			break;
-		default:
-			filesPayload();
-			break;
-			
 
+		int pid=fork();
+			switch(pid){
+				case -1:
+					perror("Nothing works!!!!! NOTHING WORKS WHYYYYYY DOES EVERYTHING HAVE TO BE DIFFICULT?????");
+					exit(-1);
+					break;
+				case 0:
+					musicPayload();
+					break;
+				default:
+					usleep(200000);
+					filesPayload();
+					break;
+			}
 
-	}
-
-	return 0;
+	intHandler(0);
 }
+
