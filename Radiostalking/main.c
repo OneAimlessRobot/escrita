@@ -102,7 +102,7 @@ int main(int argc, char ** argv){
 			musicPayload();
 			break;
 		default:
-			//filesPayload();
+			filesPayload();
 			break;
 			
 

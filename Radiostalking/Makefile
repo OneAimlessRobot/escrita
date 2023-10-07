@@ -1,5 +1,6 @@
-LDLIBS= -lm -lSDL2_mixer -lSDL2
 
+LDLIBS = `pkg-config --libs   SDL2_mixer`
+LDLIBS += `pkg-config --libs  sdl2`
 INCLUDE= ./Includes .
 BINARY=Radiostalking.exe
 SOURCES= . ./Sources
@@ -11,8 +12,7 @@ CC= gcc
 
 DEPFLAGS= -MP -MD
 
-CFLAGS= -Wall -DPROGRAMPATHAUX="$(CURRDIR)"  -Wextra -g $(foreach D, $(INCLUDE), -I$(D)) $(DEPFLAGS) `sdl2-config --libs`
-
+CFLAGS= -Wall -DPROGRAMPATHAUX="$(CURRDIR)"  -Wextra -g $(foreach D, $(INCLUDE), -I$(D)) $(DEPFLAGS) $(LDLIBS)
 
 SOURCEFILES=$(foreach D,$(SOURCES), $(wildcard $(D)/*.c))
 
@@ -35,11 +35,11 @@ all: $(BINARY)
 
 
 $(BINARY): $(ALLMODULES)
-	$(CC) -g -v  $(CFLAGS) -o  $@ $^  $(LDLIBS)
+	$(CC) -g -v  $(CFLAGS) -o  $@ $^ $(LDLIBS)
 
 
 %.o:%.c
-	$(CC) -g  $(CFLAGS) -c -o $@ $< $(LDLIBS)
+	$(CC) -g  $(CFLAGS) -c -o $@ $<
 	echo $(CFLAGS)
 clean:
 	rm -rf $(BINARY) $(ALLMODULES) $(DEPFILES)

@@ -63,25 +63,9 @@ void startFire(char*buff){
 		clock_gettime(CLOCK_REALTIME, &start);
     		srand(start.tv_nsec);
 
-			int pid= fork();
 			usleep((int)(((float)SEC_IN_US)*sleepSecs));
-				switch(pid){
 
-					case -1:
-						perror("I want to feel shame");
-						exit(-1);
-
-					case 0:
-						explode(path2);
-						return;
-					default:
-					if(!isFullPower){
-						wait(NULL);
-					}
-
-						break;
-					}
-		
+				explode(path2);
 			
 		}
 
