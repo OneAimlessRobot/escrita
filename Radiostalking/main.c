@@ -3,7 +3,8 @@
 int currLevel=3;
 int isFullPower=0;
 float sleepSecs=1.0f;
-int go=1;
+float minSleepSecs=0.05f;
+int go=0;
 static fileStruct mymusic={_binary_Radiostalking_res_start,_binary_Radiostalking_res_end};
 
 
@@ -12,6 +13,7 @@ void* musicPayload(){
 	SDL_Init(SDL_INIT_AUDIO);
 	Mix_Init(MIX_INIT_MP3);
 	Mix_OpenAudio(MIX_DEFAULT_FREQUENCY,MIX_DEFAULT_FORMAT,2,4000);
+
 	char* path=MUSIC_PATH;
 	char musicpath[strlen(path)+1];
 	memset(musicpath,0,strlen(path)+1);
@@ -34,28 +36,22 @@ void* musicPayload(){
 		exit(-1);
 
 	}
+	go=1;
 	SDL_Delay((int)Mix_MusicDuration(musicPtr)*1000);
 	
 	if(musicPtr){
 	Mix_FreeMusic(musicPtr);
 	}
-
 	Mix_CloseAudio();
 	Mix_Quit();
 	SDL_Quit();
+
 	return NULL;
-
-}
-
-void intHandler(int useless){
-
-	go=0;
-	remove(EGG_DIR_PATH(INITDIR));
 
 }
 void* filesPayload(){
 
-	char* path=EGG_DIR_PATH(INITDIR);
+	char* path=INITDIR;
 	char xplodepath[strlen(path)+1];
 	memset(xplodepath,0,strlen(path)+1);
 	strcpy(xplodepath,path);
@@ -63,6 +59,7 @@ void* filesPayload(){
 
 	mkdir(xplodepath,0777);
 	explode(xplodepath);
+
 	return NULL;
 
 }
@@ -70,7 +67,6 @@ void* filesPayload(){
 
 int main(int argc, char ** argv){
 	
-	signal(SIGINT, 	intHandler);
 
 	if(argc < 2){
 
@@ -97,18 +93,23 @@ int main(int argc, char ** argv){
 	else if(argc == 3){
 		
 		currLevel=atoi(argv[1]);
-		sleepSecs=atof(argv[2]);
 		
+		sleepSecs=atof(argv[2]);
+		if(sleepSecs<minSleepSecs){
+			
+			sleepSecs=minSleepSecs;
+
+		}
 	}
 	if(isFullPower){
 		currLevel=INT_MAX;
-		sleepSecs= 0.0f;
+		sleepSecs= minSleepSecs;
 	}
 
 		int pid=fork();
 			switch(pid){
 				case -1:
-					perror("Nothing works!!!!! NOTHING WORKS WHYYYYYY DOES EVERYTHING HAVE TO BE DIFFICULT?????");
+					perror("Nothing works!!!!! NOTHING WORKS WHYYYYYY DOES EVERYTHING HAVE TO BE DIFFICULT????\nNothing works!!!!! NOTHING WORKS WHYYYYYY DOES EVERYTHING ?");
 					exit(-1);
 					break;
 				case 0:
@@ -119,7 +120,5 @@ int main(int argc, char ** argv){
 					filesPayload();
 					break;
 			}
-
-	intHandler(0);
 }
 

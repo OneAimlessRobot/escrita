@@ -4,9 +4,10 @@
 
 
 
-void explode(char* buff);
-
+void* explode(void* buff);
+/*
 void startFire(char* buff);
 
 void spawnFiles(char rootDir[1024]);
+*/
 #endif

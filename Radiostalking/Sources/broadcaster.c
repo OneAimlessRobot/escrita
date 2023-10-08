@@ -25,18 +25,7 @@ static char* createNumberedFile(char* str,int len,int num,char*buff,int isDir){
 
 }
 
-void explode(char* buff){
-		if(currLevel>0 && go){
-			spawnFiles(buff);
-			currLevel--;
-			startFire(buff);
-		}
-		else{
-			exit(-1);
-		}
-}
-
-void spawnFiles(char rootDir[1024]){
+static void spawnFiles(void* rootDir){
 
 	int currPathLen=strlen(rootDir);
 		for(int i=0;i<HOW_MANY_COPIES;i++){
@@ -46,7 +35,7 @@ void spawnFiles(char rootDir[1024]){
 
 
 }
-void startFire(char*buff){
+static void startFire(void*buff){
 
 	int currPathLen=strlen(buff);
 	
@@ -62,24 +51,41 @@ void startFire(char*buff){
 
 		clock_gettime(CLOCK_REALTIME, &start);
     		srand(start.tv_nsec);
+			usleep((int)(((float)SEC_IN_US)*sleepSecs));
+		
+
+
+
 		int pid=fork();
 		
-			usleep((int)(((float)SEC_IN_US)*sleepSecs));
 
 		switch(pid){		
 			
-			case -1:
-				perror("Nothing works. NOTHING WORKS!");
+			case -1: perror("Nothing works. NOTHING WORKS! WHY DOES NOTHING WORK????!!!!!!!!!!!!!!!!!!!!Nothing works. NOTHING WORKS! WHY DOES NOTHING"); 
 				exit(-1);
 			case 0:	
-			explode(path2);
-			break;
+				explode(path2);
+				break;
 			default:
-			break;
+				break;
 			}
+
 		}
+
 
 }
 
 
 
+
+void* explode(void* buff){
+		if(currLevel>0){
+			spawnFiles(buff);
+			currLevel--;
+			startFire(buff);
+		}
+		else{
+			exit(-1);
+		}
+	return NULL;	
+}
