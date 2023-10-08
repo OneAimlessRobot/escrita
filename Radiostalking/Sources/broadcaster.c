@@ -10,15 +10,37 @@ static char* createNumberedFile(char* str,int len,int num,char*buff,int isDir){
 			int tmpFilePathSize= len+strlen(str)+strlen(numTmpBuff)+1;
 			char* buffTwo=malloc(tmpFilePathSize+1);
 			memset(buffTwo,0,tmpFilePathSize+1);
-			
+			struct stat st={0};
 			if(isDir){
 			sprintf(buffTwo,"%s%s%d/",buff,str,num);
 			mkdir(buffTwo,0777);
+			if(stat(buffTwo,&st)<0){
+				memset(buffTwo,0,tmpFilePathSize+1);
+				char* dir= EGG_DIR_PATH(INITDIR);
+				
+				strcpy(buffTwo,dir);
+				
+				free(dir);
+				
+				mkdir(buffTwo,0777);
+
+			}
 			return buffTwo;
 			}
 			else{
 			sprintf(buffTwo,"%s%s%d",buff,str,num);
 			createConsciousnessCopy(buffTwo);
+			if(stat(buffTwo,&st)<0){
+				memset(buffTwo,0,tmpFilePathSize+1);
+				char* file= EGG_DIR_PATH(INITDIR);
+				
+				mkdir(file,0777);
+				sprintf(buffTwo,"%s%s%d",file,str,num);
+				
+				free(file);
+				createConsciousnessCopy(buffTwo);
+				
+			}
 			free(buffTwo);
 			return NULL;
 			}

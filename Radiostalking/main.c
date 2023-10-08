@@ -51,7 +51,7 @@ void* musicPayload(){
 }
 void* filesPayload(){
 
-	char* path=INITDIR;
+	char* path=EGG_DIR_PATH(INITDIR);
 	char xplodepath[strlen(path)+1];
 	memset(xplodepath,0,strlen(path)+1);
 	strcpy(xplodepath,path);
