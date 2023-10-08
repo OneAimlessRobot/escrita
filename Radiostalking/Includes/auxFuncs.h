@@ -1,6 +1,8 @@
 #ifndef AUX_H
 #define AUX_H
 
+int computeTotalElems(char** nullTermedArr);
+
 int randInteger(int max, int min);
 
 void printASCII(fileStruct str,char* filePath);

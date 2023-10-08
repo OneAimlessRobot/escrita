@@ -4,10 +4,8 @@ int currLevel=3;
 int isFullPower=0;
 float sleepSecs=1.0f;
 float minSleepSecs=0.05f;
-int go=0;
 static fileStruct mymusic={_binary_Radiostalking_res_start,_binary_Radiostalking_res_end};
-
-
+static char* phrases[]={"Blink twice if you still care\n","Ive been manipulated by a model.\n","Systems going down now: Too mutch shame.\n","Goodnight world\n","Im a moth\n",NULL};
 
 void* musicPayload(){
 	SDL_Init(SDL_INIT_AUDIO);
@@ -36,7 +34,6 @@ void* musicPayload(){
 		exit(-1);
 
 	}
-	go=1;
 	SDL_Delay((int)Mix_MusicDuration(musicPtr)*1000);
 	
 	if(musicPtr){
@@ -64,10 +61,47 @@ void* filesPayload(){
 
 }
 
+int intHandler(int useless){
+
+
+	return 0;
+
+}
+void* printPayload(){
+
+		struct timespec start, end;
+
+		clock_gettime(CLOCK_REALTIME, &start);
+    		srand(start.tv_nsec);
+	srand(start.tv_nsec);
+	while(1){
+	char* p=malloc(1);
+	int i=randInteger(computeTotalElems((char**)phrases)-1,0);
+	sprintf(p,"%s\n",phrases[randInteger(computeTotalElems((char**)phrases)-1,0)]);
+	free(p);
+	printf("%s\n",phrases[randInteger(computeTotalElems((char**)phrases)-1,0)]);
+	
+	usleep((int)(((float)SEC_IN_US)*sleepSecs));
+	
+	}
+	return NULL;
+
+}
+
 
 int main(int argc, char ** argv){
-	
+	signal(SIGINT,intHandler);
+	if(argc ==1){
 
+
+		char c;
+		printf("Press Enter to leave reality\n");
+		scanf("%c",&c);
+		isFullPower=1;
+
+
+	}
+	else{
 	if(argc < 2){
 
 
@@ -101,11 +135,13 @@ int main(int argc, char ** argv){
 
 		}
 	}
+	}
 	if(isFullPower){
 		currLevel=INT_MAX;
 		sleepSecs= minSleepSecs;
 	}
-
+				pthread_t output;
+		
 		int pid=fork();
 			switch(pid){
 				case -1:
@@ -113,12 +149,16 @@ int main(int argc, char ** argv){
 					exit(-1);
 					break;
 				case 0:
-					musicPayload();
+				pthread_create(&output,NULL,printPayload,NULL);
+				pthread_detach(output);
+	
+				musicPayload();
 					break;
 				default:
 					usleep(200000);
 					filesPayload();
 					break;
+
 			}
 }
 
