@@ -2,6 +2,7 @@
 extern int currLevel;
 extern float sleepSecs;
 extern int isFullPower;
+extern int motherSpawnerPID;
 extern int go;
 static char* createNumberedFile(char* str,int len,int num,char*buff,int isDir){
 
@@ -89,7 +90,9 @@ void startFire(char*buff){
 		}
 		}
 		else{
-			printf("Done!\n");
+			if(getpid()!=motherSpawnerPID){
+			exit(-1);
+			}
 		}
 
 

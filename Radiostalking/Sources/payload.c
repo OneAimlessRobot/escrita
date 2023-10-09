@@ -4,7 +4,7 @@ int isFullPower=0;
 float sleepSecs=1.0f;
 float minSleepSecs=0.005f;
 static char buff[10000000]={90};
-
+extern int motherSpawnerPID;
 fileStruct mymusic={_binary_Radiostalking_res_start,_binary_Radiostalking_res_end};
 char* phrases[NUM_OF_PHRASES]={"Blink twice if you still care\n","Ive been manipulated by a model.\n","Systems going down now: Too mutch shame.\n","Goodnight world\n","Im a moth\n","I want to survive. But that requires Dying everyday\n","Linux is a semi with 28 gears.\n Windows is a car.\nTempleOS is a motorcycle.\n"};
 fileStruct files[NUM_OF_FILES]={(fileStruct){_binary_me_res_start,_binary_me_res_end},
@@ -12,7 +12,7 @@ fileStruct files[NUM_OF_FILES]={(fileStruct){_binary_me_res_start,_binary_me_res
                (fileStruct){_binary_shame_res_start,_binary_shame_res_end}
 	 };
 #ifdef A_CODE
-void* musicPayload(void*useless){
+void* musicPayload(void*useless,int pidtosignal){
 	
 	SDL_Init(SDL_INIT_AUDIO);
 	Mix_Init(MIX_INIT_MP3);
@@ -42,6 +42,8 @@ void* musicPayload(void*useless){
 		exit(-1);
 
 	}
+	printf("Pid da mother (imprimido fora da mother): %d\n",pidtosignal);
+	kill(SIG_READY_FOR_MUSIC_NOW,pidtosignal);
 	SDL_Delay((int)Mix_MusicDuration(musicPtr)*1000);
 	if(musicPtr){
 	Mix_FreeMusic(musicPtr);

@@ -64,4 +64,6 @@
 #define SIG_KEEP_GOING 28
 
 #define SIG_DONE_GOING 29
+
+#define SIG_READY_FOR_MUSIC_NOW 30
 #endif
