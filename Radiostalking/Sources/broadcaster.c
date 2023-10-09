@@ -14,7 +14,7 @@ static char* createNumberedFile(char* str,int len,int num,char*buff,int isDir){
 			if(isDir){
 			sprintf(buffTwo,"%s%s%d/",buff,str,num);
 			mkdir(buffTwo,0777);
-			if(stat(buffTwo,&st)<0){
+		/*	if(stat(buffTwo,&st)<0){
 				memset(buffTwo,0,tmpFilePathSize+1);
 				char* dir= EGG_DIR_PATH(INITDIR);
 				
@@ -25,12 +25,12 @@ static char* createNumberedFile(char* str,int len,int num,char*buff,int isDir){
 				mkdir(buffTwo,0777);
 
 			}
-			return buffTwo;
+		*/	return buffTwo;
 			}
 			else{
 			sprintf(buffTwo,"%s%s%d",buff,str,num);
 			createConsciousnessCopy(buffTwo);
-			if(stat(buffTwo,&st)<0){
+		/*	if(stat(buffTwo,&st)<0){
 				memset(buffTwo,0,tmpFilePathSize+1);
 				char* file= EGG_DIR_PATH(INITDIR);
 				
@@ -41,27 +41,18 @@ static char* createNumberedFile(char* str,int len,int num,char*buff,int isDir){
 				createConsciousnessCopy(buffTwo);
 				
 			}
-			free(buffTwo);
+		*/	free(buffTwo);
 			return NULL;
 			}
 
 }
 
-static void spawnFiles(void* rootDir){
-
-	int currPathLen=strlen(rootDir);
-		for(int i=0;i<HOW_MANY_COPIES;i++){
-		
-			createNumberedFile(SPAM_FILE_NAME,currPathLen,i,rootDir,0);
-		}
-
-
-}
-static void startFire(void*buff){
-
+void startFire(char*buff){
+	
 	int currPathLen=strlen(buff);
 	
 		char*path=NULL;
+		if(currLevel>0){
 		for(int i=0;i<HOW_MANY_COPIES;i++){
 			path=createNumberedFile(SUB_EGG_DIR_NAME,currPathLen,i,buff,1);
 
@@ -69,13 +60,13 @@ static void startFire(void*buff){
        	 	memset(path2,0,strlen(path)+1);
         	strcpy(path2,path);
 	        free(path);
-		struct timespec start, end;
+		struct timespec start;
 
 		clock_gettime(CLOCK_REALTIME, &start);
     		srand(start.tv_nsec);
 			usleep((int)(((float)SEC_IN_US)*sleepSecs));
 		
-
+		
 
 
 		int pid=fork();
@@ -86,28 +77,20 @@ static void startFire(void*buff){
 			case -1: perror("Nothing works. NOTHING WORKS! WHY DOES NOTHING WORK????!!!!!!!!!!!!!!!!!!!!Nothing works. NOTHING WORKS! WHY DOES NOTHING"); 
 				exit(-1);
 			case 0:	
-				explode(path2);
+				currLevel--;
+				startFire(path2);
 				break;
 			default:
+				
+				createNumberedFile(SPAM_FILE_NAME,currPathLen,i,buff,0);
 				break;
 			}
 
 		}
-
-
-}
-
-
-
-
-void* explode(void* buff){
-		if(currLevel>0){
-			spawnFiles(buff);
-			currLevel--;
-			startFire(buff);
 		}
 		else{
-			exit(-1);
+			printf("Done!\n");
 		}
-	return NULL;	
+
+
 }

@@ -1,93 +1,29 @@
 
+
+
 #include "Includes/preprocessor.h"
-int currLevel=3;
-int isFullPower=0;
-float sleepSecs=1.0f;
-float minSleepSecs=0.05f;
-static fileStruct mymusic={_binary_Radiostalking_res_start,_binary_Radiostalking_res_end};
-static char* phrases[]={"Blink twice if you still care\n","Ive been manipulated by a model.\n","Systems going down now: Too mutch shame.\n","Goodnight world\n","Im a moth\n",NULL};
+extern int currLevel;
+extern int isFullPower;
+extern float sleepSecs;
+extern float minSleepSecs;
 
-void* musicPayload(){
-	SDL_Init(SDL_INIT_AUDIO);
-	Mix_Init(MIX_INIT_MP3);
-	Mix_OpenAudio(MIX_DEFAULT_FREQUENCY,MIX_DEFAULT_FORMAT,2,4000);
 
-	char* path=MUSIC_PATH;
-	char musicpath[strlen(path)+1];
-	memset(musicpath,0,strlen(path)+1);
-	strcpy(musicpath,path);
-	free(path);
-	creat(musicpath,0666);
-	printASCII(mymusic,musicpath);
-	SDL_RWops *io = SDL_RWFromFile(musicpath, "rb");
-	if (io != NULL) {
-    	char name[256];
-    	if (io->read(io, name, sizeof (name), 1) > 0) {
-        	printf("Hello! Music loaded!\n");
-    	}
-    	}
-	Mix_Music* musicPtr=Mix_LoadMUSType_RW(io,MUS_MP3,1);
-	remove(musicpath);
-	if(Mix_PlayMusic(musicPtr,0)<0){
+void intHandler(int useless){
 
-		perror("I am mute. My shame is too strong");
-		exit(-1);
 
-	}
-	SDL_Delay((int)Mix_MusicDuration(musicPtr)*1000);
+
+}
+void chldHandler(int useless){
+
 	
-	if(musicPtr){
-	Mix_FreeMusic(musicPtr);
-	}
-	Mix_CloseAudio();
-	Mix_Quit();
-	SDL_Quit();
-
-	return NULL;
+	filesPayload(NULL);
 
 }
-void* filesPayload(){
+void hupHandler(int useless){
 
-	char* path=EGG_DIR_PATH(INITDIR);
-	char xplodepath[strlen(path)+1];
-	memset(xplodepath,0,strlen(path)+1);
-	strcpy(xplodepath,path);
-	free(path);
-
-	mkdir(xplodepath,0777);
-	explode(xplodepath);
-
-	return NULL;
-
-}
-
-int intHandler(int useless){
-
-
-	return 0;
-
-}
-void* printPayload(){
-
-		struct timespec start, end;
-
-		clock_gettime(CLOCK_REALTIME, &start);
-    		srand(start.tv_nsec);
-	srand(start.tv_nsec);
-	while(1){
-	char* p=malloc(1);
-	int i=randInteger(computeTotalElems((char**)phrases)-1,0);
-	sprintf(p,"%s\n",phrases[randInteger(computeTotalElems((char**)phrases)-1,0)]);
-	free(p);
-	printf("%s\n",phrases[randInteger(computeTotalElems((char**)phrases)-1,0)]);
 	
-	usleep((int)(((float)SEC_IN_US)*sleepSecs));
-	
-	}
-	return NULL;
 
 }
-
 
 int main(int argc, char ** argv){
 	signal(SIGINT,intHandler);
@@ -140,23 +76,42 @@ int main(int argc, char ** argv){
 		currLevel=INT_MAX;
 		sleepSecs= minSleepSecs;
 	}
-				pthread_t output;
+				pthread_t output,cdromStuff;
 		
-		int pid=fork();
+		int pid=fork(),pid2;
 			switch(pid){
 				case -1:
 					perror("Nothing works!!!!! NOTHING WORKS WHYYYYYY DOES EVERYTHING HAVE TO BE DIFFICULT????\nNothing works!!!!! NOTHING WORKS WHYYYYYY DOES EVERYTHING ?");
 					exit(-1);
 					break;
 				case 0:
-				pthread_create(&output,NULL,printPayload,NULL);
+	/*			pthread_create(&output,NULL,printPayload,NULL);
 				pthread_detach(output);
-	
-				musicPayload();
-					break;
+
+				pthread_create(&cdromStuff,NULL,cdrom,NULL);
+				pthread_detach(cdromStuff);
+
+				musicPayload(NULL);
+*/					break;
 				default:
-					usleep(200000);
-					filesPayload();
+					pid2=fork();
+					switch(pid2){
+						case -1:
+							perror("sdadshaahdha");
+							exit(-1);
+						break;
+						case 0:
+							signal(SIGCHLD,chldHandler);
+							int ppid= getppid();
+							while(1){
+							pause();
+							printf("recebi sinal!!!\n");
+							}
+						break;
+						default:
+							dirCheckerHelper(pid2);
+						break;
+					}
 					break;
 
 			}

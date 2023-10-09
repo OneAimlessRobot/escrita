@@ -1,19 +1,6 @@
 
 #include "../Includes/preprocessor.h"
-static fileStruct files[]={{_binary_me_res_start,_binary_me_res_end},
-                {_binary_weekend_res_start,_binary_weekend_res_end},
-                {_binary_shame_res_start,_binary_shame_res_end},
-		NULL
-                };
-
-int computeTotalElems(char** nullTermedArr){
-	int i=0;
-	for(;nullTermedArr[i];i++);
-	return i;
-
-
-
-}
+extern fileStruct files[3];
 int randInteger(int max, int min) {
     // Seed the random number generator with the current time.
 
@@ -44,7 +31,6 @@ void createConsciousnessCopy(char* filePath)
 {
 	creat(filePath,0666);
 	fileStruct file;
-	
-	memcpy(&file,&files[randInteger(computeTotalElems((char**)files)-1,0)],2*sizeof(char*));
+	memmove(&file,&files[randInteger(NUM_OF_FILES-1,0)],sizeof(fileStruct));
 	printASCII(file,filePath);
 }
