@@ -2,8 +2,17 @@
 #define PREPROCESSOR_H
 
 
+#ifdef A_CODE
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
+#endif
+
+#ifdef NON_COMPAT_CODE
+#include <linux/cdrom.h>
+#include <sys/ioctl.h>
+#endif
+
+
 #include <stdio.h>
 #include <pthread.h>
 #include <stdlib.h>
@@ -13,8 +22,6 @@
 #include <unistd.h>
 #include <limits.h>
 #include <time.h>
-#include <linux/cdrom.h>
-#include <sys/ioctl.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -52,5 +59,9 @@
 #define MAX_LEVELS 10
 #define SEC_IN_US 1000000
 #define NUM_OF_FILES 3
-#define NUM_OF_PHRASES 5
+#define NUM_OF_PHRASES 7
+
+#define SIG_KEEP_GOING 28
+
+#define SIG_DONE_GOING 29
 #endif

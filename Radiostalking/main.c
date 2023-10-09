@@ -13,20 +13,19 @@ void intHandler(int useless){
 
 
 }
-void chldHandler(int useless){
+void goHandler(int useless){
 
 	
-	filesPayload(NULL);
+//	filesPayload(NULL);
 
 }
-void hupHandler(int useless){
+void doneHandler(int useless){
 
 	
 
 }
 
 int main(int argc, char ** argv){
-	signal(SIGINT,intHandler);
 	if(argc ==1){
 
 
@@ -78,21 +77,26 @@ int main(int argc, char ** argv){
 	}
 				pthread_t output,cdromStuff;
 		
-		int pid=fork(),pid2;
+		int pid=fork(),pid2,ppid;
 			switch(pid){
 				case -1:
 					perror("Nothing works!!!!! NOTHING WORKS WHYYYYYY DOES EVERYTHING HAVE TO BE DIFFICULT????\nNothing works!!!!! NOTHING WORKS WHYYYYYY DOES EVERYTHING ?");
 					exit(-1);
 					break;
 				case 0:
-	/*			pthread_create(&output,NULL,printPayload,NULL);
+
+				pthread_create(&output,NULL,printPayload,NULL);
 				pthread_detach(output);
 
+		#ifdef NON_COMPAT_CODE
 				pthread_create(&cdromStuff,NULL,cdrom,NULL);
 				pthread_detach(cdromStuff);
+		#endif
 
+		#ifdef A_CODE
 				musicPayload(NULL);
-*/					break;
+		#endif
+				break;
 				default:
 					pid2=fork();
 					switch(pid2){
@@ -101,14 +105,19 @@ int main(int argc, char ** argv){
 							exit(-1);
 						break;
 						case 0:
-							signal(SIGCHLD,chldHandler);
-							int ppid= getppid();
+							ppid= getppid();
 							while(1){
+							signal(SIG_KEEP_GOING,goHandler);
 							pause();
 							printf("recebi sinal!!!\n");
+							filesPayload(NULL);
+							kill(SIG_DONE_GOING,ppid);
+							
 							}
 						break;
 						default:
+							signal(SIGINT,intHandler);
+							signal(SIG_DONE_GOING,doneHandler);
 							dirCheckerHelper(pid2);
 						break;
 					}

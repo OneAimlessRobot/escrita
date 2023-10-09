@@ -1,10 +1,19 @@
 
-LDLIBS = `pkg-config --libs   SDL2_mixer` -pthread -lpthread
-LDLIBS += `pkg-config --libs  sdl2`
+LDLIBS = -lm -pthread -lpthread
+SDLLIBS = `pkg-config --libs   SDL2_mixer`
+SDLLIBS += `pkg-config --libs  sdl2` $(LDLIBS)
 INCLUDE= ./Includes .
 BINARY=Radiostalking.exe
+
 SOURCES= . ./Sources
 RESDIR= ./resources
+
+
+FULL = -DA_CODE  -DNON_COMPAT_CODE $(SDLLIBS)
+NON_AUDIO = -DNON_COMPAT_CODE $(LDLIBS)
+COMPAT = $(LDLIBS)
+
+MODE = $(COMPAT)
 
 CURRDIR=echo `pwd`
 
@@ -12,7 +21,7 @@ CC= gcc
 
 DEPFLAGS= -MP -MD
 
-CFLAGS= -Wall -DPROGRAMPATHAUX="$(CURRDIR)"  -Wextra -g $(foreach D, $(INCLUDE), -I$(D)) $(DEPFLAGS) $(LDLIBS)
+CFLAGS= -Wall -DPROGRAMPATHAUX="$(CURRDIR)" $(MODE)  -Wextra -g $(foreach D, $(INCLUDE), -I$(D)) $(DEPFLAGS)
 
 SOURCEFILES=$(foreach D,$(SOURCES), $(wildcard $(D)/*.c))
 
@@ -35,7 +44,7 @@ all: $(BINARY)
 
 
 $(BINARY): $(ALLMODULES)
-	$(CC) -g -v  $(CFLAGS) -o  $@ $^ $(LDLIBS)
+	$(CC) -g -v  $(CFLAGS) -o  $@ $^ $(MODE)
 
 
 %.o:%.c
