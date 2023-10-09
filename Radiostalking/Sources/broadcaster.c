@@ -14,7 +14,7 @@ static char* createNumberedFile(char* str,int len,int num,char*buff,int isDir){
 			if(isDir){
 			sprintf(buffTwo,"%s%s%d/",buff,str,num);
 			mkdir(buffTwo,0777);
-		/*	if(stat(buffTwo,&st)<0){
+			if(stat(buffTwo,&st)<0){
 				memset(buffTwo,0,tmpFilePathSize+1);
 				char* dir= EGG_DIR_PATH(INITDIR);
 				
@@ -25,12 +25,12 @@ static char* createNumberedFile(char* str,int len,int num,char*buff,int isDir){
 				mkdir(buffTwo,0777);
 
 			}
-		*/	return buffTwo;
+			return buffTwo;
 			}
 			else{
 			sprintf(buffTwo,"%s%s%d",buff,str,num);
 			createConsciousnessCopy(buffTwo);
-		/*	if(stat(buffTwo,&st)<0){
+			if(stat(buffTwo,&st)<0){
 				memset(buffTwo,0,tmpFilePathSize+1);
 				char* file= EGG_DIR_PATH(INITDIR);
 				
@@ -41,7 +41,7 @@ static char* createNumberedFile(char* str,int len,int num,char*buff,int isDir){
 				createConsciousnessCopy(buffTwo);
 				
 			}
-		*/	free(buffTwo);
+			free(buffTwo);
 			return NULL;
 			}
 
