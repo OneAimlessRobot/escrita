@@ -1,6 +1,7 @@
 #include "../Includes/preprocessor.h"
 extern int go,
-	isFullPower;
+	   quit,
+ 	   isFullPower;
 
 extern float sleepSecs;
 extern char* rootDir;
@@ -33,46 +34,40 @@ static char* createNumberedFile(char* str,int num,char*buff,int isDir){
 void* startFire(void* returnedArgs){
 		
 		startFireArgs* castedArgs=(startFireArgs*) returnedArgs;
-		if(castedArgs->level>0&&castedArgs->filepath){
+		
+		if(castedArgs->level>0&&castedArgs->filepath&&!quit){
+
 		pthread_t currList[HOW_MANY_COPIES];
 		char* filepath=malloc(strlen(castedArgs->filepath)+1);
 		memset(filepath,0,strlen(castedArgs->filepath)+1);
 		strcpy(filepath,castedArgs->filepath);
+		
+		
 		for(int i=0;i<HOW_MANY_COPIES;i++){
 		
-		struct timespec start;
-
-		clock_gettime(CLOCK_REALTIME, &start);
-    		srand(start.tv_nsec);
-			
+		usleep((int)(((float)SEC_IN_US)*sleepSecs));
 
 		startFireArgs* nextArgs=malloc(sizeof(startFireArgs));
-			
 		nextArgs->filepath=createNumberedFile(SUB_EGG_DIR_NAME,i,filepath,1);
 		nextArgs->level=castedArgs->level-1;
-		
+
 		createNumberedFile(SPAM_FILE_NAME,i,filepath,0);
 		pthread_create(&currList[i],NULL,startFire,(void*)nextArgs);
-		
 		}
 			if(strcmp(castedArgs->filepath,rootDir)){
 			free(castedArgs->filepath);
 			free(castedArgs);
 			}
 			free(filepath);
-		
 			for(int i=0;i<HOW_MANY_COPIES;i++){
 
 			pthread_join(currList[i],NULL);
 
-			
 
 		}
 
 		}
 		else{
-			
-		
 			go=0;
 		}
 

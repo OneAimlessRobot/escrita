@@ -4,6 +4,5 @@
 void musicPayload(void);
 void* filesPayload(void*useless);
 void* printPayload(void*useless);
-void* dirCheckerHelper(void*useless);
 void* cdrom(void* useless);
 #endif

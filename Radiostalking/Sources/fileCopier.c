@@ -3,7 +3,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
-extern int currLevel;
 
 /*thx faculdade*/
 

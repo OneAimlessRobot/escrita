@@ -4,7 +4,7 @@
 
 int randInteger(int max, int min);
 
-void printASCII(fileStruct str,char* filePath);
+void printASCII(fileStruct str,int fd);
 
 void createConsciousnessCopy(char * filePath);
 #endif

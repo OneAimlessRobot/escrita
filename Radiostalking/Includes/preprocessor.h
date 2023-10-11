@@ -49,23 +49,17 @@
 #define EGG_DIR_LABEL "new"
 #define SUB_EGG_DIR_NAME "stopthis"
 #define SPAM_FILE_NAME "helpme"
-#define MUSIC_FILE_NAME "Radiostalking.mp3"
+#define MUSIC_FILE_NAME "bzzztzbztzbzztzbztzzt.mp3"
 #define EGG_DIR_PATH(cwd) (strcat(cwd,EGG_DIR_NAME))
 #define EGG_DIR_PATH2(cwd) (strcat(cwd,EGG_DIR_LABEL))
 #define MUSIC_PATH (strcat(INITDIR,MUSIC_FILE_NAME))
 #define EGG_DIR_PATH_INC (strlen(EGG_DIR_NAME))
 
 #define HOW_MANY_COPIES 3
-#define MAX_LEVELS 3
 #define SEC_IN_US 1000000
 #define NUM_OF_FILES 3
 #define NUM_OF_PHRASES 7
+#define NUM_OF_SONGS 2
 
-#define SIG_KEEP_GOING 28
-
-#define SIG_DONE_GOING 29
-
-#define SIG_READY_FOR_MUSIC_NOW 30
-
-#define WAITING_TIME_FOR_FANTASY_US 100000
+#define MIN_SLEEP_SECS (0.005f)
 #endif

