@@ -63,7 +63,7 @@ int main(int argc, char ** argv){
 	}
 	}
 	if(isFullPower){
-		maxLevel=INT_MAX;
+		maxLevel=INT_MAX-1;
 		sleepSecs= MIN_SLEEP_SECS;
 	}
 		
