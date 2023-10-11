@@ -2,8 +2,13 @@
 #define BROADCASTER_H
 
 
+typedef struct startFireArgs{
 
+	int level;
+	char* filepath;
 
-void startFire(char* buff);
+}startFireArgs;
+
+void* startFire(void* returnedArgs);
 
 #endif

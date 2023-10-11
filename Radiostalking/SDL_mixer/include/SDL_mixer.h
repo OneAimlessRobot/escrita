@@ -1824,7 +1824,8 @@ extern DECLSPEC int SDLCALL Mix_PlayMusic(Mix_Music *music, int loops);
  * If `loops` is greater than zero, loop the music that many times. If `loops`
  * is -1, loop "infinitely" (~65000 times).
  *
- * Fading music will change it's volume progressively, as if Mix_VolumeMusic()
+ * Fading music will change it's 
+volume progressively, as if Mix_VolumeMusic()
  * was called on it (which is to say: you probably shouldn't call
  * Mix_VolumeMusic() on fading music).
  *
@@ -1963,7 +1964,8 @@ extern DECLSPEC int SDLCALL Mix_FadeInChannel(int channel, Mix_Chunk *chunk, int
 extern DECLSPEC int SDLCALL Mix_FadeInChannelTimed(int channel, Mix_Chunk *chunk, int loops, int ms, int ticks);
 
 /**
- * Set the volume for a specific channel.
+ * Set the 
+volume for a specific channel.
  *
  * The volume must be between 0 (silence) and MIX_MAX_VOLUME (full volume).
  * Note that MIX_MAX_VOLUME is 128. Values greater than MIX_MAX_VOLUME are

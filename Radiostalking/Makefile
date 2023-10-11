@@ -1,4 +1,4 @@
-
+ 
 LDLIBS = -lm -pthread -lpthread
 SDLLIBS = `pkg-config --libs   SDL2_mixer`
 SDLLIBS += `pkg-config --libs  sdl2` $(LDLIBS)
@@ -11,9 +11,9 @@ RESDIR= ./resources
 
 FULL = -DA_CODE  -DNON_COMPAT_CODE $(SDLLIBS)
 NON_AUDIO = -DNON_COMPAT_CODE $(LDLIBS)
-COMPAT = $(LDLIBS)
+COMPAT = $(LDLIBS) 
 
-MODE = $(FULL)
+MODE = $(COMPAT) -fsanitize=address
 
 CURRDIR=echo `pwd`
 

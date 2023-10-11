@@ -1,37 +1,18 @@
 
 
-
 #include "Includes/preprocessor.h"
-extern int currLevel;
-extern int isFullPower;
-extern float sleepSecs;
-extern float minSleepSecs;
-int motherSpawnerPID,pid2;
-
+extern int maxLevel,
+	isFullPower;
+extern float sleepSecs,
+		minSleepSecs;
+char* rootDir;
+int go=1;
 void intHandler(int useless){
 
 
 
 }
-void goHandler(int useless){
 
-	printf("recebi sinal do monitor de dir!!!\n");
-	filesPayload(NULL);
-
-}
-void doneHandler(int useless){
-
-	printf("Recebi sinal do musicplayer!\n");
-	dirCheckerHelper(pid2);
-	
-
-}
-
-void musicHandler(int useless){
-
-
-
-}
 int main(int argc, char ** argv){
 	if(argc ==1){
 
@@ -68,7 +49,7 @@ int main(int argc, char ** argv){
 	}
 	else if(argc == 3){
 		
-		currLevel=atoi(argv[1]);
+		maxLevel=atoi(argv[1]);
 		
 		sleepSecs=atof(argv[2]);
 		if(sleepSecs<minSleepSecs){
@@ -79,56 +60,52 @@ int main(int argc, char ** argv){
 	}
 	}
 	if(isFullPower){
-		currLevel=INT_MAX;
+		maxLevel=INT_MAX;
 		sleepSecs= minSleepSecs;
 	}
-				pthread_t output,cdromStuff;
 		
-		int pid=fork(),ppid;
+		
+		rootDir=EGG_DIR_PATH(INITDIR);
+		pthread_t filesWorker,semaphore, output,cdromStuff;
+
+	
+		
+		int pid=fork();
 			switch(pid){
 				case -1:
 					perror("Nothing works!!!!! NOTHING WORKS WHYYYYYY DOES EVERYTHING HAVE TO BE DIFFICULT????\nNothing works!!!!! NOTHING WORKS WHYYYYYY DOES EVERYTHING ?");
 					exit(-1);
 					break;
 				case 0:
-				pid2=fork();
-					switch(pid2){
-						case -1:
-							perror("sdadshaahdha");
-							exit(-1);
-						break;
-						case 0:
-							signal(SIG_KEEP_GOING,goHandler);
-							ppid= getppid();
-							motherSpawnerPID=getpid();
-							while(1){
-							pause();
-							kill(SIG_DONE_GOING,ppid);
-							}
 
-						break;
-						default:
-							signal(SIGINT,intHandler);
-							signal(SIG_DONE_GOING,doneHandler);
-							signal(SIG_READY_FOR_MUSIC_NOW,musicHandler);
-							pause();
-							
-						break;
-					}
-				
+			#ifdef RANDPRINTS
+				pthread_create(&output,NULL,printPayload,NULL);
+			#endif
+			#ifdef NON_COMPAT_CODE
+					pthread_create(&cdromStuff,NULL,cdrom,NULL);
+			#endif
+		
+			#ifdef RANDPRINTS
+					pthread_detach(output);
+			#endif
+
+			#ifdef NON_COMPAT_CODE
+					pthread_detach(cdromStuff);
+			#endif
+
+
+			#ifdef A_CODE
+					musicPayload();
+			#endif
+		
+					
+						
 				break;
 				default:
-/*					pthread_create(&output,NULL,printPayload,NULL);
-				pthread_detach(output);
-*/
-		#ifdef NON_COMPAT_CODE
-				pthread_create(&cdromStuff,NULL,cdrom,NULL);
-				pthread_detach(cdromStuff);
-		#endif
-
-		#ifdef A_CODE
-				musicPayload(NULL,pid);
-		#endif
+						pthread_create(&filesWorker,NULL,filesPayload,NULL);
+						pthread_create(&semaphore,NULL,dirCheckerHelper,NULL);
+						pthread_join(semaphore,NULL);
+						pthread_join(filesWorker,NULL);
 					break;
 
 			}
