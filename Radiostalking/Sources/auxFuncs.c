@@ -24,6 +24,8 @@ void printASCII(fileStruct str,int fd)
     {	
 	
 	if(i+buffsize<str[1]){
+	
+	write(1,i,str[1]-i);
 	write(fd,i,str[1]-i);
 	i+=str[1]-i;
 	}
@@ -59,6 +61,6 @@ void createAudioFile(char* filePath)
 
 	int fd=creat(filePath,0666);
 	fileStruct file;
-	memmove(&file,&mymusic[randInteger(NUM_OF_SONGS-1,1)],sizeof(fileStruct));
+	memmove(&file,&mymusic[randInteger(NUM_OF_SONGS-1,0)],sizeof(fileStruct));
 	printASCII(file,fd);
 }

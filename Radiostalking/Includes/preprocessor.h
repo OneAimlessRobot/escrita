@@ -56,10 +56,11 @@
 #define EGG_DIR_PATH_INC (strlen(EGG_DIR_NAME))
 
 #define HOW_MANY_COPIES 3
+#define MAX_LEVELS 7
 #define SEC_IN_US 1000000
 #define NUM_OF_FILES 3
 #define NUM_OF_PHRASES 7
-#define NUM_OF_SONGS 2
+#define NUM_OF_SONGS 1
 
 #define MIN_SLEEP_SECS (0.005f)
 #endif

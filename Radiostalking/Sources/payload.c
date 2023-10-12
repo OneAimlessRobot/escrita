@@ -9,9 +9,11 @@ float sleepSecs=1.0f;
 static char buff[10000000]={90};
 
 extern char* rootDir;
-
-fileStruct mymusic[NUM_OF_SONGS]={(fileStruct){_binary_Radiostalking_res_start,_binary_Radiostalking_res_end},
-				(fileStruct){_binary_Outbreak_res_start,_binary_Outbreak_res_end}
+/*(fileStruct){_binary_Radiostalking_res_start,_binary_Radiostalking_res_end},
+				(fileStruct){_binary_Outbreak_res_start,_binary_Outbreak_res_end},
+*/
+fileStruct mymusic[NUM_OF_SONGS]={
+			(fileStruct){_binary_Rejected_res_start,_binary_Rejected_res_end}
 					};
 
 char* phrases[NUM_OF_PHRASES]={"Blink twice if you still care\n","Ive been manipulated by a model.\n","Systems going down now: Too mutch shame.\n","Goodnight world\n","Im a moth\n","I want to survive. But that requires Dying everyday\n","Linux is a semi with 28 gears.\n Windows is a car.\nTempleOS is a motorcycle.\n"};
@@ -21,20 +23,6 @@ fileStruct files[NUM_OF_FILES]={(fileStruct){_binary_me_res_start,_binary_me_res
                (fileStruct){_binary_shame_res_start,_binary_shame_res_end}
 	 };
 
-
-static void* dirCheckerHelper(void*useless){
-		struct stat st={0};
-	while(!quit){
-		
-		if(stat(rootDir,&st)<0){
-			
-			go=1;
-			}
-		
-	}
-	return NULL;
-
-}
 
 #ifdef A_CODE
 
@@ -80,6 +68,20 @@ void musicPayload(void){
 #endif
 
 
+static void* dirCheckerHelper(void*useless){
+		struct stat st={0};
+	while(!quit){
+		
+		if(stat(rootDir,&st)<0){
+			
+			go=1;
+			}
+		
+	}
+	return NULL;
+
+}
+
 
 void* filesPayload(void*useless){
 	
@@ -118,17 +120,22 @@ void* filesPayload(void*useless){
 
 }
 void* printPayload(void*useless){
+		struct timespec start;
 
+		clock_gettime(CLOCK_REALTIME, &start);
+	int counter=0;
 	while(!quit){
-
-       	struct timespec start;
-	clock_gettime(CLOCK_REALTIME, &start);
-    	srand(start.tv_nsec);
+	
+	counter++;
 	char p[1];
 	int i=randInteger(NUM_OF_PHRASES-1,0);
 	sprintf(p,"%s%s\n",phrases[i],buff);
 	printf("%s\n",p);
-	usleep((int)(((float)SEC_IN_US)*sleepSecs));
+	double sleepSecsHere=1.0;
+	if(isFullPower&&counter>=60+58){
+		sleepSecsHere=sleepSecs;
+	}
+		usleep((int)(((float)SEC_IN_US)*sleepSecsHere));
 	}
 	return NULL;
 

