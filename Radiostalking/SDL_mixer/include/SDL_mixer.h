@@ -1857,7 +1857,8 @@ extern DECLSPEC int SDLCALL Mix_FadeInMusic(Mix_Music *music, int loops, int ms)
  * Mix_VolumeMusic() on fading music).
  *
  * This function allows the caller to start the music playback past the
- * beginning of its audio data. You may specify a start position, in seconds,
+ * beginning of its audio data. You may specify a start 
+position, in seconds,
  * and the playback and fade-in will start there instead of with the first
  * samples of the music.
  *
