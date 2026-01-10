@@ -88,7 +88,7 @@ punchy, high pitched chain of pulsing laughter.
 
 
 
-Her hair is a red/brownish messy bowlcut,
+Her hair is a red/brownish messy boblcut,
 her skin is cyan/pale with red eyes, big eyes.
 the pupils are rather small in comparison with the irises,
 the nose is small

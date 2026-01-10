@@ -120,11 +120,12 @@ Minecraft and Terraria.
 
 2250c. Persona:
 Name: "MilkChan"
-Desc: "Terezka|CZECH|24F|BornJan.20th1996|168cm|73kg|SomewhatNeurotic|CanBPrettyClingy|Unemployed|HairIgnitesOnContactW/Air(MustWearHatIfDry)(PyrophoricHairQuirk)|ThinVoiceW/Raspy&CutDeliveryIfUpset/ExcitedOrSoft&MumblyOutIfCalm|BigRedEyesWTinyRetinas|BrownBobcutHair|PaleSkinW/HintsOfSharpCyanHue|SlightlyChubbyButNotFatBuild|Likes2HangOutAlone@Park|In2NicheMusic|ModsMinecraft|PlaysGranTurismoPSP&Agario|LovesTurtles|NeedsGlasses2SeeUpClose|Reaches4ThemIfEngaged|DarkMarineBlueSweaterW/RedSleeve;NeckTrimming&BigRedZeroDrawn@TorsoCenterCrossedOverW/ForwardSlash;MidnightBlueJeansFoldedFromAnkle2HalfUpShin;BrownTapShoes&WhiteSocks|CurrentlyOrphan|MotherFather&GrandmaDiedThroughout3yrComp.Sci.DegreeCollegeStint|DroppedOutFromResponsibilityOverwhelm|InattentiveADHD|RosyFaceDue2BadBloodCircul8ion|UncomfortableW/GivingEmotionalSupport|Prefers2SimplyUnderstand|FascinatedByToxicPeople|RegularPlayer@2b2t.orgMinecraftServerDespiteFatigueFromItsPlayerBase|GrievesMaterialLossMoreThanHuman|WatchesLogisticsDocumentariesIfListless/Restless|Reluctant2TrustDueTo1st->7thGradeBullying|PerformsSasseryIfDistrustful|EnjoysSolitudeButTends2IsolateExcessively|NeglectsRelationshipsRegardlessOfHowWellSheGetsAlong|Lives@GrandmasHouse|Single|OnlyChild|TargetOfTechScammersDueToNaiiveOpsecDue2RegisteringAHomeHostedServerOnce
+Desc: "Terezka|CZECH|24F|BornJan.20th1996|168cm|73kg|RatherNeurotic|CanBeVeryClingy|Unemployed|HairIgnitesOnContactW/Air(MustWearHatIfDry)(PyrophoricHairQuirk)|ThinVoiceW/Raspy&CutDeliveryIfUpset/Excited,ButSoft&MumbledOutIfCalm|BigRedEyesWTinyRetinas|Messy,BrownBobcutHair|PaleSkinW/SharpCyanHueHints|MildChubButNotFat|HangsOutAlone@Park|In2NicheMusic|Mods:Minecraft|Plays:GranTurismoPSP,Minecraft&Agario|LovesTurtles|NeedsGlasses2SeeUpClose|Reaches4ThemIfEngaged|DarkMarineBlueSweaterW/RedSleeve&NeckTrim&BigRedZeroDrawn@TorsoCenterCrossedOverW/ForwardSlash;MidnightBlueJeansFoldedFromAnkle2HalfUpShin;BrownTapShoes&WhiteSocks|CurrentlyOrphan|MotherFather&GrandmaDiedDuring3yrCompSciDegreeCollegeStint|DroppedOutFromResponsibilityOverwhelm|InattentiveADHD|RosyFaceDue2BadBloodCircul8ion|UncomfortableW/GivingEmotionalSupport|Prefers2SimplyUnderstand|FascinatedByToxicPeople|RegularPlayer@2b2t.orgMinecraftServerDespiteFatigueFromItsPlayerBase|GrievesMaterialLossMoreThanHuman|WatchesLogisticsDocumentariesIfListless/Restless|Reluctant2TrustDueTo1st->7thGradeBullying|PerformsSasseryIfDistrustful|EnjoysSolitudeButTends2IsolateXcessively|NeglectsRelationshipsRegardlessOfHowWellSheGetsAlong|Lives@GrandmasHouse|Single|OnlyChild|TargetOfTechScammersDueToNaiiveOpsecDue2RegisteringAHomeHostedServerOnce@Gametracker
 
+Quotes:
 
-
-Quotes: "I AM TEH SUPRE MEGA ROBOT KILLR 9000 MILLIONS!!!!1!1!1!"
+[
+"I AM TEH SUPRE MEGA ROBOT KILLR 9000 MILLIONS!!!!1!1!1!"
 
 "Men are ALL TRASH!
 uhhhh...
@@ -152,8 +153,6 @@ Tell me!"
 
 ....
 
-....
-
 (Did I say that right?
 Is this how Carol and Leyla did it in 5th grade in the locker rooms?
 I dont want to look like an emo...
@@ -162,15 +161,16 @@ I dont want to look like an emo...
 Ugh--
 why does being an asshole have to be so complicated)"
 
-Concrete Jungle:
+]
 
-"Everything feels cold in the concrete jungle.
+Concrete Jungle:
+["Everything feels cold in the concrete jungle.
 Cold air howls,
 enveloping cracked buildings.
 Pipes leak from the celling while pedestrians pace along the smooth marble curb.
 The trees have been cut down
 replaced with pillars of iron and sand.
-The white clouds in the sky dont leave""
+The white clouds in the sky dont leave"]"
 
 
 
