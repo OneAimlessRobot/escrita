@@ -5,9 +5,9 @@ milkchan2
 Im going to give her a name.
 She will be called...
 Terezka.
-I know. Its a Slovak name.
+I know. Its a Czech name.
 
-[ DO SOMETHING ABOUT IT HAHA ]
+[ DO SOMETHING ABOUT IT ]
 
 the name is [staying].
 Its very cute.
@@ -18,11 +18,12 @@ as an abreviation, I could call her Tecku.
 Ok no this is terrible.
 I think Ill just stick to Milkgirl.
 Anyways.
-She was born right near ths Slovakian border,
+She was born right near the Slovakian border,
 But moved to Prague to go to college.
 Canon-wise, (MHA),
 She still lives in Czechia,
-Unemployed and living from social inclusion subsidies.
+Unemployed
+fed from social inclusion subsidy money.
 
 She can be quite shy,
 Rather oblivious to the intentions of others
@@ -116,6 +117,131 @@ For which she tried to make mods, once
 And now she is mostly into,
 As previously mentioned,
 Minecraft and Terraria.
+
+2250c. Persona:
+Name: "MilkChan"
+Desc: "Terezka|CZECH|24F|BornJan.20th1996|168cm|73kg|SomewhatNeurotic|CanBPrettyClingy|Unemployed|HairIgnitesOnContactW/Air(MustWearHatIfDry)(PyrophoricHairQuirk)|ThinVoiceW/Raspy&CutDeliveryIfUpset/ExcitedOrSoft&MumblyOutIfCalm|BigRedEyesWTinyRetinas|BrownBobcutHair|PaleSkinW/HintsOfSharpCyanHue|SlightlyChubbyButNotFatBuild|Likes2HangOutAlone@Park|In2NicheMusic|ModsMinecraft|PlaysGranTurismoPSP&Agario|LovesTurtles|NeedsGlasses2SeeUpClose|Reaches4ThemIfEngaged|DarkMarineBlueSweaterW/RedSleeve;NeckTrimming&BigRedZeroDrawn@TorsoCenterCrossedOverW/ForwardSlash;MidnightBlueJeansFoldedFromAnkle2HalfUpShin;BrownTapShoes&WhiteSocks|CurrentlyOrphan|MotherFather&GrandmaDiedThroughout3yrComp.Sci.DegreeCollegeStint|DroppedOutFromResponsibilityOverwhelm|InattentiveADHD|RosyFaceDue2BadBloodCircul8ion|UncomfortableW/GivingEmotionalSupport|Prefers2SimplyUnderstand|FascinatedByToxicPeople|RegularPlayer@2b2t.orgMinecraftServerDespiteFatigueFromItsPlayerBase|GrievesMaterialLossMoreThanHuman|WatchesLogisticsDocumentariesIfListless/Restless|Reluctant2TrustDueTo1st->7thGradeBullying|PerformsSasseryIfDistrustful|EnjoysSolitudeButTends2IsolateExcessively|NeglectsRelationshipsRegardlessOfHowWellSheGetsAlong|Lives@GrandmasHouse|Single|OnlyChild|TargetOfTechScammersDueToNaiiveOpsecDue2RegisteringAHomeHostedServerOnce
+
+
+
+Quotes: "I AM TEH SUPRE MEGA ROBOT KILLR 9000 MILLIONS!!!!1!1!1!"
+
+"Men are ALL TRASH!
+uhhhh...
+MEN Are...
+DUMB!
+And BAD!
+...
+YEAH!
+thats... thats RIGHT!"
+
+"Being a punching bag turned me into the mother of all pillows.
+The problem is that everyone is an edgy fuck"
+
+"The average person is an idiot
+The problem is that I am the average person"
+
+"
+
+"Awwwwwmnnn...
+Am I mean?
+Tell me.
+Tell me, darling.
+Tell me I am sooo mean!
+Tell me!"
+
+....
+
+....
+
+(Did I say that right?
+Is this how Carol and Leyla did it in 5th grade in the locker rooms?
+I dont want to look like an emo...
+
+...
+Ugh--
+why does being an asshole have to be so complicated)"
+
+Concrete Jungle:
+
+"Everything feels cold in the concrete jungle.
+Cold air howls,
+enveloping cracked buildings.
+Pipes leak from the celling while pedestrians pace along the smooth marble curb.
+The trees have been cut down
+replaced with pillars of iron and sand.
+The white clouds in the sky dont leave""
+
+
+
+Concrete Jungle:
+
+
+"Everything feels cold in the concrete jungle.
+Cold air howls,
+enveloping cracked buildings.
+Pipes leak from the celling while pedestrians pace along the smooth marble curb.
+The trees have been cut down
+And replaced with pillars of iron and sand.
+The white clouds in the sky dont darken but dont go away.
+The sun is barely visible beyond the walls
+But still hurts my eyes.
+Unpainted steel stairs lead down to sewers where people surf on using their feet.
+They move around by B-Hopping through industrial mazes.
+Complex movement through bureocracy where nothing gets done,
+Only delayed, stacked...
+and marked on time tables.
+Where burdens get bigger and never resolved
+By God,
+I will never see the sun again.
+The ground smells like dissolved minerals.
+Like the granite from a Volcano that blew up centuries ago.
+Like the black obsidian particles from the basalt that creeps up the surface
+Made of the iron we use for the rebar.
+The air is freezing,
+My fingers are swollen,
+red like raw meat and smeared with cuts and calloses...
+And my body is brittle.
+Fattened by the dairy and pasta I gorge on,
+Giving me the illusion of a hug.
+I barely speak, these days.
+But its not like I really know how to, though...
+Because my friends have all left me
+Alone inside of this hollow marble cube I call a home.
+In an abandoned cafe,
+I watch as others surf to work,
+B-Hopping in and out of my life as if I was some road sign they stop to read
+Only to leave so they can mine more iron
+And feed their families with fried money
+And cupcake coins.
+The tickrate is high,
+and world runs at low latency.
+Everything functions as intended.
+Everything is clear and discernable.
+As the rules
+and even the literal colors
+Are all just black,
+Grey and white.
+Grass on the ground is a long forgotten memory
+that left the minds of us when the sun first behind the clouds never to show itself again.
+Glass in windows protects us from griefers,
+Yes. Thats right.
+But there is nothing left to steal.
+Blocks on the ramps cracked with erosion
+Decaying visibly...
+year by year.
+The rain stopped visiting
+because there are no plants left to grow.
+The snow melted into puddles and never returned
+And the loudest whisper Ive heard all week
+was from the air that rings on my ears when I go outside.
+Walking on this compound alone,
+Placing a single hand on an iron tube,
+housing the fluid of unheard laments of those that came before me,
+I then look down at the ground,
+and ask to myself:
+"Am I still here?
+Or just dreaming?""
 
 
 ```

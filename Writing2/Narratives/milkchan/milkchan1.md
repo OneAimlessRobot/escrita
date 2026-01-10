@@ -10,7 +10,7 @@ so I decided to make [A n o t h e r  o n e].
 This time,
 Im making milkchan.
 No.
-Not the psychological trainaccident that is the original milkchan from the visual novel "Milk Inside/Outside a bag of milk Inside/Outside a bag of milk"
+Not the psychological train accident that is the original milkchan from the visual novel "Milk Inside/Outside a bag of milk Inside/Outside a bag of milk"
 (Ive done a breakdown of her over on MilkChanStuff folder at the root of the Writing Repository.
 TLDR: Poor girl...)
 No.
@@ -29,7 +29,7 @@ or someone takes an active flame to it.
 Because of that...
 unless her hair is wet,
 She must keep it covered at [all] times.
-(for example with a baseba cap).
+(for example with a baseball cap).
 this hair is also extremely brittle,
 [very dangerous] to brush unless damp
 And provides no combat ability whatsoever.
@@ -88,7 +88,7 @@ punchy, high pitched chain of pulsing laughter.
 
 
 
-Her hair is a red/brownish bowlcut,
+Her hair is a red/brownish messy bowlcut,
 her skin is cyan/pale with red eyes, big eyes.
 the pupils are rather small in comparison with the irises,
 the nose is small
@@ -96,18 +96,20 @@ and she has visible dark lines under her eyes.
 her skin is pretty clear and her face is rather roundy/chubby.
 The body has some chub to it but isnt that heavy.
 she is 161 cm tall and weights 68 kilograms.
-She wears classic-blue jeans that end at a fold by the ankles, wears tall socks and brown tap shoes.
-she has no jewlery or accessories and wears a conventional deep dark blue sweatshirt with red trimming
+She wears Midnight blue jeans that end at a fold by the ankles, tall white socks and brown tap shoes.
+she has no jewlery or accessories and wears a normal deep dark blue sweatshirt with red trimming
 which features a zero drawn on the torso section with a forwards slash cut across it.
 
-She wears glasses to see up close,
-has a thin voice even for a female,
+She wears glasses to see up close and
+has a thin voice even for a female
 
 
 Persona:
 
 Quotes:
 "I AM TEH SUPRE MEGA ROBOT KILLR 9000 MILLIONS!!!!1!1!1!"
+
+first burst
 
 
 ```
