@@ -76,4 +76,40 @@ So she defended her base using the Crystals given to her by D_LOADED
 And thats about it hhhhhh
 Bye :)
 
+
+But then she makes a smart point!!!!!!!!!!!!!!!
+
+"MilkChan
+What would a golden apple even taste like in real life?
+Would lacing an apple in gold even keep it edible?
+I think gold is a heavy metal
+Ok.
+its a noble metal that doesnt react with anything, but...
+Wouldnt it be like lead?
+Iiii...
+I dont know.
+But the character in minecraft surely enjoys eating it"
+
+
+This shows her IQ.
+
+
+Then another:
+
+"
+MilkChan
+How much would it even weight?
+Would we have to glue the gold dust to the skin of the apple?
+But then we would also be eating glue, right?
+...
+maybe [that] is where the problem is..."
+
+And then:
+
+"
+MilkChan
+This is making me hungry!"
+
+
+
 ```
