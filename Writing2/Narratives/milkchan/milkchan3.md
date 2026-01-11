@@ -88,4 +88,53 @@ And the nose would look like a children's playground slide
 Decorated with a rollcage and wing."]
 
 
+
+
+Third analogy:
+
+I think that
+If milkchan's mind,
+on a bad day,
+is "Concrete Jungle",
+on a good day it is the mathematical concept of Euclidean Geometry.
+It is clearly discernible,
+Easy to navigate,
+The concepts are thoroughly proven,
+And from all the "different geometry" videos she watched,
+The one she enjoyed the most was the euclidean one.
+She also enjoys Polynomials,
+Vector spaces,
+and one of her first ever programs was to create a MacLaurin Polynomial creator for an arbitrary function with the help of instances of single variable consumer and producer subclasses.
+
+Ok Im getting sidetracked.
+
+She likes euclidean geometry
+and her favourite exercises at college were vector spaces proof exercises.
+
+Once,
+she got so upset for not being able to do a proof that she thought was cool on her own that,
+when she was finally shown how to do it with the help of a teacher at an office hours session,
+She actually [banged] on the table once she figured out what she had missed and,
+after defensively arguing with the teacher for about half an hour,
+she broke down and [cried]
+
+
+She also enjoys set theory
+Because she thinks its proofs are easy
+As well as classical logic
+
+Okay that is too many things.
+
+
+Nevermind them, sorry...
+
+But the internal world of milkchan is like a three dimensional pool of multicolored shapes and polyhedra that bounce around,
+phase through each other and morph into cubes one time...
+then triangles or even...
+[Spheres].
+
+[Sighs...]
+Okay.
+Vent over
+
 ```
