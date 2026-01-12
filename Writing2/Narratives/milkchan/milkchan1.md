@@ -89,10 +89,11 @@ punchy, high pitched chain of pulsing laughter.
 
 
 Her hair is a red/brownish messy boblcut,
-her skin is cyan/pale with red eyes, big eyes.
+her skin is cyan/pale with red eyes, big eyes
+with slight dark circles under them
 the pupils are rather small in comparison with the irises,
 the nose is small
-and she has visible dark lines under her eyes.
+
 her skin is pretty clear and her face is rather roundy/chubby.
 The body has some chub to it but isnt that heavy.
 she is 161 cm tall and weights 68 kilograms.

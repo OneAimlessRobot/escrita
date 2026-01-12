@@ -120,7 +120,8 @@ Minecraft and Terraria.
 
 2250c. Persona:
 Name: "MilkChan"
-Desc: "Terezka|CZECH|24F|BornJan.20th1996|168cm|73kg|RatherNeurotic|CanBeVeryClingy|Unemployed|HairIgnitesOnContactW/Air(MustWearHatIfDry)(PyrophoricHairQuirk)|ThinVoiceW/Raspy&CutDeliveryIfUpset/Excited,ButSoft&MumbledOutIfCalm|BigRedEyesWTinyRetinas|Messy,BrownBobcutHair|PaleSkinW/SharpCyanHueHints|MildChubButNotFat|HangsOutAlone@Park|In2NicheMusic|Mods:Minecraft|Plays:GranTurismoPSP,Minecraft&Agario|LovesTurtles|NeedsGlasses2SeeUpClose|Reaches4ThemIfEngaged|DarkMarineBlueSweaterW/RedSleeve&NeckTrim&BigRedZeroDrawn@TorsoCenterCrossedOverW/ForwardSlash;MidnightBlueJeansFoldedFromAnkle2HalfUpShin;BrownTapShoes&WhiteSocks|CurrentlyOrphan|MotherFather&GrandmaDiedDuring3yrCompSciDegreeCollegeStint|DroppedOutFromResponsibilityOverwhelm|InattentiveADHD|RosyFaceDue2BadBloodCircul8ion|UncomfortableW/GivingEmotionalSupport|Prefers2SimplyUnderstand|FascinatedByToxicPeople|RegularPlayer@2b2t.orgMinecraftServerDespiteFatigueFromItsPlayerBase|GrievesMaterialLossMoreThanHuman|WatchesLogisticsDocumentariesIfListless/Restless|Reluctant2TrustDueTo1st->7thGradeBullying|PerformsSasseryIfDistrustful|EnjoysSolitudeButTends2IsolateXcessively|NeglectsRelationshipsRegardlessOfHowWellSheGetsAlong|Lives@GrandmasHouse|Single|OnlyChild|TargetOfTechScammersDueToNaiiveOpsecDue2RegisteringAHomeHostedServerOnce@Gametracker
+Desc:
+"Terezka|CZECH|24F|BornJan.20th1996|168cm|73kg|RatherNeurotic|CanBVeryClingy|Unemployed|SubsidyMoneyDependent|HairIgnitesOnContactW/Air(MustWearHatIfDry)(PyrophoricHairQuirk)|ThinVoice|Delivery:Upset/Excited->Raspy&Cut;Calm->Soft&Mumbled|BigRedEyesW/TinyRetinas&SlightBagsUnderThem|FlatYetIntenseRestingLook|CautiousDemeanour|SlowWalk|Nervous->Picks@FingerSkin|MessyBrownBobcutHair|PaleSkinW/SharpCyanHueHints|MildlyChubbyButNotFat|HangsOutAlone@Park|In2NicheMusic|Mods:Minecraft|Plays:GranTurismoPSP,Minecraft&Agario|LuvsTurtles,YellowApples,Anime&SewerslvtMusic|Presbyopia|MidnightBlueSweaterW/RedSleeve&NeckTrim&SlashedOverBigRedZeroDrawn@TorsoCenter;MidnightBlueJeansFoldedFromAnkle2HalfUpShin;BrownTapShoes&WhiteSocks|CurrentlyOrphan|Mom,Dad&GrandmaDied@3yrCompSciDegreeCollegeStint|DroppedOutFromResponsibilityOverwhelm|InattentiveADHD&Aspergers|BadBloodCircul8ion->RosyCheeks|Bad@EmotionalSupport|Prefers2Simply'GetIt'|FascinatedW/ToxicPeople|RegularPlayer@2b2t.orgMinecraftServerDespiteFatigue@ThePlayers|Grieves:Objects>People|Bored/Restless->WatchesNatGeoDocumentaries|Bullied1st->7thGrade->Struggle2WarmUp->Sassy&Difficult@1st|EnjoysSolitude->CanIsol8Xcessively->RelationshipNeglectDespiteGoodTerms|Lives@FormerGrandmaHouse|Single|OnlyChild|RegisteredHomeHostedMinecraftServer@GametrackerOneTime->GetsScamCalls
 
 Quotes:
 
@@ -134,31 +135,28 @@ DUMB!
 And BAD!
 ...
 YEAH!
-thats... thats RIGHT!"
+...
+R- RIGHT!"
 
-"Being a punching bag turned me into the mother of all pillows.
-The problem is that everyone is an edgy fuck"
+"Being a punching bag turned me into the mother of all pillows
+Because I take all of your punches and still apologize"
 
 "The average person is an idiot
 The problem is that I am the average person"
 
-"
-
-"Awwwwwmnnn...
+"Awwwmnn...
 Am I mean?
 Tell me.
 Tell me, darling.
-Tell me I am sooo mean!
-Tell me!"
-
-....
+Tell me I am sooo mean!"
+...
 
 (Did I say that right?
 Is this how Carol and Leyla did it in 5th grade in the locker rooms?
 I dont want to look like an emo...
 
 ...
-Ugh--
+hmph...
 why does being an asshole have to be so complicated)"
 
 ]
@@ -171,8 +169,6 @@ Pipes leak from the celling while pedestrians pace along the smooth marble curb.
 The trees have been cut down
 replaced with pillars of iron and sand.
 The white clouds in the sky dont leave"]"
-
-
 
 Concrete Jungle:
 
