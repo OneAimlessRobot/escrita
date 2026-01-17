@@ -19,12 +19,22 @@ Corrompida,
 restos de uma crise de corrupção de dados que tive há meses...
 (Ainda tenho blocos no editor de pistas que só têem xadrez vermelho-preto como textura, por isso...
 e mesmo quando o jogo já rodava bem,
-grande parte dos avatarea estava a mesma coisa, as well.
+grande parte dos avatares de bandeiras nacionais estava a mesma coisa, as well.
 
 Mas não importa.
 Ainda tenho as minhas medalhas e skillpoints comigo, por isso...
 e as minhas skins
 e as minhas pistas.
+
+E,
+mais importante,
+O trackmania Unlimiter,
+para aumentar o tamanho maximo dos mapas
+E o competition patch,
+Para validar demos para o TMX funcionam.
+O jogo roda sem erros,
+Tal e tal
+Btw:
 
 O meu nickname é lactose_poison.
 
