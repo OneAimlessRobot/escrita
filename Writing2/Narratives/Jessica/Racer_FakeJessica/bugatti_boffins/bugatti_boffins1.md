@@ -259,13 +259,43 @@ Exclusive and scary experiences I had ever had in my life!
 The price of this car was equivalent to [two] years of salary at HAAS,
 The Indy car team I currently drove for.
 
-Now on a sighting lap,
-I had been given instructions over the radio:
+As I was now free,
+I settled it dead center,
+Facing west so I would turn right on the actual run.
+getting mischievous,
+I mashed the throttle--
+WOAH!
+It jumped forward in a lunge that felt almost [robotic].
+Faster than my brain had time to account for,
+I was somehow doing one hundred and fifty kilometers per hour
+in [first] gear. The engine just ahead of the rear axle,
+but still behind me, barely made any noise at this point
+as I then shifted into second.
+
+
+
+Now on a light briefing "jog",
+Just as I was about to get [too] comfortable
+with the toy I had borrowed,
+Although [already] at two hundred kilometers per hour,
+On this day it would eventually turn into a snails pace
+
+I was interrupted,
+Beginning to get fed instructions over the radio:
 
 Nick:
-"Okay, concentrate.
-When approaching one of the corners,
-Enter not any wider than the fourth lane from the inside line,
+"Okaaaaaayyy...
+Okay, Jessica, concentrate.
+Ok? This is important.
+Keep it at that speed.
+Its good."
+
+Jessica: "S- sure..."
+
+Nick: "Now.
+When approaching the upcomming corner,
+I want you to
+Enter [NOT] any wider than the fourth lane from the inside line,
 And not any shorter than the third.
 As you roll around the corner,
 Keep your speed and steering steady,
@@ -278,12 +308,17 @@ The tires should take you right before the outer guard railing.
 Good luck!"
 
 So.
-I was at the corner, now.
+Just as Nick closed the audio stream,
+The relaxed, yet unnaturally fast movement of the vehicle
+eventually presented me with said corner.
+
 Entering somewhere at the middle of those two lanes,
-I rolled around the first corner.
+I rolled it across it,
+Just as described.
 I steered right,
 Trying to hold back on the throttle,
 Planning to surprise myself once I left the banked bend.
+
 
 
 Jessica, monologuing out loud: "Okay. Theres the banking nearly over!"
@@ -343,6 +378,9 @@ BUT ITS NO USE!
 THE CAR WILL NOT BUDGE
 AS THE SPEED IS NOW OVER FOUR. HUNDRED. KILOMETERS AND HOUR AND CLIMBING!
 
+
+
+
 Radio, From Jessica: "We are now faster.
 Faster than the Hawks japanese hero!
 I cant believe what Im seeing!
@@ -364,6 +402,27 @@ that just call us to take selfies with the thing only parked."
 
 
 And the engine was [just] relentless!
+It was loud,
+It was powerful
+and it was [working]. But it never sounded angry.
+It sounded...
+Muffled,
+Muted.
+The radio had been perfectly audible for this whole time
+and I had felt no bumps AT ALL during the run!
+It kept its grip,
+And the bug shaped rocketship beneath me barely swirved,
+Keeping itself bound to the direction it was already facing!
+
+[BRROWWN--]
+It flashes past a radar at the middle of the road,
+Used to measure speed.
+The W16 power unit sucked EVEN MORE AIR, NOW!
+As the four Turbochargers forced a sickening whine,
+reminiscent of an engine from an airliner's turbine!
+
+
+
 At four hundred and THIRTY.
 THIRTY kilometers an hour I felt--
 my limbs felt weightless!
@@ -377,6 +436,13 @@ The road was an entire shade of grey as my eyes tried in VAIN
 to make out ANY sort of detail out of the small windows on each door!
 The automatic wing at the back
 was barely a centimeter above the rest of the body
+
+And at this point?
+The engine [actually] begins to vibrate.
+Even as the cockpit was padded to the brim,
+Worry never fully left my psyche.
+And with the engine starting to get ambitious,
+Both the thrill and the existential dread inside of me steadily rose.
 
 As air and road friction desperately tried,
 Tried AND TRIED to keep it from accelerating anymore.
