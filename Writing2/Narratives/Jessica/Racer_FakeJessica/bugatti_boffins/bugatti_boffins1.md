@@ -501,5 +501,11 @@ As she then looked slightly upwards,
 Through the windshield and into the clear sky,
 Just beyond the horizon.
 
+
+
+[Author notes:
+"real competence doesnt ever feel like god powers.
+It all just feels...
+[safer]"]
 ```
 
