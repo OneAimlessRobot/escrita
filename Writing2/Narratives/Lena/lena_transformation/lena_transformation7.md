@@ -82,7 +82,8 @@ the mid point between her tailbone
 and the nape of her head,
 they would notice a hump,
 Large in area.
-With the dimensions comparable to that of a teapot plate
+With the dimensions comparable to that of a small dish
+meant for a cup of tea.
 though without protruding that far out.
 The chain hung loose on the outside,
 extending down to just above the waist.
