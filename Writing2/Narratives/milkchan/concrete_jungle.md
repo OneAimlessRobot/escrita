@@ -67,6 +67,51 @@ and ask to myself:
 "Am I still here?
 Or just dreaming?"
 
+
+
+[author notes: 
+
+"I inspired myself in Counter Strike: Source surf maps called "surf_concrete".
+
+I also really like the concrete block in Minecraft, specifically.
+
+I was born to be Ao Ashi.
+Grounded and muted.
+But forced to be Blue Lock.
+A mind bending breakout
+
+
+
+thanks for the feedback, man.
+Getting feedback from chatgpt while just writing as sincerely as I can made me scream...
+soo loud.
+Specially when its obvious the bot is starting to try way too hard ti soothe.
+I feel infantilized.
+I cannot say I hate AI.
+I know slop also leaks to writing...
+But I have some micro ptsd with drawing.
+I also like my AI generated profile picture. (this one)
+
+[placeholder: "show if audience is curious"]
+
+Im honestly neutral.
+
+But I agree that we are taking it too far,
+and getting it to die sooner than later would be the best for the world.
+Its true the technology is powerful.
+So.
+If we cannot defeat it,
+we should set hard boundaries.
+Jobs should not be not just expectations.
+But also rights.
+
+Its [our] machine.
+We cannot just pretend that it controls all of itself outside of what we understand.
+A vector space basis cannot generate vectors that dont already obey its operations.
+the same thing is with humans.
+I believe that anything human will always have human limits.
+We just cannot let our creations tell us what to do.
+Because we made them."]
 ```
 
 
