@@ -7,8 +7,9 @@ bugatti_boffins1
 All the way back in Germany.
 An undisclosed location in a remote, temperate forest.
 
-50 kilometers of road.
-An oval that claimed real estate in satelite imagery.
+An automotive testing facility
+that claimed [actual] real estate in satelite imagery.
+Containing an oval track over 50 kilometers Long.
 
 The Flugplatz test track from Volkswagen.
 The road in here was so wide,
