@@ -326,7 +326,21 @@ Jessica, monologuing out loud: "Okay. Theres the banking nearly over!"
 And then--
 I floored it.
 
+The automatic right wing behind the engine smoothly props itself up
+as air on the bonnet,
+On the sidepods.
+Even the mirrors feels noticeably heavier
+as the pressure from the air aggressively sharply ramps
+with the relentless acceleration!
+
 The car suddenly planted itself on the road.
+A bump that gently waves across the structure assures me that its begun.
+The test run.
+its started!
+
+
+Finding myself looking at the speedometer,
+I can barely tell what number it indicates!
 The speed climbed FAST!
 The bend had not even reached its end, yet,
 And I was already at two hundred and forty!
@@ -358,12 +372,41 @@ Three thirty five--
 Three sixty!
 
 The car barely rattles
-as its automatic rear wing lowers substantially to decrease drag!
+BUT LOOK AT HOW FAST EVERYTHING IS GOING PAST!
+The ride feels as smooth as a commute to work,
+Except we are doing Well over two hundred and five miles an hour!
+
+As the speed approaches the safety threshold
+for such a high position of the rear wing,
+Threatening to break the suspension,
+it then lowers substantially in another gentle gentle bump
+that conclusively settles the car into top speed mode.
 Inside?
-Its calm!
-Even as the nuclear bomb that blasts this giant bug forward
+Its oddly calm!...
+Even as the giant,
+16 cylinder piece of industrial hardware
+that blasts this giant bug forward
 ROARS With all that its got!
 At three hundred and seventy five kilometers,
+
+[From the perspective of some cameras set on the margins of the road,
+A rounded figure is seen approaching
+through the distorted head
+Irradiating from the hot tarmac surface.
+its closer.
+its closer--
+
+...
+
+[WOOOOOOOOOSSHHHHH--
+--
+vrrroowwwwwwww...
+mmm---
+brrowwwwwwwwwwwwwwww....
+...]
+And then its gone]
+
+
 I shift into seventh gear!
 IT STILL HAD ONE MORE GEAR!
 
@@ -411,10 +454,13 @@ Muted.
 The radio had been perfectly audible for this whole time
 and I had felt no bumps AT ALL during the run!
 It kept its grip,
-And the bug shaped rocketship beneath me barely swirved,
+And the bug shaped rocketship beneath me barely swirved.
+I could yank the steering wheel as hard as I wished, right now,
+but it would align itself.
+Thats how much trust this environment gave me.
 Keeping itself bound to the direction it was already facing!
 
-[BRROWWN--]
+[BRROWWFFF- RRRUUUUHhhh--]
 It flashes past a radar at the middle of the road,
 Used to measure speed.
 The W16 power unit sucked EVEN MORE AIR, NOW!
@@ -423,8 +469,11 @@ reminiscent of an engine from an airliner's turbine!
 
 
 
-At four hundred and THIRTY.
-THIRTY kilometers an hour I felt--
+At this insane speed...
+The experience was, like--
+felt--
+Well,
+It was bizzare!
 my limbs felt weightless!
 My head was glued to the headrest and the threes formed two green walls on either side!
 And yet it ALL felt SOO stable
@@ -448,9 +497,100 @@ As air and road friction desperately tried,
 Tried AND TRIED to keep it from accelerating anymore.
 But it was useless!
 
-JUST BEFORE THE BREAKING POINT
-I HIT FOUR HUNDRED AND [FIFTY] KILOMETERS AN HOUR!
+THE ENGINE ROARED LOUDER,
+THE VIBRATION!
+THE WHINE FROM THE TURBOCHARGERS!
+ITS WAS JUST [NOW] STARTING TO STRUGGLE
+AS I HIT FOUR HUNDRED AND [TWENTY FIVE] KILOMETERS AN HOUR!
 
+[BRRRROOOOOOOOOOOOOUUUUUUWWWWWFFFFFFFFFFFFFFFFFFFFFFFFFF-------
+
+OH--
+
+...
+
+
+...
+
+]
+
+its quiet.
+
+The clouds.
+They seem to move along with me, now.
+sitting with my legs open
+on a wide field just outside of the old house,
+Birds land on exposed skin from my legs.
+My kneecaps and socks getting peppered
+with kisses from butterflies and worms.
+
+The sun shone bright.
+
+It all felt
+magical.
+
+One would expect an experience
+for which I had built so much hype towards to feel...
+overwhelming.
+Almost ruthless in how it assembles itself in my head
+once the evidence comes in.
+
+But no.
+Its grounding.
+peaceful.
+As if I was merely riding a Japanese train after
+that one time I stole a Japanese GT car to race uninvited.
+Or when I went to China for a sponsorship deal
+with a brand that would fund our racing school.
+
+They had trains there.
+yes!
+This is what it feels like.
+Its a train for two passengers.
+Its bloated.
+its heavy. Hard to keep on the road at speed
+in a conventional circuit.
+
+But this is not made for an ordinary circuit.
+It was meant as an experiment in extremes:
+Could neck breaking speed ever be induced in an object
+where even the frailest flower could sit comfortably?
+A two seater roadster
+Where a couple could do simple things,
+Like laugh...
+and joke,
+As this one and a half tonne [behemoth] drinks fuel at a rate superior
+than that of what the refinery that supplied it could muster? 
+All while breaking,
+Every single record?
+
+yes.
+Yes it can.
+
+The answer to that question
+Is the Bugatti Veyron.
+The car that teaches the world that speed
+Can feel effortless.
+Even inviting.
+
+
+I mean--
+its in the name of the brand that trully made it come to life:
+
+Volkswagen.
+The car. For the people.
+
+I dont know about you.
+But for me,
+This is the car of the twenty first century.
+Its important.
+Even if heavy.
+Even if slow around bends.
+even if it wields tires
+that one would take several months to pay off
+even on a healthy salary by modern standards.]
+
+BUT JUST BEFORE THE BREAKING POINT
 AAAAAAANNNNDDD I THEN LIFT--
 
 ...
