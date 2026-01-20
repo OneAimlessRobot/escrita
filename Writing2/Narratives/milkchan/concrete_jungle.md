@@ -111,7 +111,21 @@ A vector space basis cannot generate vectors that dont already obey its operatio
 the same thing is with humans.
 I believe that anything human will always have human limits.
 We just cannot let our creations tell us what to do.
-Because we made them."]
+Because we made them.
+
+
+I think AI is meant to be like the most average
+and cautious and sensible human possible...
+which just ends up making it a generic feedback engine
+
+idk its like no matter what they say,
+its always cheesy.
+because there isnt a real heart behind those words.
+and thats what the people who compulsively use AI are looking for (me)
+not the validation or responses.
+just something that cranks their souls into gear again
+
+"]
 ```
 
 
