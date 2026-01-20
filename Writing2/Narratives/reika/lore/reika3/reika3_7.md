@@ -9,7 +9,7 @@ The wind picks up as the framework of space around us contorts and shapes...
 Into Spa Francochamp.
 
 In the 2008 year edition of the 12 hours of Spa,
-After hovering around the middle oft he pack at GT1 class for a while,
+After focusing on the middle of the pack at GT1 class for a while,
 We are now on board with Terezka Broucku,
 The Female Czech driver at the wheel of a Lola B05/40.
 Its off-the-shelf 750 kilogram frame is powered by a 3.5L Judd V8.
