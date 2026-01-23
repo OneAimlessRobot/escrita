@@ -134,8 +134,15 @@ And that I can return to building up another gamebreaker as soon as I want.
 The duration of my gamebreaker stage can be extended with practice,
 bodybuilding exercises and mindfully chanelling the rush of excitement associated with it.
 
-The build up of gamebreaker battery can be interrupted simply by physically tackling
-Or distracting m,e in any way that demands enough focus away from my quirk.
+The build up of gamebreaker battery can be interrupted simply by physically tackling,
+Dispossessing me
+(Would a canon MHA character actually be able to dispossess 
+An Europa League level player? would this be a factor?
+I dunno.
+But its how I want it to work, so)
+Or distracting me in any way that demands enough focus away from my quirk.
+
+
 
 And,
 Although it is much harder to take focus away
