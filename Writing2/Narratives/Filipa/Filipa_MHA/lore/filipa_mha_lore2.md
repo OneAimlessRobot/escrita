@@ -95,8 +95,60 @@ And will get rather frustrated at herself,
 Becoming locked into a scripted animation of cursing
 and sulking at herself before moving on.
 
+Another detail:
+She suffers from ADHD
+So she needs to take concerta to function.
+She was almost permanently banned by FIFA
+from participating in professional soccer
+due to her concerta prescription
+As this medication can provides a hefty enhancement
+for neurotypical athletes.
 
+And even neurodivergent ones
+In case the agreed upon daily intake were to be surpassed.
 
+So,
+As to not be forced to implement costly,
+Overly bureocratic and complicated,
+And controversial screening methods to evaulate the brains of athletes,
+In the past,
+FIFA just banned any athletes with documented usage of this drug.
+...
+But,
+With the advent and emergence of quirks,
+It was decided that monotoring those [instead] was a larger concern
+When it came to maintaining fairplay.
+
+But even still, Those 2 months
+during which her lawyer,
+Along with the team were discussing this matter with FIFA,
+A time when she had to sleep through existential dread,
+Anxiety and deep guilt over "being dependent on it"...
+She internalized a deep grudge for the organisation.
+
+On the game right after the case
+was officially won by Filipa and her Lawyer,
+Upon scoring a winner against Fenerbahce in the conference league,
+She almost,
+well...
+Flashed. Which did not happen because a teamate
+immediatly tackled her to the ground from behind
+to make it look "seamless" in the celebration,
+While forcing her jersey below her chest, again
+and loudly whispering to her ear while on the grass:
+"Lock iiiiiiin!
+Dont you do that shit or you'll get a red card, dumbass"
+
+BACK TO THE QUIRK:
+
+Just like Toga keeps vials of spare blood she collects during missions,
+Filipa is allocoated a 30 pill bottle of adderall
+(Obtained through her medical prescriptions)
+that she can take at any time to make building high combos
+And gamebreaker battery easier.
+
+Shigarraki incentivizes her to "Go nuts with those.
+You're neurodivergent, aren't you?"
 
 
 ```
