@@ -23,6 +23,12 @@ will irradiate from her forehead.
 
 The glows will all get noticeably more bright
 with every incrementing combo unit
+Beginning with a very faint,
+Translucid render,
+And eventually growing almost opaque
+Potentially unpleasent to the eyes at very high
+"combo multipliers"
+(To be discussed in a bit)
 
 This is important to know because opponents
 can antecipate a gamebreaker this way.
@@ -149,6 +155,35 @@ And gamebreaker battery easier.
 
 Shigarraki incentivizes her to "Go nuts with those.
 You're neurodivergent, aren't you?"
+
+
+
+Another detail:
+
+She has,
+as previously mentioned,
+enhanced lower body strength & core balance
+from her Nomu Conversion at the hands of the LOV.
+That allows her to lift her ball and perform tricks
+with respectable, practiced comfort.
+BUT.
+She can only handle the ball with her LEGS,
+As the arms were left off during the enhancement,
+And therefore remain the same as her previous self.
+Which means that they are too weak for her to pick it up.
+She has to,
+For example:
+- Place it on a high shelf,
+- Carry it home
+- And trap it
+ONLY using:
+- The back
+- The shoulders
+- The Chest (It is a bad idea, though...)
+- And the legs, of course.
+Or,
+In other words
+Only parts of the body allowed in soccer.
 
 
 ```
