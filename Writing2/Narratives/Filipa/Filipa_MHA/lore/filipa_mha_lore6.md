@@ -80,4 +80,52 @@ gripping her foot in pain after the adrenaline dies out.
 And they can potentially hurt a LOT
 after an intense fight with lots of powershots.
 
+
+
+Ok.
+with that cleared up,
+(ufa!...)
+I have to say something else:
+
+Filipa...
+fucking HATES Japanese people.
+Because, first of all:
+1- "They live on an island."
+2- "They are creepy weaboos"
+3- "They are [l a c t o s e  t o l e r a n t]
+[m i l k   d r i n k i n g]  [l o w  t e s t o s t e r o n e] [n e r d s]"
+
+Filipa came to Japan only after being tied down,
+cuffed up,
+persuaded into being turned into a Nomu.
+She fucking loved her new powers,
+but the surgeries altered her whole damn system!
+The rules are different...
+and her competitive spirit reminded her of it every second of her life.
+And she [still] hasnt gotten over it.
+
+She ran away from the villains
+Only to find this rental house where Ester and Lena were staying at
+as one of them was Filipa's former soccer teamate,
+Ester,
+who was a hero that also hated Japan
+and was the bread winner of the group.
+and Lena was a previously weaponized soldier for a military that All for One had launched an offensive with against fucking India!
+It was on the mountains,
+There was just rocks,
+snow,
+pathogen carrying mosquitoes...
+it was terrible.
+Only to then be carried to Japan herself to be weaponized by fucking hero school.
+
+Personally?
+I agree.
+Its valid.
+Fuck Japan!
+
+Lena: "Fuck his assss!!!
+They can lick my berbicacho karalhuuh!!!"
+
+
+
 ```
