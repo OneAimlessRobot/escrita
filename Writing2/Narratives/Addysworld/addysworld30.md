@@ -183,9 +183,7 @@ I just wish I still had someone to guide me...
 
 ....
 
-Gravity Defying.
-
-Terezka Broucku. 2026
+"Gravity Defying" by Terezka Broucku. 2026
 
 
 
