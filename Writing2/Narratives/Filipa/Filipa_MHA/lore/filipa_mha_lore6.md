@@ -128,4 +128,63 @@ They can lick my berbicacho karalhuuh!!!"
 
 
 
+ok but the deeper reason also connects to her milk problem:
+1- "jappies" live in an island
+2- They "cant leave it"
+3- They are polite, "rigid", "selfless nerds"
+(4 and 5 are different branches. 4 gets even numbers.
+5 gets odd
+we start with the 5 branch...)
+5- they are "polite students"
+7- "toyota engineers".
+Nothing else.
+thats what appears in her mind next
+9- Engineers (specially from "econobox dumpers")
+are boring, "spreadsheet brained neurotics" with "no spine"
+11- Theire machines feed the "Milk industry"
+(... dairy???)
+(???????)
+
+(and then the 4th one)
+4- They had to "settle" there
+8- they (obviously) built farms there
+10- => milk drinkers
+
+theeere it is.
+theres milk again.
+
+
+
+Also:
+She plays need for speed: Pro Street.
+
+She [hates] ryo wattanabe.
+and loves to beat him because
+"I get to take MY car away from him"
+(She likes the Evo.
+A lot)
+
+She hates ray kriger because "slow, spreadsheet german"
+
+But likes the dragster lady, though.
+
+...
+She is alright with Denver.
+
+But then comes the question: What if "Drifting" comes in contact with "Japanese"?
+should these not create dissonance in her head?
+
+It would be a bit like the average person trying to  integrate the idea of a bigot being a social worker.
+
+
+Well,
+She frames it like this: "I need to beat him!
+He is holding up the division with his "farmer,
+milk manipulation""
+And "he wants me to fail because I dont buy japanese milk"
+
+But Filipa also loves contradictions.
+So she likes to look up "Japanese drifting on youtube.".
+Getting absolutely shocked at first after realizing how popular it actually was.
+
 ```
