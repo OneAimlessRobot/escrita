@@ -25,12 +25,12 @@ dry soil...
 
 thunder storms hum quietly beyond the walls
 and paint every crevice of street
-with god tiers.
+with godly tears.
 
 When gods cry,
 We feel afraid,
 because omnipotence
-is a myth created by ego
+is a myth made by mortals
 We hold onto hopes and dreams
 waiting until they give us the power and will
 to face our deemons
