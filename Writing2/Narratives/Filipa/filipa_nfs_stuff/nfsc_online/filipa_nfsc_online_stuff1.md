@@ -4,12 +4,17 @@ lena_nfsc_online_stuff1
 Lena info:
 
 Identification
+Species: Homo Sapiens
+Gender: Female
+Sexual Preference: Bisexual
 Full Name: Filipa Guida Gomes Ilesas
 Country of Origin: Portugal
 Municipality: Santa Catarina
 Languages spoken: Portuguese (PT-pt), English
 CC Number: 10357085-9-KT7
 Age: 22 Years
+Height: 173cm
+Weight: 70kg
 Birth date: 17th March 2003
 Birth place: Torres Vedras (Portugal)
 
@@ -36,6 +41,8 @@ Ski (known information)-
 	Preferred cars:
 		Tier 3: BMW E46 M3 GTR
 	Preferred input method: Keyboard
+	Times raced: 3
+	Record (WDL): 2-0-1
 
 ```
 
