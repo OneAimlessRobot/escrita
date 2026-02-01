@@ -24,7 +24,7 @@ Father: Marcio Gomes
 
 Game info:
 Overall driver rating: C-
-Strengths: (To) Contemporize, non-pressure pace
+Strengths: (To) Contemporize, peak pace
 Weaknesses: (To) Concentrate, drift events
 Preferred nicknames: Filipa_Ilesas, crazyorchidgirl
 Preferred racing class: Tier 3
