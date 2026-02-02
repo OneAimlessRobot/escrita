@@ -169,4 +169,100 @@ hmmmm...
 What do you think?
 
 
+Another thing:
+
+
+Hatsume Mei's quirk (MHA)
+
+
+THink about it:
+Have you ever worked with electronics or code before?
+
+So just imagine that [entire process]
+That for a normal human takes time,
+Patience and perserveerence,
+And then comes this girl who builds you [anything].
+What the rules say is: Give me the materials.
+I will give you back what you want.
+What that tells me is:
+If I give her stones,
+Raw magnetite+tin
+Wood and some water,
+
+She can just give you a sword.
+Quick as that!
+
+Doesnt that sound like a bit of an issue, considering that...
+THe support course is supposed to be made of like,
+I dunno...
+60 students, at least?
+
+If a hero really wants their gear fixed for yesterday...
+WHo do you think they will turn to?
+
+The girl who,
+By highschool,
+probably built something on the level of an arduino for a prosthetic arm in 2 weeks...
+Or fucking Mei?
+
+Its a gripe of mine
+I personally think,
+Considering that deku spends god knows how many seasons to master his quirk...
+that mei's quirk design is lazy,
+And the character is kind of op.
+
+lets make it bigger.
+
+ok so she wants raw input.
+lets assume the input has to be reasonably partitioned so she can carry it/handle it.
+
+But does that still mean that,
+Only with a few small logs and a patch of dirt,
+She can build a cabin in seconds?
+
+like,
+IRL has AI replacing programmers
+MHA has Hatsume replacing literally every single engineer that will ever live
+
+
+because...
+If capitalism tends to mold itself around the strongest parts it can use...
+It means that Hatsume is a literal super engineer cyborg
+super genius unplayable monopoly..........................
+
+That is stuck with a limbic system that can only:
+laugh+be horny at Izuko+"MY BABIEEEEEESSSS"...
+...
+While still only being made of flabby meat that otherwise could:
+1- rot.
+2- get [very] tired
+3- get [very] anxious
+4- get [sweaty]
+5- get absolutely [done] with everything
+
+
+but she keeps going...
+she just does!
+She exist for no other reason than to P r o d u c e.
+What an abomination of a character.
+It breaks my heart.
+
+
+I think the most op characters are:
+1- AFO/Hatsume (they are the gemstones of each side of the war)
+2- All Might (retroactive aura farming. Does almost nothing on the actual show aside from being a plot device. Solid role model mentality though)
+3- Shigarraki (Deadly touch driven by impulsive brat. Scaaary. It reminds me of donald trump)
+4- Deku (More powerful than shiggy but less OVERpowered. Us more cynnical fans dont really like all the mellowdrama and fluff around Deku and his badgillions of ships,
+And the fact that his bullying disappears overnight over how "endearing" he is.
+(Not that much of a problem imho bullying is not fun to watch
+And imagining the protagonist as endearing instead of just a "plain,
+featureless, quirkless freak" is more tolerable long term)
+
+Buuuuuuut he is still the Nr.1 hero
+Replacing decades of overwhelming All Might precedence at like...
+17, so yeah)
+
+
+
+
 ```
