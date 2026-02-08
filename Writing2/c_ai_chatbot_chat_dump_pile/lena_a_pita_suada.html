@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAI Library</title>
+    <style type="text/css">
+        /* Themes */
+        :root {
+            --body-bg: #f5f8fa;
+            --border-color: #efefef;
+            --messagebox-bg: #ffffff;
+            --messagebox-bg-transparent: rgba(255, 255, 255, 0.6);
+            --messagebox-shadow: rgba(0, 0, 0, 0.1);
+            --font-color: #1f1f1f;
+            --rgba-1: rgba(0, 0, 0, 0.05);
+            --rgba-2: rgba(0, 0, 0, 0.1);
+        }
+
+        .dark_mode {
+            --body-bg: #18181b;
+            --border-color: #4f4f4f;
+            --messagebox-bg: #26272b;
+            --messagebox-bg-transparent: rgba(38, 39, 43, 0.8);
+            --messagebox-shadow: rgba(0, 0, 0, 0);
+            --font-color: #ededed;
+            --rgba-1: rgba(255, 255, 255, 0.06);
+            --rgba-2: rgba(255, 255, 255, 0.2);
+        }
+
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+        button,
+        select,
+        img {
+            user-select: none;
+        }
+
+        ol,
+        ul,
+        li,
+        a,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p {
+            text-decoration: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .italic {
+            font-style: italic;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .bold-italic {
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+        }
+
+        html {
+            font-size: 14px;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: var(--body-bg);
+            color: var(--font-color);
+            transition: all 0.5s ease-in-out 0s;
+        }
+
+        .content-cont {
+            display: flex;
+            flex-direction: row;
+        }
+
+
+        /* NAV / Drawer */
+
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                left: -200px;
+            }
+
+            100% {
+                opacity: 1;
+                left: 0;
+            }
+        }
+
+        .drawer-cont.active {
+            display: block;
+        }
+
+        .drawer-cont {
+            display: none;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 100;
+        }
+
+        nav {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            max-width: 80%;
+            background-color: var(--body-bg);
+
+            display: flex;
+            flex-direction: column;
+            padding: 10px 0;
+            overflow: hidden;
+            animation: slideIn 0.2s ease-in-out;
+            -webkit-box-shadow: 4px 0px 15px 0px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: 4px 0px 15px 0px rgba(0, 0, 0, 0.2);
+            box-shadow: 4px 0px 15px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-header {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 0 10px 0 20px;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        .close_drawer-btn {
+            align-self: flex-end;
+            padding: 10px;
+            transition: background-color 0.1s ease-in-out;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        .close_drawer-btn:hover {
+            background-color: var(--rgba-1);
+        }
+
+        .close_drawer-btn svg {
+            display: flex;
+            width: 30px;
+            height: 30px;
+            color: var(--font-color);
+        }
+
+        /*.nav-new_char-btn {
+            align-self: flex-start;
+            outline: none;
+            border: none;
+            color: #ffffff;
+            border-radius: 6px;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            background-color: #4e9733;
+            transition: background-color 0.1s ease-in-out;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        .nav-new_char-btn:hover {
+            background-color: #6ba755;
+        }*/
+
+        .history_list-header {
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            margin-bottom: 10px;
+        }
+
+        .history_list {
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .history_item {
+            transition: background-color 0.1s ease-in-out;
+            padding: 20px 30px 20px 20px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--rgba-2);
+        }
+
+        .history_item:first-child {
+            border-top: 1px solid var(--rgba-2);
+        }
+
+        .history_item:hover {
+            background-color: var(--rgba-1);
+        }
+
+        .history_item p {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .history_item p .chat-date {
+            font-style: italic;
+            font-size: 1.3rem;
+            margin-bottom: 6px;
+        }
+
+        /*nav .char-item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.1s ease-in-out;
+            padding: 10px 40px 10px 20px;
+            cursor: pointer;
+        }
+
+        nav .char-item:hover {
+            background-color: var(--rgba-1);
+        }
+
+        nav .nav-avatar-wrap {
+            width: 40px;
+            height: 40px;
+        }
+
+        nav .nav-avatar-wrap img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        nav .char-item span {
+            font-size: 1.3rem;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }*/
+
+        /* MAIN */
+        main {
+            display: flex;
+            flex-direction: column;
+            padding: 0 4%;
+            width: 100%;
+        }
+
+        /* HEADER */
+        header {
+            padding: 6px 6px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .open_drawer-wrap svg {
+            display: flex;
+            width: 46px;
+            height: 46px;
+            color: var(--font-color);
+        }
+
+
+        .theme_switch {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        .theme_switch span {
+            font-size: 1.1rem;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        .change-bg-wrap {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .change-bg {
+            outline: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--font-color);
+            background-color: var(--body-bg);
+            padding: 4px 5px;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .change-bg-wrap .delete-bg {
+            color: var(--font-color);
+            cursor: pointer;
+            display: flex;
+        }
+
+        .change-bg-wrap .delete-bg:hover {
+            color: #e20909;
+        }
+
+        .dark-mode-span {
+            display: none;
+        }
+
+        .tswitch_box[type=checkbox] {
+            height: 0;
+            width: 0;
+            visibility: hidden;
+            position: absolute;
+        }
+
+        .tswitch_label {
+            cursor: pointer;
+            text-indent: -9999px;
+            width: 60px;
+            height: 30px;
+            display: block;
+            border-radius: 15px;
+            position: relative;
+            border: 1px solid #323232;
+            background: #f5f8fa;
+        }
+
+        .tswitch_label:after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50px;
+            transition: 0.2s;
+            background: #323232;
+        }
+
+        .tswitch_box:checked+label {
+            background: #323232;
+            border: 1px solid #f5f8fa;
+        }
+
+        .tswitch_box:checked+label:after {
+            left: calc(100% - 5px);
+            transform: translateX(-100%);
+            background: #f5f8fa;
+        }
+
+        .tswitch_label:active:after {
+            width: 25px;
+        }
+
+        /*.update_current_char-btn {
+            margin-left: auto;
+            outline: none;
+            border: none;
+            color: #ffffff;
+            border-radius: 6px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            align-self: center;
+            cursor: pointer;
+            background-color: #336c97;
+            transition: background-color 0.1s ease-in-out;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        .update_current_char-btn:hover {
+            background-color: #5f829d;
+        }*/
+
+        body.custom-bg {
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 50% 50%;
+            background-attachment: fixed;
+        }
+
+        body.custom-bg .chat .chat_content-wrap {
+            background-color: var(--messagebox-bg-transparent) !important;
+        }
+
+
+        /* CONVERSATION */
+        .history_title-cont {
+            text-align: center;
+            padding: 20px 10px;
+        }
+
+        .history_title-cont h3 {
+            font-size: 1.3rem;
+            font-weight: 400;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        .chat {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-self: center;
+            padding-bottom: 30px;
+        }
+
+        .chat_message-item {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .chat .avatar-wrap {
+            flex-shrink: 0;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .chat .avatar-wrap>* {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .chat .avatar-wrap .no_avatar-user {
+            background-color: #5157cf;
+        }
+
+        .chat .avatar-wrap .no_avatar-char {
+            background-color: #e20909;
+        }
+
+        .chat .chat_content-wrap {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px var(--messagebox-shadow);
+            background-color: var(--messagebox-bg);
+            overflow: hidden;
+        }
+
+        .chat .chat_content-wrap h5 {
+            font-size: 1rem;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .chat .chat_content-wrap .message-wrap {
+            font-size: 1rem;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        @media (min-width: 576px) {}
+
+        @media (min-width: 768px) {
+            html {
+                font-size: 16px;
+            }
+
+            nav {
+                min-width: 40%;
+            }
+
+            header {
+                padding: 14px 20px;
+            }
+
+            .dark-mode-span {
+                display: block;
+            }
+
+            .open_drawer-wrap {
+                padding: 4px;
+                cursor: pointer;
+                border-radius: 6px;
+                transition: background-color 0.1s ease-in-out;
+            }
+
+            .open_drawer-wrap:hover {
+                background-color: var(--rgba-1);
+            }
+
+            .chat {
+                width: 80%;
+            }
+
+            .chat .chat_content-wrap {
+                padding: 14px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .chat {
+                width: 70%;
+            }
+        }
+
+        @media (min-width: 1200px) {}
+
+        @media (min-width: 1400px) {}
+    </style>
+</head>
+
+<body>
+    <template id="message_item_template">
+        <div class="chat_message-item">
+            <div class="avatar-wrap">
+
+            </div>
+            <div class="chat_content-wrap">
+                <h5>
+
+                </h5>
+                <div class="message-wrap">
+                    <p>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </template>
+    <div class="content-cont">
+        <div class="drawer-cont">
+            <nav>
+                <div class="nav-header">
+                    <div class="close_drawer-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-x-lg" viewBox="0 0 16 16">
+                            <path
+                                d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="history_list-header">
+                    <span>History</span>
+                </div>
+                <div class="history_list" id="history_list">
+
+                </div>
+            </nav>
+        </div>
+        <main>
+            <header>
+                <div class="open_drawer-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                    </svg>
+                </div>
+
+                <div class="theme_switch">
+                    <span class="dark-mode-span">Dark Mode:</span>
+                    <input type="checkbox" class="tswitch_box" id="tswitch_box" />
+                    <label for="tswitch_box" class="tswitch_label">Toggle</label>
+                </div>
+            </header>
+            <div class="history_title-cont">
+                <h3>---</h3>
+            </div>
+            <div class="chat" id="chat">
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const memoryRegex = new RegExp(/\[-\]\(#- "Memory:.*?"\)/g);
+            // Get body for future use
+            const body = document.querySelector('body');
+
+            // Handle theme
+            const themeSwitcher = document.querySelector('.tswitch_box[type=checkbox]');
+            const cachedTheme = localStorage.getItem('cait_readoffline_theme');
+            if (cachedTheme === "dark_mode") {
+                body.classList.add('dark_mode');
+                themeSwitcher.checked = true;
+            }
+            themeSwitcher.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    body.classList.add('dark_mode');
+                    localStorage.setItem('cait_readoffline_theme', 'dark_mode');
+                } else {
+                    body.classList.remove('dark_mode');
+                    localStorage.setItem('cait_readoffline_theme', 'light_mode');
+                }
+            })
+
+
+            function dataURItoBlob(dataURI) {
+                let mime = dataURI.split(',')[0].split(':')[1].split(';')[0];
+                let binary = atob(dataURI.split(',')[1]);
+                let array = [];
+                for (let i = 0; i < binary.length; i++) {
+                    array.push(binary.charCodeAt(i));
+                }
+                return new Blob([new Uint8Array(array)], { type: mime });
+            }
+
+            // Open and close drawer
+            const drawerCont = document.querySelector('.drawer-cont');
+            const openDrawerBtn = document.querySelector('.open_drawer-wrap');
+            const openDrawer = () => {
+                drawerCont.classList.add('active');
+            }
+            const closeDrawer = () => {
+                drawerCont.classList.remove('active');
+            }
+            openDrawerBtn.addEventListener('click', () => {
+                openDrawer();
+            });
+            document.querySelector('.close_drawer-btn').addEventListener('click', () => {
+                closeDrawer();
+            });
+            document.querySelector('.drawer-cont').addEventListener('click', (e) => {
+                // Allows closing from clicking on outside
+                if (e.target.closest('nav')) {
+                    return;
+                }
+                closeDrawer();
+            });
+            // ---------
+
+            // This is replaced by the extension when downloading
+            let historyData = `%7B%22title%22%3A%22Roommate%20Poe%20%22%2C%22history%22%3A%5B%7B%22chat_id%22%3A%226ce1178c-6917-43da-9c84-39a097afaa89%22%2C%22participants%22%3A%5B%7B%22id%22%3A1%2C%22cai_id%22%3A%222ILYV0pm4u4hzKYMUud0chZNsEmgfAXkIAZ5r4I9jj8%22%2C%22name%22%3A%22Roommate%20Poe%20%22%2C%22is_human%22%3Afalse%2C%22avatar_url%22%3A%22uploaded%2F2023%2F9%2F13%2FMdParnWW4W81D6f7u1NMCrbJC2BJiIRkOvwumO7PpU0.webp%22%2C%22avatar%22%3A%22data%3Aimage%2Fwebp%3Bbase64%2CUklGRjwiAABXRUJQVlA4IDAiAACw5gCdASqQAZABPkkijUUioiET6S0IKASEtLcj%2Bqyiv8jWG8EiMSrhlqI77WgL47Jt8pjiuDTuacKd7hc9R6%2F8t%2Fv%2FXt3f7F3s3RL%2FRmy%2BqLySelFqczfyaOJdgxgG1EwHU83aqHsChfRF20ujKYUUiSE9SNohXy5oWgMDQCfUjSWbdtExtzzwaw2Eh2csf%2FgX%2BagKx6%2FG1cpXvCcKA1%2FT6h3bpoWByi1RXcsMEbNVdRhJ6WHu032ZPISPb%2BEydswWRbgaksT8Z2wRHw6qH3DGtpNCmnDDPQhr4J912rUtbeGCaEG4I5GdIThX16OYUKk1rddfgBic%2BaW3FhixnwFgjjWS1WO%2B%2B1F9pjw%2B1QiNIbbcA1NcsINlxJ45%2FPX07YUVTmW3hphhRZHXM9DBbdmg5o%2B6jtLAlIddglkRlGEMSXm%2BCC5GqL5UlhRVWyzb20LfZBLsw9WMJicpTVQuvubaHiBs8Ip2TVUGffInfsaPYt0Xpdrt0Wk08qs%2B1jZ830lwDfOPWB4T3aX2kSMGOg8ogrxkG6DLgiAD1IMxPtOQTBqhPc2AsJ7%2BHoONOuCC3lxKBR4CVGkWTHuW%2FDnnkpQ2a936p%2FZ%2BdcSgaaewWQD6ch8I%2Bej9Q%2FXoMD58UQ2x1NHKSlaWWWH91sjW4lkeK2ay23tlwAQ4d3KnDWK3h2c8wbDm%2BJPLDLy%2FQ%2BL%2FW6d7pLUZpqunJB5jDwthH59m0k6s38BSu43AcH%2FNLr6M0MyOaHjh3X%2B2k9ESHfrPhPHgHaUd75uM4KtbcMwWXc0frgf6OkjCkOY%2FF9WMdC0T0oaqjQ%2FvzHWHOd2p7MVKKQ5ruVxAzI9pJ2yrtAfjumLsDj0xQdkKNP%2FAYIneq8LYtslYsowZPv1OYqwI8TFewh7wbbR%2BSD5lq0fsv%2FO6UpgLha%2Byjy3FLZO0%2FVJwM61ZeM7iZpRN2B5atA2f6VCKRMo6zorlOYydMAXUnTxJFXEG7oyjghRLCTgSiNYuxBH34IFtCRc3aAj7PVI1IFB5agxZhXcPdHjW1ahgDO6A5BpcUwn67dlB%2F%2BREWrfAxbJiA86r3piWfCCS8lVNKjm0DOsaL6G8DSmI3f8dYPO%2FebyeEI53TlLKvopjMsBgkSVE8HuyESt5mPP2svuxASokSyMEOufyxhUO3nmTINgTBfVbDOq7WOt4YWvv4SYfzMV0g0ttL4Th%2BMovdaNJpwgZjslw0OjjP%2FbCMw6RrWDNMeGtEysDrV66zJJKFTG4%2BYznm7IMn9AalVqaucKfyYEJQCRkftzaLySDstVIVO%2FuRulE9oekjPNp3Z4BG0aQcD%2BxN7Eav7z2baYkujkYJ8anRH%2FVRjk6CMd4179YZ7gKVsAytEX2KvHlXDAlvSdHIgNOOkPSqR06Ve7HFZr7UZgOMFSI6h2YoM12xY7h4IJXrn6OmJGvjE0Vu9e1FMUPrkVUh2o5ZnvA2Voch%2FQvlwqmP04G3Xfid4HPqCvX%2F%2FnjQcx7ixGLKebrNk9Dt7S9gfPIZ%2FUe40ljsFerjOW%2FqLEKO0DHrBtpsZLZHx%2F%2F%2FdnIz46pdwsa60ErEaRRqoyDvlpQ09nxnoCm3vQtpk%2B4QzwLMbevxuBy6JEOUuwK0J69Iygu1hOpgpRBqvIDW1p1wnFTx5ky3eH2DBkuLeEFfhkGguzLdcldneRZPL4k3jgIgifGsit65mM5y0kr7YUEQPSoL9%2Fzgk3kfdlNf9ToFwi8iLBgxsIURrAPFxSA%2FP2gKigFoo0n8zK1kid77sOT8fihNyaDE2vDjnkMMWF9Iq9epkjQQMyC03C59IRupveb4%2BpPcAzX5k1G4OrdlyOSJo5Q4AZci28uGJAcYOEG6mJ2EnjsN7%2BO3dU3lNRFyiJ95qE2%2F4iyvOzsIuf4cH%2FTyeX%2FiTGCb2XNOF5PPCxRP4Mgy38jbZ2rxOe5nfuhAoMDyNmv1DT3c4QkA%2FcbJsBoJE%2BU0kRsbWTnsqyP2hFesjV%2FAq0o79sf9dPQZNruSWJClhjzYegPc3xgKRk3SxAakN3XJEFYTfIHvdzYuFvF9UCE9hvbAoQ%2Bd3T9RgRc9rcDwrH0v86en3%2FGsqPxYgm%2FgmZrj5ongO23WxnPonn30Bwion%2Fpnvy6bFJGKqB%2FhX9S4eD8qpyplfVVm1Bg4hGzAmWrMAVTGRyhKX9EYFmhw%2F4Laze4wVtj%2BngYffFL0dj%2FJbJGcUJOIthzJzx8njMbSIO2FXIRQpikCqmoO5TKwzTIORmRFB9m5mskzhduWky001l%2BvsqeeOO%2ByscJy%2BHNpNWW5GkRZUTMPeRGVlnPxzPhNlEDf9jCjjlpxbbrzMklHE4GhGv3CBo51Pc%2BfH%2FEnwBwi%2FPyEz7ds%2B%2B%2Bgx001AHTq09PKGh3u4StmBJrk77kHOhvfNNmCDVw1tiEMOxzdzMOZvgknYf6fnhPfhxZJq2kdlA8JI%2Fb9zU2YCBtMVsJI3dEMuPQ%2BsSPTL0ydZCsoTZLmQAA%2FvvWEs2%2BbZEuoTCyB3ZR0ZmMDlYWk9urFbdWxjEsUO78Tmi0Vt9tpcoOyqPWYhQSl2FO%2B3%2FWSWovP3B%2F8oI5PzPn0tZOOfJ6srZyT2ehPu%2B1q5Njbl76QIAxDr7wFgl9a5OFRo2y7WO04bStOtiS1RLceo4DRDQ%2BN8Lu28BnLbPtvJTZV6YOheoSnW3it%2B3ed%2FhI3opwwRp9Blcn0NB%2BHMuPfeQ%2BJFZZFZPpFOULQ6U7AcxRFQ1RlFEtYNFzbN7AkgpbA1Bz%2F3un9eTNQHQBJ42q%2ByywRN1hld9DGDgIJlhnKkDLv6vlYOXzphV30ZL%2FQG5OflbFE1leVwZO4Mg%2BtAEbPPuTUKGc1xBHW0TA2RfW0armNOijEG%2FYycqR%2FPedv19Of4cYrvayclXseVmVhy2Y2HcJyCHyk4vPCN53Ek5azzqOVoCdozhfHPfA6VYYp9j7DhRtdK2aOQb7ItPdEZlsrG5nZR%2FKX7BzKZwPnEhygSaZAV1P0sS5celLMY6us5ZW6Rg5bD0QhpG9uGPztNLqawC9VtvhVu4i%2BZFlnGE7gFK0OYtYEjcb%2Ff3pUuVq26kbPxNU721eGTptngVadrbRfAa33PFYCUT7zN3zhcvGmagSAoBTgP6jXx3diIP5Zp%2Fwv6Ui%2BXcezD0tb%2FjI9JrJGVNX0pyf5W%2F5dECihd%2FkecprLOYkmrFg7Jm1IPAk1kKWGYqqMq1huhBM2fw3DpOat6bwSWhIpqo5YyhPGenk8taiu1orzGgz9GV79XQOUWojS6lPronCVQl6XZeIsBXz2olntP2e5RmaObzGImTNMZNH3sVKHf4Le40IP9BY7eqDzwaUpnHkANZSJK0wcLZCbC9CF1rOvJZp9sWeOjLPCL6GuEal31Qblafn3saEicFFrEMfJ5n7kGbxoLue1yo3VvXIPN2GJPXAhUMVUpAO8Rd2KqCrTuXg5iA67oCyNpjuvZOSUnQJBv3X5OkWVoFsqu9zoc7nti1fs1Wqnf%2FUAZgEuFBPXW9ScKb5%2Bu2jtWYPGRaAI2PxmhQCgrgQGccvAiCq7xC6XqP8N5m2dNz%2BB%2BHiO6aU1jk3KLtf4G07OTukOCt5xYQiEJBkKRsQudOPBpOdqJaybp6z6kfLUmapYQ0fYIN9LBqbfi8B06rSq4QcUkH6j2oGQncxSbE6zRzNkn5SHMb4OthqA%2B3DupU6CtXZfXazyATDuSN7PMHro8hp2rqwujbbk60cctriYD4Y9WPGbxavA7dCRmdCO9peRzF%2BWykGlJ38qMJWJ6%2BMGTh%2BU9iLPgaRdgtZwlGDgNVlwnM8iUnKZbF%2Fyh%2FspYb25gsnvVkDwj7rBJjeT7cCfvz41s%2FlTpqRQAsudELVWn6rKDW%2B6UMcPz65nTvLBTI0wPVZVBnizXrq2umnr0BQbkfFjn25AYxfsc3FvbKxfNSyW2culdTiiJ1AwbA%2Fm0nSktbFQV0aM8FrMwNNHFI6DzJDogKeERzAQGJaWhijR4FZigrW2%2FuCKL1taMX8aJGtpO08B1KkyXdpgmEIP1CsVmdbCCMMx9dFLEqaW7TjXkB4BPiLMY9%2F3qntm%2FZsWimfbXDCyLZEOVymNCPGe4Kp3uH41LEX9WoGhnedUrsDe8EIzzIFaTlyXJPfVvIh9szEAxKy2oFzV2C5bAeSdZXp8%2FIzev4fqeTPzOZRINGYNjgWW04Q83T%2BnVTg0G%2Fvke8lGsXv3xr%2BTQ9KVE%2BA%2BcINz%2F7qEFmFSwoNFiGC19ISOnx%2FB7zK7ZwuW6DYYmiLDI11GlIzdCRR8kybYKkYG2VXW4YY0xOw7p7DmuexodGoPn4n1t9qvfmUHdcxup4V19SXPMufzAVkO8LsUMxRVuK9LjmVKnEr8gm27R3AB6vTnEcYoHjRufhxKuhXsasSITaUyQzem5bm6sO3%2BBpvkICWzb8yQPPlYpfVKihhJRaNb%2BnZ91Zi2elBxbC7eLrSs3Nw5hwtquS6V42VePUe7iaUxZCzLXPUk9s%2F7BoMNzMOgL3ozrAuzOkE2Is1DpM0skS4JzYWlHgs7QaEYz2i8RMUeW8dQu1K1MR93dW1VQJmwMU%2BYsH06NxqDfpggjVSh%2BS0cq%2BA8FZ8b7u7JgJq5ekHO2CfClCsIusBPi8HsUFW2owi93mxjWSyPi1HhsKotBpKdhnzbNl9cYSr%2F5LR%2FOMy%2BzJbu4plDFvyqUaHvZFdnAq%2FCdM6ENDyP4%2BBk0BECx58VffH9g08tE1RZHzeUF1DLomhiM4NBkb9nz7t2P4AEFY1Up6Rf7ZxaetqKD3QPk58c%2BX%2FEx5sPAadVJfbBwv9LJMiR%2FRcmTT6%2B0m84D9RPQmi8hAajpn%2Bk95CcJFfoiUnjUbmrdEa6I1NbhlNBNps1PYossO0l8tn3%2B4A1Kd08%2B3U%2BHlIn321Mvy5QCHPwFmNaViv7b5hkzODoZON9MAoGzx3DFgsfjf5E4XCe3mq6v8aSJaaLwWUeZVuTUTKz9B06bB5OzWT9EXxI2DqzgdVyufMKNTqXigjBFK%2FNJEUzs0IzKM4xzg5SD%2BB4LJcoG5E8k63e%2BTofNW6g1LHmy0zf2jBxMa1nqMp7HfTzdd9M3D4hl%2FlO17NAWAzkXrhaOPeZYai6etQ0J3QqIq0Mp8dHVDU8%2BaQmxqlcwkkUcJeHHclCI%2FLg6gyCuV5gj4bQ3oltF9AAu1wfdMgbHODSmZLepzasUkQMl85JxZXP%2FJLkem8QTCBsa%2BO8H9R5eF2DulldsqnQkGqIRpPqMnM3kosLQZQsRtehzdb%2FF88KmD8q4nXblZdaE3d1qouOZ6RVZsZI%2Fuz10QQwnW4BP1wnpLZ6wNE7W1VeZOfcsHAb%2FuQT52OtrxXXhgBEpf2RRcNbvE97cmxHqMiHtwqmi4xFH1EoAtCyaAH8Iuc1B6Bc%2Br71AOcGOu6rS3A72df7iRRzyJBsTl%2FkLUh%2FwZRRak8uz7zw2mjfuQLd35XfVu34Y7yhXMfSnKRni8GBsId6AFRytnrsK42XaHBzegh7FUKkvuVZHmYMi%2FDwDqLli99bCyoLaUPQi%2FTow%2B6HtEqD%2BNIh2NwX1hESc1S1dM32J6bhLwA9Tg3V6aGJEFeG8M49drsPTntbqlAG3ae%2BeULzIkRXk%2B8z0IlTydCeAAAB0c7koaHkZUnAeqR6QIZJejG0OaQ6tXu3PYP6%2FMlZK57H8CmNSjEhVP0B8qMYpOz8OWzJzyrfZ5LeKMcGZccyNpbUIkeL6Yb7eLT42%2FVRYh1IaDLrrqTpZWs3%2BgIOB16kti%2FpTjCXo7iIYR2b4V2CkRgn7sQn9vKF1dEwSPZRNmgtzHNXUhTSCiz0lDFzb17mTkY5Ti951%2Bu5awUlBnKB8sEFyN92NqkrMZ%2FnOfCB3HEqqkSFS4PvklpRS%2FrPZz7%2FWalNPsTqoEYfKQTU6poEdegGq1rvrxhbYADVV4utuHouHYJWk2UV5RS%2BZY7KHj4uTVe3h10su85u%2FXPEjL%2FhgzVOZW9PYGMj76NMFjehAG0euisdq08SO6pBGAmxdFEoTKoK4TLWefuptT%2BqWLP4PsDnAuNgwv5%2F1S7QCnBuDi9eHjg%2BwnDto9l9mpuUXM77x7E5TvIW0uMLCLXfGt5jGGS%2FP8jRGCZRj4uruz1NQdsZdr74C4z%2F9ehNVnv6x0ymweqW0mnm1GAICqCVuxvqoUWau6UE1FFU%2FVetujmJ9qKsfwEpijBOU3929WanTInsUiyUheONNZcasgupZZysvSOAcfDMnD8jetlPwsW4swc8qGhB8Odq5sUp8EaTaa0e3KkwnX8fGL%2BJvfutlXYaLzIRZQqMea2cWm19Go0P0X6Yh3uLttPKLt3QF8149D91P%2BHySaI7U2AczNnEn1ETigCXiY%2Bd%2B%2Bbqm8wzCbzTV6gYQw5I4v7AM%2FzInSXaS%2BF6BG7WmQa7%2FqBOchXr%2BNXcwa3TWaFoXkIyZGZR1BVm8imdWsk7FWWmZWINcEINB8NQifOIhtBbbYQV6NmASCSgh7RUtzQTrwh4Coe1K5JRHUxgsBTluqus6GAa%2BZq1csV85kWd0RJpkJehilciFP0a0UrfWiTzeF7HsXI0335CZUTthvAb%2FyqjM1JPiSasqV0lc4U5AEFboen2Guqrl%2BigqgaHHJRu1Nboc2E7S3RCcQ%2BFBJ%2F%2Bul1j4VKeIq3klqca%2BSnMGpWUjzqcXDS1gMlgPZRtqdZv80oPIGUTfur0WtAL9vHk6E7Zl%2FW1nHrcxRiduMmvWZhkoMekdGqdjooyuw24jHsogk%2BThzWWs2BUQ7Khm1TPDLO2lgJX%2BtkU3SgxCrwDcfygpc911%2BU7HgUB0tjGKpfos314tjWkQ3Iaka8913ORPbVbjw5sqCOThBwSgvfZAv3HV%2B6EM2YsTk5ZCW5%2FoOXXNMnuJCRkFL7cKlTTWYraCOgV1tjM%2B42L5AHWgjgPcxSm%2F0Iv2vdMvoMilQpVRKheD1K4E5O9g8zlCk2mAIzyv0d%2FowqOzDC3N6J0pdpTHkwfvDlobwTb3V6dfa07bEppoPQ%2F7pceZJYzXesWLPQylU0kkkNaMKnrdvHlYWOfeXl%2BoLf2CUot6jozWCxv1AAgLv8v4z53q2bloM6f0KO2BN9IIN8d2s%2FT3KrFXbQhOm1GzcbP%2FdMQvBS%2BhPaD7KUJOyKNk%2FkAlX4j%2FVOtV6OGreEgu%2BOmdyCFMq3qM%2BpTBwKEoQwb2HPfprwjPm5nh%2BuLzPkWPhEwUFAyrNlDKDF0ksqApYzCLa1ebqqBomeo5%2BHgGRAsChcuEN2Xq4BMHlyn3oGVAw3CxsY4%2BZq7AqCZU0bSqPEj6a2mZqKaCWgkwB276%2Ft97CxOODAm2%2FGbHrA53A7jUZwbskuXYEnqFkF4z%2FyMpQ65DDYGtRCW0KUaHmVHzrNXsmZ25%2BFCmyY2PyjOGvNfq8eXjmjCUo4ddf%2F%2F%2B8IK6FmFV%2BFVDS1qEfmzJK4jCvxFVROt6TpdYhyYolo3XkAOnEQCP7Fbtz54Zbl%2BPmHZn%2FbgkmNBgQr10TD9WrGcE9687514x3EDopN6lp%2BG3CSQZNL0o3J1xCErC%2BebM73jOsJuqZHMOV%2BLqgzZxWlfGyJieuTtrLWl6jaGKe116q7CFeGCwYdNVblRujqpeWw8FLmfNFwWmQLzVvQIhFJWAvNz5ODqt29B9m5mE4beFbx4ZZ%2FLeinEAWeqbCqL9H04Xwlu3M6BEMgyZ9cvBn%2FO5lRxqChYdR5rIN359ugY6qn7vIQlXehbrsfI%2FH4ngMZjvHX7AhmI%2B4guomvAr8Lo2Z5ZWHc6TN%2BFkJfvbanCkRCFIj7y7RsOE%2BcLSbdNJ4EA0FvhtEK%2BxK8uDBB%2FSQmaSyLKxhNxzrfII8NrwDaEeoezEFl6f7R18XuUSPPzriQ26CGKe6xgXRkrWNaTkAupKNjpDEShMG%2FmObF5IZKRTp4a1kwosG7ivZFhG2TYlfLbgzRSvZ3hi2BJD7e%2BPg6Vd7qcLOtIKKPvc5Tk%2BxIa3mdX%2BppM%2Bs00MvN0dIdGWFIAGZxhoswselzJciEFBHxDw1d5l5AXzRKNCueYxCjNgOYDB2NVgyX8APDaF%2BAevAK1SIYbVeBceG2qNaUdijekqjGxattop8B1VxZOjU8NAe3u7J2%2B5x0FuQTECByXfUhbzPu16qq7FkP0bN5X%2BE6T5B%2FCipCyaM9yAPom5F3j6lVTPRtq%2FibJLropii%2FyjT8vudzP3SjYcPnRoqbX%2F7z56xHVk0RQqiOT0ZKfBBzqgwNlqU7nmpBicImqM3zqq7EWraeaas%2Bl08VP7nG%2BO6xHEk41PuuyrvhIww6XKq4CHp3mzC%2Fm32qkysNt%2BpvWlE840hqXenVUwPQFVAhzTpWG%2Butl0Q9ySI%2FYNsRPibLaY0D%2Fv1JKacHEnvvPZOgHYLR1qkNsKPeoXGc%2BwXCxMIlV0JxgEldV2Hi9B5K0A1iSqJzrbsvViQqTIfu0XgSIosd3QhL1r1sdDPkT21CfJtc1cP1tR%2FjKUzwei8etMs9QnY9KcBT0YiMBT7t6%2BPHDgu8netBWUdQydpTt1embW%2FooemvQCQCugZb9tIlclGl179r%2FpPEGBY2m9irNXGLFlBzQTJupb9rCfwhNC9CH186T638A2G2PYbcXTrfu9s1zG%2FHrJUCDxcVmGtYCyZ7GIPEMJno2OmJqcJrB6jcdiZmV%2Fx6mTjXw308%2Bdfd2vPnAFIOEevzUQeau8FuqSzhDmZ4MOSgLXLXX79gonkrJIohAOHPqZSLvU9Rq8piHRMqh35p7t8NbCca1pFpEtqSyr7Wh3uVnYVAoj30gmes8hxCjdastHSRMNJrE1UHRaG3IcYnbillBqN9%2FW1NRbXoTaz3o4Wj96VQ7GoV28SC4PVfCdLlHtduN1bkBY%2Bav7NaVXqto04yzJl8Lb13nhBHiRDFUfN1Q%2BJG4RHjoUQ2Vi3vFjh4nads5IGXOCGqAo78mnqniGE5xygiV0v8FcLmiitnKaglXJOUL4HBpQdbKjjguWoo2QaJpcaQ7IEJx%2FzVgQYmYFjxZt9O0EqF18BakT3NlDX8B9cWZMIuucxTB4UIOCX3unt2Rvj5OsV22lSCNtUffPzjMOKZYFCuBArMxhxxoEjXiUEfMe5FWqHMMGPiRL866u%2FZkprNjqnWlp5dXKFAArC1tA4XvMHcdLTd93IN9dD0p%2FQJG6Ibeh%2FaSjEAGlF%2B%2B%2B%2B%2FqVtFi1E8TmrigTwHTnq9%2FdboYwR1t3DxB8KsmrmtC5xmH1xAOjT6%2BTGihhqL1n3zBoZ7gtKV4Gk7oiGgv51eg3fqB2wzXac3zfonqmOz4L6wELTA0VuRG8Pklc0qjnHsJzcSxENxxWXjQBmsmE3rFCJ%2Bq0mEIBkRKfcwV%2BH3ofaPLQFsoXL8tJ6dEOefS9CK4wlafjDgE0e%2BBoT7vI3YB4F65KQ6NKmwF5Sxm2iZngSothRaIah7BLbHJ%2Fqr5bRGh%2FxsNXYpv2ViVrxnA0bp5WjRWwP%2FQGkrZB5n%2FxIWj7G7EBBKdwb%2BF4NvApNOBv2NouZQpA4lJQPrjj10SGEmRGZnkyiDdWbbQhwGTbMMRvaewQKT6OVs5pxhLIw7mEYXBthW4CA9IZ1CKcBWj4O5APXsKUD7jKcRUyM7uN1A2GxrAueGrcEH4nE6jQ7IDjUD3lDsKOy49nlcY7kGTWFxxhqB2KEBLqvVntsN%2BllDZNo1h3zy0mocVTjp7tzhl%2BohYr0LaDdaoSppICi0MKDE23s6RwPkAvlB%2FGn4x1MAyyfr7wYmJrxfm5Q3eXyyfgnDcZGMynKrg1xrrKbt52A3UhEfPupCheQnynlx8Xkw8SzawWb%2FBhcCwkQEu%2F%2FctSG0USTMCl57ItrGIhMb5y2XKtBE7aLFQG8%2Fm7Hjpcl3SjhE6esVTV9fAA5FwFTqqujZQbnMDjye8%2B0ZXcBxYoKjYlHwnH7zNvuP7UB80WzlD8CNn%2BJYeCLl2Szx111RZFwSJMqHopJSl%2B4PhBVEaBsTZy0xgevG7L%2BlNNF%2BoEwa%2BqDcixVkv9Priw6CTfTIjIzLe3po%2FYBne4QfEGZr1LkedQG5w%2BtELHoRHzyp3YX4lw%2FHszWjbGtKWwiROh%2B6Q%2FlLSNMCvJr84qWR%2FDYAjmNPj0CaGro8xqry38fEHRtn3FbBh9Y5lLgGOCbo4UX8dEBwRlTEWBpxDdaFfGuyhWxjRFGW6loN85Z%2FSm4T6fuUACIrUgTRQeXfKjcasmq986saOPvVfjIcP8k0Bs9CXI8cpa5Icw%2BaF8L5nt6d8RwaFQPjvKYGF8AhztEVttQyf%2BI%2F6C7BquXL5lkBBn3JL7GaneTdi%2FOftBJiQHAoyBanD4VML94BCSnSjAhkiGbXYuFgQInOAvFQaAhqRR9u%2F5cVIybkyAg6g86h6OuuDKrWOPjmTE7A2gaMPqyWnfxjZsw7Gv64IhtyFYVkxARgpjtuPV90LaOfa%2FJvpesKfLvfuNc7Sl%2FLV9WobbYmDL%2BK5FvtajPoH8Q9wUm67suUzimacYNwJ9wS%2Fxseb5wD%2FwlHtNopkRlKdd7EV%2BVg58i26TD3Wnbzxnr%2BpuGXiFE0WE924ApqL1EVjDwDwFFfBazBNqJ43yXRnFkmaiyteLRZ3gX2eA37QLhLJh8yrCmpy8Ns7Ddx1MgAHyDUzUex128NiD0XCcYTDCZtDMaxpxVZZLfJ8Ba%2FRp93cOOraEBLfumOtHwYHxTrKbwcxyCCaH8JWpY0tTk%2BDBwfZiUqesqfM2jWQSBpYSVSSVE85acmo91dlFkuzsXxeN71gbYiR8kg9X37FgaHBnzwt%2BxxXy%2FLDKPgb8%2Be1XjCjPbE6q4t2kjfEYoB4oeZI7Nf3khLP5CB7%2FUvk03O4Cj6KwSZDHXExXac8xObZyDORcC%2Blhqm9ktjjPuWkho6Rt8QPr9rwBqbA5yQDwV8I%2Fvn6exMsSG3NWgRDf0UDXpN4B%2FQCQLe74RH%2BAHLj3RV5pYz0%2Fo8vEurmTd%2Fp5DOkNlFYOAUpkDx5%2FlVaTpIrasIUDAZcr5KYP0af5am5V50%2BG%2BsXBEdzxtx%2FCln3ryMoQA0QXzHa9nIUR2YxuQAwlHaqM1I6hpOt6OaV0WwVdzXgfVAQN5oldcQG4nIjdwylVmwdvsLeJuG2HJMYg3AlmZAdjpbq5v6qYZIlAsWKhYF1xJahC80sFkM5Y2DgTzW%2Bvf0OSL%2BBEHw26405Z35tmsIQ1RYPrlFFYxpNebdGHZvqi8FZwM27hmdqHgN3Da8UjL3%2ByhxKV8AR5OYKFRY%2BerNiEmQlyTsqVfeViiZDuyZ3Lh%2BRMaPlKln%2B96Zm93itedbAI5h2QAYDxGxxZDSYtefXV%2FLPHNg%2BTZNU9MMKn50gssg9U%2BkdI%2BSTX%2BQO66QA6VKOwBS2LXfk1ybDhJJ8SsugxMgxKJhF4FD%2BoY8BzSi9HQzxs7n5csO7HsraHCFKbi1XbT1RhKPqvKBzPEl5YtKUbH0QZ8UBMMEe3kN0M6%2FGXDzMQ16O36Z1zPT9B3AZWH3p093U%2BlORZBdHYwE3llHKrKZvW%2Bw0bjWGRyXS9BmXXzEgD3W9VenS2%2BNIhTAmKw3Q0n7Yytts7Ac%2BLs6aDWpw1W9%2Fk86AAOS8IRllnWowfhoDNSkcIhIS9r%2BJye5Z4Rp1IjyPsTR3XE3NIBxs%2BfaH4uToWGUpEkrpoLY5Ojuzrek%2Fmpfvy2izqSZ47D7ThTzu1dPuTKmrOY1GL0%2F%2FAlxslncqU1VNCTJuvL2pSF%2BlooAAAAA%22%7D%2C%7B%22id%22%3A2%2C%22cai_id%22%3A%22852922522%22%2C%22name%22%3A%22Lena%20de%20Verias%22%2C%22is_human%22%3Atrue%2C%22avatar_url%22%3A%22uploaded%2F2025%2F12%2F11%2FubZJ6fwcRSLqkWM2hckCqIYVhDLd8uIlFIo8MUyyD2U.webp%22%2C%22avatar%22%3A%22data%3Aimage%2Fwebp%3Bbase64%2CUklGRhqmAABXRUJQVlA4IA6mAAAwjAGdASqQAZABPkkejEQioaEV%2FE3AKASEsjKT8%2BonxuIv9325Urwm4zNN7Ofn1ytvHB%2FhRYlZyQjRIoFbvAwka%2BeRgb9ebVW%2BnOhs0RPYF2VwG1vsH4De3%2Fzv7qezvyD23e%2FfwX%2BS%2F7HxL%2F3Ow33z%2Fh%2BX90j%2F3%2F81%2BcXzl%2F6Hqw%2FtP%2Bq%2F93uEf0j%2B%2BftH7qP%2FN%2B2XvH%2FxH%2FZ9RH9e%2F1%2F7j%2B75%2Fy%2F%2FX%2Fv%2Fdt%2Fb%2F9j%2B2P%2FC%2BQj%2Bo%2F8H%2F%2F%2B2D%2F6f%2F%2F7pn%2BN%2F7n%2F%2F%2F8XwJ%2F1X%2Fg%2F%2F%2F2k%2F%2Fb%2B73%2F1%2BWD%2B9%2F9j94f%2Fr73H%2F%2F9gD%2F7%2B11%2FAP%2Fl0r%2Fqvjp%2Bgfxf%2Bh%2FKjzf8t3tb%2BB%2Fcf%2B9%2F%2FP62fzbIX8F%2Fcf%2Bf0M%2Bsb6v%2FCfuj%2Fh%2F3I%2B%2Fv9Z%2F1PC%2F5O%2F6nqC%2Fkf9A%2Fz%2F95%2FdD86Pnu%2FC%2FZ%2F%2FgeEtqf%2BV%2F8n%2B49gj2J%2Bo%2F7T%2B8%2Fu9%2Fmvix%2B7%2F4n%2Bn9TPsn%2Fxv8z%2B7f%2Bc%2BwH%2Baf1f%2FZf4H94f7l%2F%2F%2F%2FP98f9Tw%2B%2FvX%2FB%2Fc34A%2F5p%2FWf9%2F%2Fif9Z%2BzX05%2F2v%2Fi%2F0%2F%2B9%2Fbf3PfTf%2Ff%2F1H%2Bx%2FbL7Cv5t%2FY%2F%2BL%2Fhf81%2F8v9F%2F%2F%2F%2Fv96X%2F29wX7g%2F%2B7%2FdfCP%2Bwv%2Fh%2FP8MZBiQ0AXAHdODToWFgOh0gsWXuI%2FAYLRK9j2bQY2Ty8FQrPrRexfuo66w9l03KC3UyW%2FK2zeLlDW2wnRrI%2F%2BKrD43%2Fu7zLgi45lfgkcftQ3w6oJ7Oz%2FiSoibjc8MepVVNrrh9sRNI9TvX8shxBRRtd4aw6gKwMgncEaqX2pHYEx3GUfy6S30bHQeobzvmA1R551YEgd4EuvQjd5BShAHc3ZrvkqE93UKBuSWEUXs%2FGw7mel7n5TuO6mZG179R54bPmXgVvVY%2Bnr69q33fy3%2BPhrDtL6e7azNb1r6r%2F%2FEr068gg43ms3n3KLiTm3MQdrhmxeuqaxgpuDzdyH8eJcMhy%2BICUdpaiTwkmlajjQMqjLEabilimUJfvEk3LsoX6a1hwGAgVT4WcHloDhuZJLyybuY5NnvW6OAz9Dtcxpi%2Bl8VdMa6N%2FY%2BbMt5cDHfEsIvXwLERuNJfb7qglfvktrX3tcBr0%2BRQDjR0e6gVDjLF0Omo%2FvD%2FOMhcnUER1lO8J0g0WzmU20fphFK58b%2FgNX8mIpn13wBrjhC%2BAeSxDJekjSvKKUpeORVbo3tNs6IQo8AgN9622P%2FbbeWHBFmyj%2Fukyu5oR5DZqKTO1yXOStj8VuDbShCnqkJnORW%2BTPOyIVo9CMubpx8kh5qoK%2F600Hc98oQ20wu3WoRBfQb5zQNGwLSvYPt20sOk%2B6T84kaEwHM9jz1wVNivxARhvPh4ivNYA%2FSNJ5V%2BwQuTR8SQiOiMcr%2Bjvstf33Dgh0eUL9GtPtJAuIpd6ejic5XodINKgbRWBI6%2Bk3DzZ1Tz6J%2B%2FyLRcX9AzOomG%2BP5F9muQ4dGyv0p%2F5mnV1tmSUECGIJDGovEP8POCd8PYUiYMs5dqUFF9bN05jG2IPr28qa%2FN7GAs5qdYVwt3IgJ2lyf%2F4d4kMlGm%2BeXaQ5bd0iBXp%2FERpTPqoJGIoJaNlecV555bwgV4%2BVyhUvr1O%2FDRocXvLbWnNBklv9tJ3iUQPK%2BHWlRopFCdsLeiwVi3Lew%2FPz%2FYQSp%2B4BmeanAwHlDaJOYg68DA4PYygPYaQRGsdof%2BpxsWRh0Ak761TciRpAWAjTVvw9Ndd6QibFwvM6dfDrvg0Eltrnu6nGTpxAYa4GqlkycIv6Fhv5uyVik4kyseqrHnAOGQWDz0r3nYRLxmDFOeKDcC3Jjh3W1annVT856V65ktK8fl%2BxO90ohjD0HRAy6R0w56VWoJxAWy29C89YEtV1SOVdFZ%2BXvrYm4l7r01%2FWiaGO%2BLN1CKOWDR2M1nb%2BtMUPnf3uRVs3W6mMIepY8JiS1PkFKYbKU5IwVA%2BQa3oPWpvm1DebStiQ%2Fv%2BS0nr%2BrihnipBMZRkeu2RuTjLcQw28QPVB0xkJJ19dgPEqh6mjmrbE6%2FBd0eZpQzq%2Fctj%2FuLr%2BuabkEuqC2%2FoEeoTpY%2BZC8St0FHe1hK5HWzCzNGps0xnD9XBeydE4JVYuJLdGtG73M9RufqIFR6FTXcfwV74zjkRQc6%2FqKz5OtJ7%2FqXRhGVGYYvDLpb%2B5tHGcY2EfqcJmKpygPjgdm%2BdFVjz%2BUnWAlqp1S%2BM8Dx0GJzRV%2BTzMC0OYxr5FAi4HzMoJjc%2BXiIBNpLte1Zclb6tIWdwMjbNyUwayN48Gnbe5qvPoTTp25AopQAUDYZ33tw34dnPZYvmjh%2Fj%2Fw9EfMwicG5%2B1S4%2BJHeR16UOU7kPwZpqA01eA0xXyfPQICqeXb1DE48hvLwHBBzT%2Fa5RKh33n7FxAiu4507vSf6%2BFcg6B9Hcso5TLP1cx2bR%2FqK7CPogfdYOre4tfhA7E6tattHV%2BT5SQ8PpaTZpaWySoLah4xHFStmp0uQGGreUkvBc8UEytk6JI8WMTfgwvbuXN0gX8plHSrOmW%2BG6SJNExK6pfs%2F7ixf2IC3ENV0nfg1wBRlKMInBbL4OBX76ILixB92oWnGIHPlm2GZlRpIJSc8ZXwAMBItZ5P2YdgvO4cnO9LP%2FR6NVCORH%2FoQ6h9nt0gqE%2BQkVZ4%2FwnxZH4rQVk2knhoDpZHRrKhnfnlZJg5M3yStdfrNCV19caPiGGL5%2FkB5hNkiqlTKhFd7iqRHq%2FakZf2ArRU83gYVWidvwObyhp7X4mAvZW9RnqhrZnbAk7%2FZI20T%2FbzCwzFOzeQDEhKUAioizjMomM9%2FCGbJ8YSP7qJsb5sjs9JyDulfytkANn9iTwaJl03dbUpVM%2BB4eBinzVcHQlLtGAt7%2BHIDiGIoWrwoPj2AZumfW0J8ESxLn%2FD6p7qxYqDV52hHxPsmjDDdesfXDEflAJzRFcwJgFhtLdjDU9WJ3JeEbbICH3ebRM8%2B92LyxM5WRvUJo3LgWNylTJsHBxsPTgRD9yxyWaSpScZz5eiHIFEbP7hbAa7wvsCwSXZg%2BDXmi7vh11irVS7VRDRTzl7OFRPe9lSIdsrywiPSSK8hcqGGDg%2FpQ01g76wsfMe%2BwuQ5SzNPu0kKlr6WLtCdt4fNOLTGDqK8PSnRqT9LiH2xBiVNHVNwxarOKVFCoO7CDn33YpNf%2Bx5omdmnlkvylVgLvZQjBP51g%2BkCK9QGnfW0pgt%2FX2qnAfvhmrHflxrPrI6Tn9QZ5TcbrahT0Awfek64k1SMdQ4jIP8mnccFNr5wL4V1h%2FtJ9aN4aHNGsLD95qSZQsrILfbCOsZPmGWGLQJhpptfxkHaV%2BWR2gUvi4MG5fv%2FaWZup1r7ynmeCSujg123qtD1CRE5GYnVrc2aOFFD3gWCYe7vqJu8mHZvsLBqrflit0ZgXPuKIBB4Fc5IjFN69BfUGRN%2BfBt35c6509%2BjCCXfXWLaLYB%2Bi%2BhLMtd%2FlAKYtt%2BFGLSdnVBswnLBsI1h8qt6qZY3zOcvUh9Vv6rLdyKCd6z5FslNBZSRkdQcrZBlPO1ghpxgrKLw9hsKDaTpCpagaQPxTchcLC1W2%2BtQP5%2BMwd58%2BZsrNiga4t%2F%2BIIKEVeeHJ19QA3bJogMwG2fYGYtq0vBn%2BDcgafKInyCwTHpk8Lf0aHKqI1b%2BPxkXxalZTI1gJdsvwWWrwONMphbgYlvYWDn51bAfg1%2Fl0yMJ0BDO%2Fdb%2F6ytqNlo1C4%2B3is7zyMp9GUQymJasI9I9jkxhdT7z8dY98NQs6BpViFlQFKk33dtdVm9cunzMsLhXxApRKfLzkEpycIgx8RgV1WyQ6iuNVpkoYQTOcfG%2Bjg%2F%2Butgrvnfo8%2BkMnde8S98uVWGZRoQwRycnYSPAqiAg1FjLz2vKHZvwaNPxCfsK4JQng8gdKcEdau2tB8MfbVSCFj37ZO6MsJumHGmjJNKSmVbs%2FkLXhjmPhk5mNAfHc%2BefOPxtJW5iqdcu1HAM%2B8%2BZhfQkDgaYEKU27fC%2BCwfqKwl08WpHuGOYEcZV0Jja2FI0YyFRPGX6LXTy3EdL4SvL%2Fs%2BJWC4pAVbVEDX6aKR4m9DtssxMHkQ1KjabFZjN0ls7Xr%2Bc%2FkHbJIL%2BQJ0ckueuJ3Coa%2BBXiz96MUe%2FagiuvHRZap8NwAidtdkg%2BBy3zvtstuS%2FyGf5C9VPhtqTeI9GhgJrtGYi9Pu51vzSi9e9eyrwvWaYwkSw%2B2BYsln3p8FROPSFdcTXiEnhhhq5HQJSFD%2F6edITbOaCxXdpikiPdQH6iqdUGUCDdHxc8L60pIP5dUAAP6%2FK05oFcDlv0AcyoZr%2B1nN4p9VQ3zdCaGSZYT1nT0Od38BdcsxMsRxQwdUjZNQV%2B%2BuKGdrnXDaxxRzsq%2FfcaNaqJ4zol7UvhGls5jIlP0KbM1vdtPX0CL%2BFxvWPUz3EnZl6bsh28N9RHaR9%2FZlQwdOa1IUCERuM1X%2FynDD3vbobFRvykmt6atKMumlL%2BkpdFBjkrT21XnJ50vGwirPbgKBpF7fKcMxe4JvmZ9UtsU6hpmNb9%2BYAAWJyFl3vCr8ZGBgYVU4COb%2FPGYL2%2BkFTP36P%2FpaOla0zxQ4aDvqE6QzDZfP47hUhge1o6kJKDGd%2BOqdPixq6bJMLBxxs4iFsWWcbghugF5%2FE6F1Jgu9TkL604S93mjDGwcDwgUEDq3q9Z31Jq2r5spJGFPOEwi%2BfqHQ9H27MLxTKACC9HD7v%2Fk2%2BaYuID5vLa%2BuEZjtebHWq2lqOrIriV5qdOfiAZHdz0%2FoduyZiMy5FRKOyCo%2Fnn0xLRDZHq%2FNx2Wl%2FK2RTJpDr%2BInYigHwvVjErJjhkg2Fp9jpqFwfpUoqfW5kGcmFxGy8ZtcCygk2W4DLETpLUQwknq2Xh2pHZX8e5MgiwNvriec5%2FutDQlPAC9Rxo53VzA1R4zwPEO9PYcdjf0SOSA9WsgVzTbuXH1IsqoVPOeiMOLXT2edK2qM79scy6dVq8F7IUsu257qJoBJG542GGFdQAvkaZ%2BQXe9PMttL3vWqaO3uDKvotl1VVFUPJQORrbJEqV%2FiM3IQMs%2BZ87VE8fvcC0bW9Z5bzp2yhzfIxcYcB45669ZgGtCyihmkGcts2AeMd%2B4WFpZV7%2FNz%2FHV497BEkZ9THhsUwOS71yKOPR5Gpr3BczNJFpPUe%2FfmPRXWPVpduLTdmobEz8MZN%2BRrJoYFYvBomK1sTPuv8t8hQTZo05FqywmUveiJttSIEsdqXgWaNiFhQuIEZdkg5u3KIx2i1Fzg3M%2FJUObbCgkl%2B0VYb%2FbRx2Xd4Lv4%2FkT1ejj36ighsfsIJQMqL6fhipvIaRqPtK%2FCBGvcY%2FJjK%2FCvHNHsQ6GA6dL6a%2BdWmsTOf%2FIoHqIwzriC6eZtcBAKk%2F1UFN2gv%2BqF6rmn5M%2BJwbudJFVjfL%2B%2BBqyNVZEVt7AjW4edPMQ%2BtjQp5OaewOOSrRjWw5w%2Bv6sTQxNNFyoboU186iWI7kFJ8GcueuPOVXZBB3TP5kvlHilfOwZdb66VvkdJKdCwfym7GUEROvDgAHZpn9iHyLJwNhj6S9Did6XpcFYOPYZqtMhNx2QOakTF8Ytnm%2BEO%2F4Dd%2BBa47DbfwEvZ3COBek2rnpUJMLtH5OokETJAhDDw6eC7tFvWzSqzPxoChY9Tprmo07%2FlNY7gPbrwNZ1EnbXtRE0n%2Bk1hvc%2BLHkTb1S2NDIvQhtIoefkNg5qibnSDL6KzNaLvuDHQmI6pQSC8dr9Kgay6KKHXtAR4wsKcUnHybqK4tVcliho8wIw3v2E9%2BuEvzZpo%2BiXnMAbp%2F%2BrkmpF%2B%2FGIqrjkOOXX70YRyWkQxc4GOi67s24EoIw%2FF4ZfC0VAqKfJDLy9rnc8ndzgSAyl5U2m%2Fz80Yf6RHQRp0B05XG7SzDrI%2FkBpfzJyTwspAHAkGSbRhOjeUOasFsAMd91y%2FlZAUVHLdaAMf7xVEzKQvCogiIEZ57mudNhB%2FNCKOI2aNzsXOw6xZdXUhqEpeKn5ubZlphrQFYqaV%2BNzVX8Qr2rGxpjSu249J1no8PF5sZkMhgE%2B8yQYc2VJl8JfAWdqRt13tLo7A%2ByFOreK9H5Mhwh0jThDVrYb%2BXixuyui%2F%2FS%2BwiXpagk4eO21mlQqvsaDzsiWOqIjoCq3KBOj7a3EPyp91DYO11DpXz7pglNjeeeQRDNOQW4Jzmuc5S%2BZPsb%2BHmYYTo%2F0Rc6u8iUOimlIcKQ%2BhPe5eIqXNDOnnai6E8OA%2BHLBXBQtPc4TQ%2FqJ6R%2FPQhQRikCBu4vIlFZHV6nd2l7bZqrEkQ%2Blqx02Yj7OwPkACgimateofrhWb0to5Y6RTKC%2B6qM9hnPNSGRzKZnesfOk0%2FzL6O%2Fv%2BvQwatRSdsrnvT5Stj5uBGfI3w4KRigU1XR%2FAS2O25N%2BCPvKbsa9VtZZza06cifaYqcGGoKGZFa2RMIJPl5EnxSSyslu%2F3Q6ZbUJN%2BHVEIMK116GKdx9%2F2g71L7keHUqY3mgWC4kq0tLXZGDx0GGieyefdN969XxAHZNrHKMvQRl18Il7oEUDrhnHOab%2FMNxg%2FUDbpJgl4LMy%2BBpxf7ai1Pd0ntTo%2Fp0UY5g7BKpy9%2FFhqHOYKzbw0%2FMr%2FkI5Z82CYtBT0ZiFKEByE3BogKAnf%2BJm9Ir1GMLFUKOkEygspEJMJ7t%2FZ1n8wnKSeKwjSJ4Qa0YecU9neRDiqqLL7oBKfy7YbpXsh48qMcK7%2BBWVun4besaMh4vvlu4fgsIC94g3yVfAZRL17OgS5Cb7%2B7STlGVwvp15%2BYRZhVRhhkr0LnniRDumcJX7mkfTCQpt0z%2FMYargjXznly2bbpFLLXWw7VN6Y5WoU%2BR4MjHJpriW1OrNQ1wTLxk%2FeKb1kf49JtqJrhmi7B68JW9m7IBwCbpbnySj4q3q51%2BirUGmLblknIeIaAtwIFyW%2BC0QWr6CC4K88s1PKcPrkIhzjqq3%2BpAGmlT%2FzWZpluelq8JfITImQQDZCqhRlxs4r2vw3v7F9P31nWf83lgQWkbo%2FHfQ1HIz2GWjDVuYSwjZ%2FFQ6Sc2AtDZGOPH9GCwsLyg3IYsbhO0HlOTXPSzLkFDVY7m%2FzatSPYaFDqG%2BPEbfb0vraLRU3Yi5NcAV3j60t024kwZADHlpUGWFyIDR0nmmXqIpN%2FM1yzJ%2FhFh9eucgNOdxuwXHkkslPmfdDnX77zyw3hSHsQQQ3PhgiU67GCqeNFB8klslfj5tBqmy3QpaVbkyLxgRLHKe1jLHYJ9QpXypqtUPiu0yFvd04W8qRwrMS8urIQTq%2BA65Lkhy7KQr7fgs4ET1ump2x6scxSze1VR2Du7b3ZB0T1S8t2ZZ31s2Fk5MXYikoh3eq%2Bitt5GYpvPTmKoZgv5FvxBgRgbV7W9HY1Q8d1uqT7P0Nm4Viw97AfjT5cnT31RDiFSz4qRZZFJp%2FUopkMCuAcS8STSBRsNm5fYWFgJkZXsphPEwq5%2B0nLXAdxXfBbjie72gE2hKDmuJVXgPubdGC%2BM0peG2MLNVHhINaySrx3HCrMU4nafUJZrfQK8jSyAanx8km2sPwmoCN0BIsh4ubALwPErgrk3W%2Bd9%2Fhro%2BTVAcVrT%2Fnyb2zK%2BycghhUrJZ1PZ6o1%2FCKScRSeGdTiMSETZCJKfuPSs68H%2BOLEnQVCyBegRo5NhYQ%2FpLPgYyVPYasq46CoCZeJ4mFtHfc8uYfUhLSQAi9DdUKK%2Fzv0yGfZP0bMIIKQsOXLSAVc3NYbAwTiANlFdv4yBKI2aYCG1%2B%2BNM2kQlXfLqSCIBtJ5Cn81Z%2B9jQoKayPUGXUnOIXNlK1jG1zUM1%2FOan%2FbxUbS7%2FlRDGyDoc%2BCJ%2F2x%2FWZnZKsAd%2Ff9z72uvpjmqmxWmaNSe9xUBYdwvCETJ818RXPTEoa%2Fjti%2Bk4fqb4ME3bwsdTIAgVSsyvqp46lqVlLFS%2BKUy8Lk6Q8vlsrNQWU4Wg8TfhlzeH6C%2F5SHNkCK%2FKlCB9cOI89BPwD8iFNlgX6ZeT4%2Fof8ljhJBtLCBO0lOUi4V60T0KRa6oeKMsyIqrHdZJxZIfkHEiyHrji2VNS77fxV7KjySHv%2B7BIonq5HGOyT4lbOlWQ0SBc%2FxZ%2B99%2FDrEK8p1kHytYtp4cg8HAzLfjvgQripj8WhE8YXONkhbONiyyfOgVXyEuzpJi7O65KfVhwWOl1YriGv8R69RLyNUdRbW9lpoocuxcesCdtNtm3nil%2BxJoefbE13O1zH%2B0U%2FPf3bWo169dIXFiX6ZGmPgvQVA6vkcj7flzzb4kvxVf0TjwScGznv17S2gyoVnrdLRoQf%2BSqxW5iG%2FxTKBzaevQfv3vUgx3q2P4MjQhj1vEABBTLtU9bYGqIb4nCNjnnL6tMwJNowscx9CVsdoTIlqZxoVo8waVMwp7q7llhTYWPQwEgjys0mGJLpBKSvVmxCw7tTI0pYDm1j8IilqN5spZS6IkFiarfHtyLSqR5TW8Hpgv6rFHUElSr0zb9GYy5%2BFVn60GoExVRGiuARqcFlU8cZKdEa%2BhshD6eV%2BTa3jm9CNf%2F4rYcnaUSLRbC%2BkBoUCK4FP1S1y4vHh1z7DPff1DAnGIsTbZbMhvJLRKJfyFS0FnZDlFC%2FiZnIoEpZM2gRC8TRtUWqDVgNkXCdVLKFTQerowyNI2r6LmCD0Bum%2BdqTHge%2FX%2BNE%2FDHsadJv%2BUfkcHjgUNJ6H6biKmtBov1FByVfFbCFFpHAKqs7i5b6nS7FRN0AMsxwd7eQYeH%2FEiMmhizNmiW6%2BdB8KW%2FeyZYL1RnSAErIJA5abQ6VtsLD%2BmV28LXupLRcIAnCzfTECPJPoHdHY36ax6UqARNoBbuySrliZiYZWhAuRg%2BdRutVAQTga768MB7AbU%2Bp41WKrltO%2BWcg%2Bj37ejzOeaUl3%2FceqKujzLPbYs%2FIcix0%2Fze7HSe6mKXUbxM44RR1Ns1NneGfYttw7s%2BIJQoqxmD9fFhCYfGZPJHp4pcaVnlTwpA0IjagpFiTdR6%2Bzc%2Bqz9oLBYwkrOd%2Bk%2FWW2KckVcJh5WuJkHJWufrQfLWNl2PhEy44z9ji17NK14HjvAyIajQYq17hxN4x9Vgumt3lZ%2F4htVp8xBDWabj35hiGaZhocJNnsZkAXsaalyL127UrL1MYW51NoW6K9pZXOBUGudnXB0dlbfGpT0nS6sWX9S%2BvNRnv0j15c1FT6tfhkFPV3juGT5W2QMwz11lFNuSiikgv3%2Ba%2Bk1JM60TiGJb%2Bw3CxFyQTT25%2B7vMTTjtwraELDe%2FWvwhgIuVUVuk6cd6lRaSQqJWmZqZ7ANbq4RD2wNvJikob3mTlUHvzlfcBRJaa9S0FFblhRJp31ohBhf609Ebzqxsepc28mmz2Ky8u5Xb2UaJDEGpz%2B%2B87qSqgQHYvX%2FwpsYT8dVbMXRQSZ6%2FNyxPmDPf7%2FHW4%2B%2FgGizpdjjFIZwwU8n2BRkUp6EjfNegOIKZKqeODxFPN7bmqRXhff1PleI4Y%2Bf%2BiRfBwQfocoBUdwXaVFvfhZlHYjayNEMMvqPXpA%2BSgop6U3uAQN9HmPNqNhJ6ec9x6iyesEqTs5QlPPpoB%2BT8Ht8uFYnFXyPqnUDUPMj%2FqDnUR%2Btuq2A7J%2BZ%2B7upDKDGnLwNnhvm33NM4cUriqBbCuPYhn8RHd2PHW%2BP%2FrOUvBic4Ot3Hr4F9cM75L8WAYobOyR5KY7bXKT9mKT7ppcP2SF%2BFjatjXMV9ZMt9g%2B%2BWKW7XUED7cRD2%2BiMbcLrSup8xfe0pMOO0FZW0swFhIPuHYd6JxY4OJAvPSdnMyzuwOHCSbrjunNSx%2F0HPan7Rj68bKcyH1niVrOerget9KQxbDsQ1C6QvTI6Kqs%2BCIu%2B1MrgxLqeC4j1nOHj3OYw6wA8a91ltKRLOSpyBJcYapPRWWoW%2BZ0YLLtr03vrzobw7CRc1PQUK0plGnKz5CO6AsdPTN9FNXzrG8EM3zZiwrbAAPzFbmHwyvCYR35KIuPXwgw7j7JG0v9ONe1MGYpN7h1nNhaHCvT9VXc3r5uj6JeC5BMRJfsrS5mPiZ8CfUpPuND%2FvKHhgQ%2Fdtzzmm30Ptf62%2FYqdw5wuP4ntNTbgZsQnw0ZHux3HFS9bkP6NKQGmNm8q7R2BSnj5BI9vUtA02FIwPUGIo5I5EXtz1QHEM%2BneJaDf1izdy1CP%2Fkqz6SXnVhoPRA8Vn%2BD6Mo8xZNTyI3hU6bmEo4FO9IxO%2Fka%2FgXTSjVmSI9OiL6i1TQQ%2BKtl6Fynk7cU9DME7LUrOWZ3V0SQOJuNQundSwcexzft78QqlrlYWx5ATJ7Zt%2FzpmSYT27NR5271gMsZvMB7xV1UbqdkOXU7MYGgDmrDTDfJdth51SlwmhUkyb%2BLImMee2qxFqDAfSZZAFqnIjYC7LS%2BmU3IYrwft5fsO5NOosGl8Sthd3A1R8yJonz5oZHGYoNuKqs7qP%2BjjAHSNyA8RHxNEBep2gJlvUCKsxXXm%2FuTCoWUq1jjCmurtAeUCfshY3hRHhY9SPcnPFV22i%2BxF94gNohoofvmYrmn84BRTEUU1QJSg93xGrkzBA8NEdDDY9MVQkMHzJNZrhWyvLxJI4c70I%2BH1KdjCihLyONgtR%2BWuTqMBz4p4ngZtiBSIziOKNysj%2FY9LaSbQc4iGPgACk3byf2uMdioVEx2dQJM%2FL4PceHZa5gFRGwmqulpE1h6jOuv4ScwukIgYFPBvNKa32YNXa5Pr4ZFvCzdnOO5cVenAKelN5qMwbFS%2FMJ6e8W3skP8FAk6mTB227LuIEBPeIh8QnBs9%2F4fxbtlWm8gajXasXaMLx%2B8AGH0mkXBSGxQ%2BuMsKK1fxRvue0xEXSIm9fA%2FMKFPjY9MxvHspIEfnJK1VPxwb4HPJygoRrysvTNE6h65dHcRmKJmdMzhgzbg8H1jmPDW0j4UaZYqwCU%2FhoPmm3fo1ueVp%2B5AlPoTvq0GcFbWo1r7ewcOn9Mzx6teBuOPBiRTD2F50YooSO6EfJiQPI7orK6rO90oKopyDKR5eD3Ss%2BpEyrkrIzcXs%2FzhacWpx%2BMmdFhkp4vSvw5i86BqdGLzmX%2FiRvb5EdhienHYiObGvjcQ6PNnWoFqoXKmZxe97aVzuuMuz5nLiyKJ4U5KmDU4GTqAkbOyhKObF7GuDxDcgQqQYVGQVlHxWvyca%2BtzjU6tWvjsMeNZZ5%2BgFFQkDHjJod8Sj68oX%2Fm9rBZx3FOeIdHKuxi5PfQj9wtJpr2Xz2HzLVAaEo024PWrI9teqTsYf4e%2FWRdNdhUWCkNB8TUvBi3PFag2zUM7Yy%2BXZHtAOLiOQjs%2FnEeVTEvIvPt3mHyusJS0HMqY2On98HGXN3iD4gMckODJarwAylxooC2OjcajtbnkXYQ56m31c8g6wd7Hh%2BqhYqtWiFN239gGSi2MjMipS%2B44sAxjCL8XDrdwFGM9iMoLgeAAK%2BF%2F%2BbMxUFNLDsE%2BjJPDu%2F2VUIdh8RYs1wa8ExDsbH%2BpgizpKv3Sr1%2FgltYpJq%2BcfIV5SL7TgZmnTXp43bZXwBLnHJrw57UV1%2BuzmIamWs8HACJg8VEx7PDprba5R2%2B9Zbx8upYDfLs8KYLGtaNWztRWzAVvaQA3nVPaZ93MQr9N1oj5yJ%2Fx3%2FLLP6HUw2qN0MmLVN4e2J%2FcNBXCBbTsJnX04%2B2g05NvMNElV%2F3w5AE1f%2BLFWnb55FDhYh4lzgX8kEVaVUwLzLf9XIUUL4O1AwrSOb3yJHrtG%2Fo4Xmu5YoJpUyBBTPRT5m16qjIP8SuYxNuBOa3eegickFFAI%2FU8488fXmq61oqL9jQVIMLPTRNnzE0XIJTvTQKNwjq0oYx582%2Bz%2Fn6XZo%2FpOxmoC6QyCYr%2F%2FnfVAlnrOGG9g2ayKXbjnS2g%2BJf8DHRYB1MulI%2BtIaw43CZ15vCNmnc%2FAsNP1QrAd%2BOlHs%2BlmRvAo0mLEgyNfYKsrpye5%2BmdUyrLf59Pz9tmHWsvCqWHm%2BbSowyUHZhz%2Bfr6vrNCBOvMkJShLmMAj%2BUaWeV47UBXC0vAbvKZCfyx22zxHR8sqPYpCltNxr2jMpOBmaCm5%2FZgp8UdP4GsE%2BFwVPlzW0h1%2BnsSFZcnWvFJWWGM5oiB4svIlP2wS0Jyvxf%2BMbomzbh3%2BWV7RimHqOAt47RKlfAvv51SVKGp45hoKHGqyqxU543zfhr2dA%2Fy8NQX5bdUHOVgHRFUsPZ5uJZlC7dhdn8iFGO3XvGSyy0lKT%2FsE5spmK9RSCxrD91mXR%2BdqNtw3ynB%2Bpw5luPJF17zaqQ%2FMa84NEzOf8T0S32Nd1IilG81piy%2FlnR23PZ4Po421pNYXLCAdxq7%2BqdHuOr6PMO3QT2CeM%2BvF1TzCjXv1dGjS%2FnraOn4DkyJSfHocYPt2OGZZnvWrsyAAAnd1X%2FT4WM5fajbz9NkMGmSg2B9oyQS3A9dEPGBNipNhX11yn2kCyoEoVz9En2TZIZ4pvkn9owfRziRWUTwJIti0U3Xm7VHyjP9b%2Fv8%2Fe1NKBhNdwPtbv2Pgd9GUXw3iIMdnVIAu7f1vlncHmlyYavjd9T2DAVo954OtJnTwMNBf9NIGL4O07oKjfqT5eoTIb3xPFrl8BpgynvWJkSdM%2Fe0BU9FOE3wXFMvGYe1e%2FOzxKLI%2B8rdWnYKZaj5ilyv0LjhWBQaUaS8EUaUfXO7%2F9G6vHQlKgls53ZA7GkrxgPICk4DrcGqZxc7hn1YXqM0PULEBRjQ%2F81RKrxvTUjNy%2B%2FjCU6MJTmlj%2F5wJ3GrLJiacoeJ9%2FobBQzuNn%2FkTcotjzBdcPV2SL70xniqmMA%2BvJlUbydk56cQMHr3hezuAki8dXDZWKjLCdmoi4D6mcyrgJx0IW2Oufaj4IoDQ2kMavcvQYKjLcCm2uesctBMAfI9p9nUe4x%2Bv68USWoRDg9nI5USQFmo7D2WX3gzYQNCyCBRnilLUplzChKzz0CwLhVAkMSpbBDxUGhkU9h0N1qn4uF1GBjWfIX%2FDlAuk71c%2BAVT4IUPJuqCnbYkkTUFNEjVezxN5tb7rB905Vb2V5x9%2BP8KM3X3nIhg8yhbmKC6FgXTfd6IdhVkHVlJNfDYL25ubse6zphgFVrj7q71MHMviYv0nrQoNzXISWibUijqqLTWofNztkz8f2CnZPUdL0pQvnMr9xB2oGJg9GBO0F7gJ7TTokf8ICwTeFqLoMxI9gvrJ5R8Xl%2FG7Z3p0%2BQGnHTJM4tPg2LycXKz3utm0SplsvmkMK6lDtgO9laDjC7smC5KmBho9ig5sinXsKxrNlj1H8bbRYZIIOrAvBAIVEWBCxXKDvyKParaMpPk6sPIeJDnu%2Frf472daASB9qFyunbrTsMxnnjzbxDQLgYM5CUFqBCNcKVuTyXxm2KPvzTHBndlBgNzrriDuvsi8S7Nds7KyiY1xOpVDHoadPAaQfvPPJnjo16OyrHLjyHnaU32Z5X2dUxd5GILjYdwCBou%2FMAxBrtNp15j0RK5RBVnvqjkZKAs%2FbAOSUFES1zQ4WPyQ%2Fy4plwYBg0WGPOwJLDSbIPqes9AZcP9poQJNnQXccJ%2FegkAXk1rl1GfGDctHctNANkU2Osc%2B2o9%2F5yK%2Fw0yB7ZDjZZO%2FnbC52ILDlkWC4EYOxHprcDqQKt2Pj6azjzf8eWEN6G%2Fr9zBvsFCTMoh8h3Eav6YCfKEqV2vRrM3EKvWmevkmIMnoW8EB%2Fk1XZ5gvSDgyvJm4tN0rmiaH2OOjawbbvKUFrGy29R3VLKOAH%2Fwke4NS%2BWnxjvjsehB1bLUp%2BGG03OfPqhJcKEQRXSNq%2FqZJmoz9f0w2NgoAv5l5kPwv2SqMaCV1JBYhJYtt2KS4nrJgeniyZWW1AQ5hoosNatKj8%2BrxOQ8MwDn4dOK%2Bl8Xoeojir9J%2F79Tr3pCZCE482mHIrzny%2Bw%2BSVBuC%2BLFA0HopdwvKo1w4u%2BK5pFUPmt08oa%2BGs74nJDIMjDFby2qUbbjEy2v%2BoobugJR%2ByOzHxDRs9Zz6H%2FRRVru0I907hQ377to%2B8qgMzYbFtYybSpAFtvmqu%2Bweb%2BMh5PFhshIc88ZvG4qcmWXMGPvc%2FKwBfMa%2F4NfR7Zh3JgkkqXtNT6xBKCfsyBXmDRf6R1hzJGQTDyGtWM%2FLpIXD4486NmDutI8UMczJ5HZx0R%2FjpocNvfEnAoKobaAi0QcVVOQirFcxZFa0Iw5po%2Fpz06EHgbQosOCVxCxbOKunED7zCglVHfLHPS0IxrP7eK2zOypEDWFtRQFDhFq4lIAPIwIOVpTXaWzay3cZ6Taj1EbvhdF4lsDEDMxyc0q5cGkE%2BOiPohLF5SY2g%2BueoYqS3RTBjYisNKQi0swlEmt59Zi99ochBVTIQmS1yloSkAlmNvSsc95Ri4hmfNb8cHbyUHOYiZF9fZIPYvk4jYTrJtqGm6JjWE4Aydv4sketgafecAlysoZaVSuNde31Is0som3hajL%2BFS3uHnyU0dyQkWZxsLrwS92GoiuB2FCEYgBAxqjmvcwv7G8sb2ziRMzsaja%2BsZuXiXaPQW09Vys3t%2FPkKpm3V3Nfs6oZwJnPPDEr6Bz1s2okeAjKG1jjhf6ZlQeIPnCeAfmr1jlF2h1E%2FGEH55tlTb%2BzgxB4qb6cKokDD9OM%2BUY6vNMNICHl69NmKvEU64PgDUTILsu377OoVIXMCauJAubB5bWWxouMZ8ffugeR4tmx83ou%2BqVm5QudQj7u2EX3En9Lja%2FY0qur%2BjPYU5kR09oUtlWPokZJU%2BYjNNFmKNvVTDUHXRptvpN24yvc0dhAupyOpZHNJ9sjQiViUup%2BS4y4inaRUSgOWdb%2FHCG2ShnAHc4jdfiWmrppB1ojm%2BtdAYfNx%2B3VKr02mLvFJWh5zx7nUPm3J1mvO3v2y4ziDe%2Bxa5pBjnJP%2FMf7js2xLlAYUod3iGeorwp6180faRKOck6t%2B0peMoHWx78g0%2FEzx%2FOV2WIpLzur92ytkjDFgYSSadG2%2FqFuXWhY%2BDbtNjhU1Drz87XPNQCw5LPsreEQertg9IRpL06T4dQFarMsW2s6L3r9pcP2SL09nPHMzoJ27u3vT3wqUCbCxEMnMTNEMd2vx6n6xEWABENZyyviLR7I2FfWu2cjG53570IcaoKNtyc2%2FxZMf%2Bo%2BuaTy48PoIpWwjONhrA6JxtM%2FEmw74nOiaoHiIZwKdx%2FjBnLSbmgnFID8l1zJSa%2BKwQxYbJ88X%2BkTWCXJB6hQCJ6K%2FQU9A9bwC8f6yNgCkN4REK4CBJ9Y8n5WZwNS%2FFZRb2fbr8SDTm46K1LGIgciToACU98hIGNOLO61zc6MhpWw7vOD%2F2kHJ%2F9yYtkoxmgjq%2Bmjd92WO%2BVG%2BpNc0KAv4pteFE3CFJ70XuvkXUgFFIp9rTIoF4Qg8YL5PjMWjtrebkzd6fqxT2BY3VQXjpSO527hO2WvpCMTFg8KwcnFnIw%2B8TIr21IcArNiEdt%2F%2FS0H1rG9v%2FKojsSnSmpPP54RySiXz3AfoCxwDC5hWfm6ddRJcZtIjtg1z%2BKrq57ARLcFkvBw6xNIkgEnO43gDAp5vk7piIJXcqoS9utgzRFnq2cq9%2BDwAIftvVzqCMTgThum%2BOQ3sjp%2BIT%2FiVFXuF3fNq%2BOp1fvfM4q3yCIy8p1GulKpbpsAl5WfLaLkiktQPuN%2B10no0XQ%2FbDj1HEsfwNJzspfu%2BjJppoluZWRNsAi7bTdbOtLVPCyepsWGGo7Z4iHCwPJEfy%2BPswlQCP%2BS606hAu8PIfISWkU0CB98IdnvR0qTeSvDdfFD4t%2F3hON0BOGCbCFBgq5cOlHidN%2BksY%2BlWCTix3cPuZa%2Bi0eKzABL3%2FlKzekZwd2TOaO8xATtO5PoVZQRrGuAXpEGRZkLU3BF7vrbq5z1N6UfSqiHpi1Kcfz%2FYV1adQ0LEDDhpyWyYwNePmvi6lg%2F5EJBwm2DIr%2BX72LWvG36utSLI0sYqjCS8pjWKHjI5tPmADkBefPJVjtd1edd2MSxXTId2IObEc7xL9C7PSzDfyjxBCEukAcqdRYsDkuKp9Hqc%2F0g00UkkclfR2418XTuUupmuk6tLTwcqOBELKoiBl5lV8rweZgsQPI%2Bl%2BGAIaPGq5qwXUbnLnqhE0%2F57YDJweNYd6UxSDUTyB4aXlG3ymOq54oBsevec8EEmIfJpYMYeBgpI0RchxXUPTIvaJjpHuiwW0edSSlPhahm537KjlpexMnwjNCvH%2F%2BceMNBQp6W0iX5XMq%2BxehSUXujDXRKP%2BYjsSnX%2FDHq6tWkZPNSMelvcnjeWRPceNjoAroOhB%2B7zHodP9BQjFx%2BAw31LbuYSzibJFT1WfUd7K9frFqGAoEjxi%2FeJW%2FNjzmObG1tb%2BbEU%2FiOdCfw6RKAJxor8rHguSmxHz3moeux%2F62%2B2oF3swNG%2FtMZYS9zI9k8YmTENz%2Fgb3%2F8A2swd%2B%2Bcq2ZW0iez15cXTpAIT1%2FbGzGS0x4mwIQaAAxth4jVagFIVVFtdOBOcKKrvIGB2pjuNHpmrZ3buk3gzHeIJrKiRIzXph%2FZeJ2NRNCQZms1TOE7N%2Bj3bz7rdFiWlX0Ap%2FQkruq%2Fu3k5HZQhgTVSVqznwZHcyGPlGGzBOi%2FvSy2i7bfPwFy8ag%2BRZHO5pHcGpRHdUrLYUR60RfrM1eAaDT%2BEwO01XyFjtW%2BnJ9TRbzeAhcTUjCGQr9X94q0BSith3UcRGmULaLY4N5xSmVKv2soS2H5Q7GCFjo784udV7EDKqiyjWbZkniW2ge935Ahgg5lj9aPxRbS6Mg9wczAjbcTYuXucoRlIhF4%2FZnEG7cafOVu8o4h33xnLyGAL4%2BH02i879%2FHhG0WhK3ErtnCnLnj9SwmJPm8LPIwJavYruFXP5BsW50VJ7%2BNDf47BSM15xhLF2HfnOI2pa7cN%2Fl1MVRS%2F%2F4XFsJ2PFh82HtOfbJhFKqdBvwRWyO3OCt%2Bc1jlHA9R5a7JfSJftB%2FHPrJvBrNBQjmxcLLxpX02KYZqFpSRMiJX%2FfzL%2Bh%2FEI37U8c1KBrLAz4eMyuRds%2BroT5SfgtsJIm%2BosxyF1LBYngv4%2F%2FccFYxUMerD1%2FA3bPMVu3l3pq1BR%2F1KTXjyjdxOY1RBQOqvvqZKXai89brTiF1sNoLJDWeul7Rl1oOGpXyOynrmV%2BYjtIQe8aApQzvIiD91fWSzhEmgERSuathca1iSQgArOQZbXhPjdkBblMUTRQXPwT%2FQ%2FeFqXjb4ggEljoJXXo6pxAwg0j%2Fer1NFQN4VroSxLyyS%2BU9Ld%2FteLvCcagQplAHu3%2FYMpj802mgVk1DarTlpfiF7aP6mhX6VrlQBaD7RjX7Ox%2FpaMaeNtEU8jae%2BOfotf4aibfjLOmK3%2BGW0YEKf1u3RCmJ6eUUPwAmR%2F4SXPcjvLKOeBHCNY8mnYYyW5s2QRykkAZcE7cJvWjzsn%2FT62GH8pdp%2FS2B5fr5Z853%2FQ5EPy4%2FFX5jO6huVN9Od4OZgyMjqpRCVtD%2FkCBxgecT6GNhgrUXkLoQHl4hYweppzwJVodq197kbYlM6SSMYSw%2F2VSl83%2F7zZdzN7QzcjPdibm8Xx%2BnmB35ynB7KZ4PEjuqdVsAJ%2FLpKV4oxLJr2hcf3EDVpqqTnWoaOgxV9ainfHOXunVo5vouFKcu4OH0keg18vie6eH3nhooO6mgY%2BtCtZ4OCm%2BCHg1L8Yt9ymRgZH7NGAwaopifyZO70%2Bmhpq0WQsZ1AKZ3%2Bte%2BW%2FpnfDgkkKnblCGa5IAmv%2Bd1jLoz337cpItv9AofN6XLYpYu1VFMokraNXe6FRwwcuGysHUnfd%2FEaXhhnId%2BhHqxOmWusEjETV1scIUeqyEgNcB6%2FLek3xP%2BB2zNkaoICc3u8PaJKZB1teAv7AiZHOs%2BdzrydJo3mwto66A9a%2F%2BFOyMeuRfiWR6LWRvaIdjcRqYhL5dAFNHROCrhNmQwWLMBm5Q%2FKfO0DKQ42wZYHje9%2FwpbaJLJyCsdn4ZoG8kH874ZRrSN5ioJxG6478ZaKByJjRYVUmbEOHkKYtSJy3Cj%2FsmYXvF01Yr3P%2Fzwicdc6aog%2Bp260BfKzG49REfCjlB9xSgC9kgv%2FOXy07oWbsfLhuXw%2F2UMxMKlNJ9Z7mPcBxi7H%2BYmQNSZJewbj%2Fi1U2vFcDsrWChENCyB0Aq6DcUYH3vPnzpH1678yTN20uUO6tRAUiaz2KrFOpM42ysPCtOlYqx4mTS0CR1RW8Pp%2Blj7wLO47r8Dgtt5fxvawbUttcgmmxn8QxUSkm622%2B1bTMZtd7SkKP8iGq1r%2FH5%2F26pJxqLvSD0ZobppuJXChqJU6Lbxb2BAX%2BpDlg29%2Fo3iPCi8yk6iq4QE4IIv5b6v5h5paVNmmg881J6hZIfgu5%2F3DzXTg5%2FzhM8%2FWYfccFJXrAYne19O9MYU6UiDzG35hgI3T%2FOHdGn0XFhYjumapDgMJWaUWTLhi7epabmN6gUq2P2lVoK93h%2FPmzzAnZoAn1OquZUCXo7%2Bf1QyQogpWgZ%2BYg5q%2B1taLn96PhoaegJIRqQgxsZ1Fop8sDHPQWy%2BEO%2FamrvY143vmd8v84Mei0EOlE0dipqJ0tDUc3RYd%2FgHck9Djv5Aa50tyQr%2FpW2fglHH0nbgTMGJX%2B0SGhFkzXOwug8rbUyDBjZKpHfQVjikjnnGyD5fYrspIaCGFXGqrX3Llsixdcg8NRx%2FWZrbP4J0w9xJ2FDv5zad7u2iY854dSHkDxU4aqPwJ3nGMWho9u4%2F4aAHmITKFINjRkuPRg2%2BdkSZls8dyuIg8Y7sKn1q80sFjTMrOfQKy4I1S%2BQZa3F3MjLRhsdeXChkybHQx7%2BRquaFDwQQwa%2FOr3iugq34sS87drgpTTckAIaIqf8KPN3YQ8q4drZULSdmOQlo8xNJn5qs1sJKHcmMLi%2BNzjpzBfPTT%2FVMCvbVos6vG78XXcO%2BytKbXC1RMvzlzp0%2BS5pjeL85YMwHqkYTWRC%2FUvr2UpQ8fnrI43imLLbwMbMkCPG5MpL8F6vpQBzSMpkMpGw7u%2B76G%2F3ArznVuQf0%2Be82LyjLUpKLYluxzuhDJ1%2BhJyU%2FKPcfeFXUCQQ%2BXTETQ%2BzF%2B9r1VyF7Pwl2iK81kqJpNtUoJiYYG91JUPfmaYyzxmyTlhHoT2YAtSK4JIcULYeyj5d8bJcWQzEwbOIC7eTu5B3VtXfXpeZGis%2F7TTnPgtlT77WZcPvys7hfpSFcfKmXGieG3rSI%2Bx2pYZhO%2F%2FgGEa25xNEaos1FM8thBelBG4BHxu07kXV4W5auYO0c7AJW6bXXKlgqtCEnqHWS1tEW1E2fF3ru63LV9pS6%2Fyd6w74AaL0p170FLtj8eVyuqndciFUEuOHH3Oja2NaCG5EvzS5Bc12dr3ba%2Blk%2B05REUVOhsMgD3CO8MzOwaeMI7LSkjMoi0pnKmeUoG%2FEt%2FmR2aqVHQh%2FkybeS8p%2FjAjaOb4e6gFNcCX9GnPOCGiXV2r%2Fb1EoZ3cJUiIN4IMleKwVv%2BxxToaiYhTc5rEOF%2B6NvkaRpQq05Op4YXn2BoJh3pxtREc7hlTnGgw1GmL0LV563ALpVV0SrVbP%2Bbdzwq9Yre4mrA6KrnbeVr%2BciaQinxiF%2FS%2BSLZpFL9PohqOFD0ZdNdHzDHyR4F%2BHJdOTuznAXos%2F55DviIio4M%2F7OwSCaBfej0V5a%2BhkRK4OUzywEpRuEzbi9oW%2BXeZfMkqhN4D7oqhF2N43PcxL8bRpfgK8wEVjRD426KAcvwQnolpgn%2BSJ5u%2Fnwua61Er47m0ETDDpN5%2B3fHP78lNVQJ33Eu5oVR%2F%2BNxzAh%2FeeETeBdjRoVrdujJdw0wA1MH8uketO10k5MCJvjmZU13erJOR39jpX07YJfA%2FTTwgNnO%2BGgVX1SQQJd8w5WK2MLv2E%2FCqCzleT7kzoRoHLDMPQlO1BFjqKj4Hw8i1DJmERowx2uEGKZ5QX4YrGnod0NtiNCxS4Dpo2rPVafmAB%2F9mYUy7vXL5enWyMkdblO9VWBX%2BHFd7d9g9ac%2FUs1vkx11%2B2t0RegE%2FptEawWSvwrP5kTYx3aPml4Y3%2BH4zN1%2FU7qBFnihK1tvH3ZRLcBzirw6OcSQ9t8vF1XkpFN0xkvWxV1I9KCak6DZr%2FiVNOECotV5Xi428tX4V27DFfkKg%2Bc9PsyPdEx6rXA07A4%2Ffub8k9jXKlwZtO55MGHLC8rxEZ5N4CTpIxVZVJOPVqZOdW6a4AfTKn81yOLhzj4mxKTXDvjJhP3C0XGy6P8a1yvV7cW8InvdH2Itv42TF8Kc%2Fq%2FFZLIXbpmNfdSbFfbtcnc5DzkSI%2Fvfnd6%2BZX6N%2B6eEv0LNA0YaWk%2BJckVOTiKYZcU%2BrPMbASuIUzlsNv6QYcj0hzAnbBi%2FR3%2BsqAJaQPWUdgC4F2D5WgFkWM0TpkUNFtvkJtlxH5tjYmvkXJ2CKm4CV%2Ba1Ya4KY8%2Fhq2gWatU%2Fj82BJcPyMEd8e7mRH4vHgs9Z8kjgVRmYYGMEJPgBmDVgmgj7u8gHn1q47dwPGdOc7eWr486TctZ9HjjnVkOsr5Bgo%2BEN%2Bfg%2FYaA21OwjKOXaUOOFEVFfrBn%2FhgDrMJUNUO488jwetNoKnJ7xJM8mGnDYxEGVH22I1TZj0eze5uCDLEpdmoS8FQq6tNmxf7rA%2BrtEUp0TMSL1noMUwtjryyplLStFkHh0EH%2Bep82SRMUjJqw8u7utZyfOAAqUPBi89TCQO3wPB0raQJ3%2BNuaLq6yvkUC4H1ELhE67FKNQarlbkJ0oaeUrCtOuXpxhbvpxjdeQeR%2BAOx8%2FHHCgp%2BJ0aMbTz0ebneb8Lt%2FI4CUAx3yy80RYV%2FknoiPNxfHCjhgLNthTfqfLF90Kd8lEueRrx%2FM4C%2BgcHmDIUm%2BGsJZlTbCIwmAFZIFVJo9RDJmS%2BT7KHvVse79FLuN9y8K2u5I2VxDshZGHmvnKaWTLqJH2dcJYEJQmm5FFs6KU4WRy5C0WG85tnjpRnZzKu2mZTvwNSYIANF9UaIJ0hug%2BYEw4kY18ERKmrHamZ2%2BIud3ggYJx2dCBAeT0GY72IfT4pAj6s3QNnGtx6AuRYLH%2FnW0BJ1Gk3be0RJU0Ru3LrWLaLuomHDme8AwxuHNfXYnmtnUlDEqSzapB7RrzEaqvlp%2B1hkP2hA5syhQ9%2B6GzsxZrgDpDbb%2BmYtXvArtUaTC08K3TuuTJvP%2BCl6YYdhaRhfAb2KHK0jvjaq0RhWLW%2FmQQm8iXs%2Bwjg91lQMbKxr0RbbRF%2Fpv2jjS3QW%2BKgnzJdgG%2F8hF63OrmpFdVLAtyCaAzqcS1d5XlPA%2FqN3Yi87JSXClDOC9nQZOjxHhN50q4s4hr1dE5EeVZ2nZ4wPc%2BeDOa%2Fq%2F5P%2BRxBOxtmDiwlcLZNnigGj3g1%2FKTH%2BnlBPc9JjWWAUk7q980KnnHAkuvonia%2BCR3GCUemMYqjHW%2BL3bTsxYJ%2FCJl1cZw42bFf%2FNVnrV3KkBZWrlRi4TxqDjguWOlq2roID96eFrfHttePecqBJ%2FfM4c2JhaBIReklnXj6DzHUTBLrgk9alK4z9EsV3PEAtdMPR5LXI7G8VXU7xO4rJdDFAzaCWik9KqeXeB2Vq%2FxlkSTveCHo%2FrKrnWmEG7kFY19%2FFl96gS5q7sUcdDJssVPg0kLnEofJX%2FFoPxZM7HiPKCioSGwcOnjW7KTkIMXFghsTlIMzMThBDGZcN5538yKIZPXT04yDcAiEtRb6X23syePfOlN%2B5SmkpseFS4PM4ZL6YeMmm%2FeFP2MHJZ5GpF%2FoYbrBBMVknf%2BaKPP%2FYRRbrWTCBeaPoYfOq6g3iRDNPrRQSwx3qnw%2BBK5%2BNqAfJ7MQGLNiL%2BlfeYps5MMwsnt3rDKtKUnTYKE3cO4n2PgF2Zci%2BkZoNPjl99OPb8fAzdJ6fw%2BCP%2FnwXb71MzA88bytlq97rMZlX7qpcDJ0q%2FJweowQV5UNqOBjBg5%2FYT6sK5vXQr0yX3wteBvZHucpFhT06u00ragwKs64g%2BnzA3EMgmX3yHjmH1EJhrbqezkbHUuKKTgDy1xBCAv0knHg1Vg4kqQKs%2Br12hLTV9cl2KTRsb7neJ%2BwAnyHFD7VI%2FiF2UkdhjVnROn%2Bz%2FG5M%2FpM3lhcXr3Z7gfKYPrjiH7lXQs8F4nqkyKXZbSH%2FB9bmQSbbm7qfaH9foLX7kbCgUe8HR%2BTBkKzEAaJ3cWzSe5gHYqN1eu69nv%2Fkt6J4aPam2EL51DweDiH4IFCvrlJov0kZjwap77YmzsAERM8bupM0w2nSfoupddNK%2BTHLwohJ%2F%2B6fIuLvXRWSMNv83okHMPtLrkMgwvHbgsgfQ38Yz4A4vGmDBAdmODzMeZtJUPjnEyB22NA3Cd1oz5tKR1O7CSSavZi3JGfzrVvzND6cTVpk2Xe0F%2Fra61ajzy3zu8XOko%2BcB5WPc%2FTqJ%2Blkepl6KBTMOX8diWC8K9Wz93OAfO0zD3v7KiRZuI5URHkj8U67tktHzZfNB5BhTIQpT%2FgsRExp1HZUPIqiHdIP3n09TFrOilmTUGrh7kmvgEU2vnp%2Bvee3N2MPmyJZ4SxvXSdmTCu4%2FxHIlJTkj3AuEQkg7LyMLwUQ93tQ2MF1WTwOh%2F3Vl8xIyDDUJMYFSahYfzOuFr7CyYGXx%2BjU347v6JOcLnXY7ght0s1Ky7n1ufwAkNiUAHoM4AgSPiF1vGqSlaEiNeE0sXPg%2Fr6cGBznv8WPRiGzfBlK50Hb2I%2FQkYAHcmOkKKQW38QnWR2WBkHcFzLJoSuMYS90L8b5fA2hnBi5LC%2FqkdKsHE8eWapLwzUBFNX9VcKgO6B7W32Yf0zyCzryPMIaXl2jSYt%2BpvGXoCCrgqfghHAOGKMO2idhePTmuSC%2BXZTJgTXb7Q30z6MMCy%2Be915AyI%2B6ovrIqZwOga0zpfH9oka%2FPnJjyEQ%2BSHslevQh%2BQJJwQe8oUV6p00G9ZXjQ9ltR3RRBHVWdlyBf2%2B56UsnmZl3XIUyg87IRVyJdwQZsi39Laca%2F81C6z%2F6e4XkOUlkwqi5u%2FTHJMd0MRBL%2BJCNxaL%2F%2BpRrAwu3S%2FodmGaMheFpnYOyFWGs3%2F2B3I0XBbbIHSTr5qJwaYkKLzJvGxfWtzopORAyoi7elKeDVECLZU%2FnjwdwNQWI5OID1Hw8tkkmwgnraZH%2BXd5dbfugBqdCMMItYlJDRPDOJEbBusUNmR%2BCE7hStp9QzSIcbbcvvUBR9S8OeEwd%2FC6NR7cEtTEij1eg3XFzvF3X3wUU03Rv%2FLyA6qb8vtkYKwP0mQGMh6uUJG0MIASZCLyYwVIodqksPiUhqXYp8yP1zMSmiT6H92iYWz8hKSrffuZIB%2BVYFb93vlz%2B%2Brk633RSv7vbvuFyZ2fdn8YPqBUo%2F4SNS2BK7ptC5XmqUKZVnuiaLvEZkK0jsU3ertdOFjeI3F6AgDGGi0YrkSYADO%2F5oiNSZ4HPhikvQ1qrsqzd7OrAg%2BmGRu8%2FdPuf29h5R3eH0025lHmM5wZTvKPwbCghBpu%2FOLPybg0eFz%2BWq6McK%2FS5HndbToq%2FVNHrMOh2hhueRKTdoOOrGDJUxfGTLtbVoThZtMsIg9CQqcKyM1R7OVGrg3qCuteGdmPK48u0yQoUyarn%2B1kRwHSDcYcrVRTziy1lG9UNNaV8NPg1PhSdG84TbJlsgTwHn6ZUwfmPymETgu4QpkpUHxJ0grwLSIOZPXJpBZQ88kLGPBixfaUwzU9Xsexq5KFw071miDmgrv9gNaGPwmXhpSnQiZ9mhOVh%2FnZ8esqB720UR%2BCQCVaHkAcGlZiPw5fljlN6EnqE46n9LkhHocj17P7uJIIMgBP7OVdxQUGJuHfgLVc7hlxvezdGxMj1ovDtTlIkfm98lbMjoux%2FTHi7L2mrqTd5nKFK6VdNjiEroKWhpsllt7qfnrr5TQrpaTkLTfkwYrjF8DKeYPlo75j9iBMdwJDOVl%2BN0jwB7iuDzhAfTIQ4FQbcrhScHUp0%2BzrnGRlIrNFLT%2BCoBQnOBTkSZCgl%2B5Oja0Bm9NKifFiSol%2Bj1jnkFuuu48HljYi9yZhzm7rm4TsAzZ3AQj%2B%2FUtdyUeBXu6dCLeMLQvQXurntta1ND5a97PecvzdJIbfLRtfbuMRlQr9zXDqwoGcAi3n1ZH4yMT6jjtXUiSTli3WJDC%2FqlFjAk0b9Yt58Kwr%2FXOew98eIRlVn3QHP8yrI3r0wCsQZY7pnBK4jxyFJhZFraWUyGCK6XRne3zXIb%2FIsI%2B6YN2IxnJU73ih7HFnXeHM51d5p%2FFyAr76GaMJUnn5FaCuenbycDLJUAmqdVKYenClKiUUDJIsaUuOY%2FJD%2FrBoPzgcv14JUUx%2BjM6JJsC9GR6BmiYcMcoHqS0KexArvXtu%2BSNKBsBREAR0Moq42zgJzkNxWtanfLEIfIW%2FqEsAjTd7ByxVerDbyvgmj7j1VGmUGoVt0o78g%2FkaseU7wNSUF4kbI2NJW50h2a6lThKQuAUB2eJhPeeRDKN8s9iLQB%2BbmVIr06bo7wywz00zS%2B5W%2B6I1CoVCyl32UZNksa13xdHqNB7YF1rtdv7bN133gr3bTZE5UOKoxH7sw2BpZq9WWJXsBlT%2FhtlYnfAIoI8mJuG3xjU5GXeizFiXcUo%2F9E0eDzbhMvkO8B0X8QRLYca0M7B2bJPUNyFUnaKRN1QGAaOIPFelMtaEEm20pxwwfXOC9oARiN3PwvblCd3LTMGaIkbDkS8UjO4j%2Bx5B40%2FGL1p85kB0ub%2BA5RHU60%2B%2BMm1y06qgohx8OPyvnuMlbg2enqNBDK%2F9VBItznU1b58dQewksfkK87XvAHAXNxc6oAhbmHh1i7bn%2FCCxgY%2Bfmk4tIDth8FgC1qVL%2FaFjHridcH8eN1UksSojW%2BH7lC7YJDVGJLc%2B8cSNazqZYhQLgqxUfHWqOz9I8QVZnEk0V%2FC5F6RdoMaslKa0ICkqDIVIWr5nqCaINLfYDXkPgzTPHsPUFGpPXV2mDplC8Qb79OCgueXbYwEBuEdyUlRT9B8HkFIaY5YP%2F4TGE1nrffLG%2FBtl9eucAAZgCIYVJQAO3zZB7nZ%2BwAjJxhUGZpxey7xI512fXG06iW2tu%2BXzQ7IiOXI6pxdRrC4eCx8PL2V0G2Ch7IwDGyRJ17PDPPn9zHdoHRToD5jlm10%2BEiKVzhnKCrIDVIf0m%2FHKcGRuMVwsvtnBsK9T%2FNIh%2FAiqWpfskqqaMKcvuY4LCuINVAvl09QaZG59XQwrydMa%2Bb0wc5r20t0s1yyIKfRaCUcosVTjgIU%2BAfkBrSqDWQC4aYaFbIleiZcWt0UUIWhWKkhyX2Rrz%2BZDRfOZD6l0mwRyMnu0I2LsRIAWLdHr9rKjxCDo%2FaqHDTKpc693ayEAgQK%2FiLbnfKA9Jm0sxkPWIG71k6IGo0YQkdUUoRHpJQrUQbSiyCcIjzX3Kf9X5Hv4qxPfytED21wcSeYTU3k1ELTeWYtmnZ4Xi74lYdAipO7Kw9chdtMf2BLQKUJHGSPsjcJOv8toqyL8dOQpNc4Hn%2Bw7YtqHDS8wcsPSuZgfcunZa7Ge7SDW1bXv2eTkfgYvobS2AykpA3UnTJIeYwf%2BeBqvpf3y0faLwmkjA0c46S2FX7lUZgPitY1FtNObn0rgsaUeSAwtMztfEiq1zaOtoyCShCn0S069blCjOGdJtnVC1g1A3AjKHTNL6wZ02BqNzvZ9fZBiJbFtz3denKoUXkSJ58aXXLLwhvaqb7XRpiA005t%2BMZR5O4ZuYga46uMJEm1zlreEZyawl%2Fm2ka4ZlVgYPcvcpGrDv9yYsFfYmac%2FTuCDhu%2FlagA2CdybZR7j4i0tkS%2F6NWHAA%2BsrQp4bhnmgnbohuOndEca8j2HJOa6eqN6T5wZq3jM%2F7w5K7Lu%2FykKE1qeKYp98e5I2b%2B2fATj4ftbXJxzFp4SbQ9NGk%2FBQTd%2Bgf5w7YPK1CeLqvgLcJWPhf8sWTIQChnX1AqlIJEO9WARbTlZvXna6PeDVTHQBkR6uG8ECOFHS4GccCjf7LJBiEEeP8kre4GoKfIxrVB6hHaJ9CczGRD51kpnrAtDZ1jR0jz69SMxzFcIzVTr%2Fyb3vvkWA9jhqNgU9y5upDclpNnWmcSU5AK69uGd5rONu1d7a4BbmnkOSl644W99inxb8YFDyRTN1kVewag5PmndxuON%2BvuYJS5l4Uy23fHga056%2BUOCYQ4xIZROi5zSBybd6LnwJXZ90BcRFDZcD2eQivOiDswQBS%2BQmFvCrVTrx%2BuudyDL8rcPbd3ABl5YdpNQU9NIlJEyYUgbvK503tjpFh5O7jhr8j5v234Hm%2FjMfQ2ZtKQfJdwSv1LIU68zPPZ2dfUClGvKAIriwVBQGcmG%2FmVHuycCF0RiKKBP%2BBcyFEymGes%2FCPXoPiOZ8E1%2FvjUTxP%2BY5fIq9xI5%2BSMpbok8toh8uiV2oWoEKQyJdgL7mQw6kDN1InX3BTQD2fQh9%2FFCecRtJVQKG7DI08sod17LML4Xuv456t9c6GZmTxtjxEfdtLDH9NTQpqg3S%2Biyl%2F4i1CmcGY2LYfA8VlavQFmmVFfuREmlCe8zM5xQwYDjsamiLYtBGTsfLYMFoJfjqtdxavXbXDSAs7YcKDruZPNzXRw5nvyV%2B16rvcV98AdEJzyTGeZAzLmJwZFxN%2Fqm2xaMcocBwjGLqcAlUbNMWnrPZPrbE8ttjXyj57M5IoAu70DlYIxkxhguPepuMnX7h1U3Bk6vHomB8iC0EinJVN%2FVJyZv%2Blhkat%2BWBxuTUzQEIDZvYeADxvQsRHzaDP7eRIYTM3tiHqTlpJvURnw1doEV0Vlmgh51%2FVGJgmoejAgfKVIyaN3PrU8q5PWA99QIeIs1rBSSb07PsJXVOhr0V3fHbwGufAjoiucb0Cpf3K%2B3APQoI4ysM36V8wrIAIdMPPKD6QMZU1nQT%2B6iChP%2F%2BwdkoVMuYqcfu3bwlB5jqliJNK%2BxiqFQPKk%2FI%2FwrVw1pDuAOYHS82q%2Bq7Pwd1m3VszCI%2FTWypouxB8HH8Fb93yGJ%2BwiHBm7ayQckgwsmP4B519VkOHIJJWfGVUdaBi6dWfMLrYVWhkz2XQzQX9AGUXQztJc94ryLj1x3fsYRDiWFZt0UorLD8zMWj2ANR%2BvitsQDJhHU6n2E5nMJzm8PnBItkjwOEfpv1ZaGDi4f9EZ0kOehGNBOo2uJ9GtA3HiSc%2BeTox7KnLQfEed5GbHTzjGS960N99PI7z9tt%2BnDtNZmC%2FLQoWYRWJMySyahffoYMpVkI8ExcLR9UeJJRoFR6NaYbC5U8r1w953ld5nNevBrZJvEU9WCnNPLixdSgRumjIAs7mo6xclAYBGnOGuDPI9QeSX8HXH9PCyfzdEO%2F%2FG9leNaDtC1nRdKPcfMoYNg5yo%2Fr7vajLASpM7%2B%2FYlWCqExPfCZMbu9fmhq%2BPnA1yw9M39f0i%2B51QL1KeXOfw5SRvpnhwE7F8MK55oAeIoc6FKe5qIWakQdigyDR2x9EQfAT5xn5P1tfCqeRyRCa2V%2FgyV2ad4Uu0aifirwxu9NB%2Fjvdbl6lNYXU67rS5YxQRGF3wgvJH5P4VtXomhB%2F%2Fd1rg%2Bo6Kbgc7CoAJF5xvLaMapyLtauDyvGEyYXD833fqD8GkBdTRdwA9HvkoTcB4pkcOJLhxQ44lSXyUEU4sQj3as2thNNj7D2tbARxRdKB5X%2Fihd2osJVodSnGMVCn%2Bd7piRwLd6CKUJYV7aGaQpgGpl8fLEyx0xBTIL%2Bf22uLqASDqdBfIIdYskZX%2BJRna408IrFaP9V6qQWUGiPdBH9ueMs1eumfrpyYPRU%2FN5FsSgx7nkw7xJKt0%2Fli42zB63qO8UddQC3Ce9MycrMyx7cjyxdSwttwAiG7f6W%2Be1JFXChJZgO2jYAaJwrOA3plN4GNIjcVt1Cgos0zg3ihGd7PExSPrsB2OAqwZfxB%2FZ1ptCzhyRIpXM1BK1ABfpH7k9%2B7zLhpawrNXBjeYsTWK3nHI%2BDRHcNUgILL2C%2FEdb79dE9sj482IIz1zAHRae0PaFAqGi559aiMui6YfvfqFoIU9TDsO1zfP3cFPoQu4bMcXy4KyLLso4xrUne%2BVfGgjYZ9Zn7dqPgv9eTkPB8W4pPI3Y0ylcTzBSLj8Lx4ATmTzg4p63wroc7%2FG55Gw5XR9YOpRAytTw8jFocc%2FwZD4MOSVxnsZ5sepVX5LVg6itMJ4BoLEkgCK3Nnj4ozAe8f6BYDEpp2dSbepvOmx3qRPk6rPOyBHFUx2V6JKBuABrVMG5%2BgeMTfkvu5Kp6vcRYOy3biIcuY4pEe0rOa%2FABTTG8hm%2FNR6qIQniSeXZG7fElx5xe7X%2BfJvfRy%2BHZZd1oKIdkkOSosSSrkkGPTIKRL3ACHRc1HYa5GcPGlyQ5JQrbVZKd8gaZUe7Pg4pc8y3eGNg1HF9w8TM5q3%2FayxerWdVeI0j01dyxqpTRRyhXlGyqilPMWVPbXIKclgWvEDBimeHV3qePtcRw8yHyBOhNfF5NitQrlsrF4Qxt5kDMy66dofgCkfBVwvHCzQUxbEnn1MEfuqM06W1%2Ff5a1EHOvHruFoBHISEVsyc39%2BMDzKIOALmYr5uxvUMvKO8P9N8DliEHq60NQBfUO9QAO5Qi5TRb%2FotntaOzyQuCpTG%2Ba5WMiDl171vWY0f%2FQTurSy6cng1R0Q8evMNgO2tMVKlO4PR9UWIgWmEISQk%2FVKtyVU1CcRj4rB%2FRg8MVRPmP%2BBG4bMaiLY6%2FK9RNJ5XkC7%2BJo7%2FoNsWruOBRbO02HVzLH59TnP%2BvCaCN73tFUVrMy7Bs7uLg%2Bfl9cWXG2FQXYcYJSYHTTBKBPXs9cC8OmuoyGcuincuouEV6DMfqAUOMFceZkIR%2FVB9DBEyRAJOdWM2OLjW3NcY4MnOMoY0yoB8fbE%2BFIz2B%2FfmXW8tFEqVB6azXZae5pWsArsKgqAMYnb08X1m6WjSSQ4DYbDmisC9PT6VOADseobkZcDMP10RUQyRTlupptIAXa8NoQltqekc06w%2Bkgq3cUNRjdwv81SP%2FWa6JnKMPjLipqb8uLdQ80XSLRVsxfazUSMK1fFD9s1LPqCmJQrD8549GBYUiKWw5RGNLUaRsQjzwzXivlZDHLCS5p99YZOBMsy5gMa67cauy1v41VsUbxbcHQD6Be0Z3akfz8Ht%2BpMmvQdcB3JJqcHkPG4RLLOz6Wx3ZKM8dVGwSKKpPq6wAOcFdeOAiO0EIDFDsE1tclOsXeOnsxa9elWbvJewSZxs6GhxhPgVCHeKgZhcB1LPnf%2BNA9yoxeSPxsOWhwj08Dpia0661qgAcuHQZz9xIx9k8phkx4WSF1p2VvlUDT91oKGtsn7rJNwuLnh99SciebXRymSomVheIQzoLr1N4T3O4TPeXkc6aTQoTBprBZp%2FW6W1aF486hCZnp3s4PCMVxTTyAuIRR0EbQwqxsLlPclp%2Fo3FujeP1GNEm6KFBSfODP0bVsYVR25LVbq4fjLWKCPzUGomk7vW10o9HfCvRW7rr%2BZDqM1ZqKk3GzXRDfx8OWCnes8ZuY7rsIgj2l%2FHKO5nwJ3G8Z9Iw04xYvGZo4FVV%2BlXVCFtFsgt9oikuEFOtMieNe7xbdQoXxhfJuIUAxWLzrugI1a7UUF%2BRON028tSjnbF0nF3GrLoR3WLN%2FUp4zXFfyo50F%2FKvaLruqMipzPjErsBL3mwMVfaqroH4UtVWbUNguJncc2VxRuFm6wrQNJOibsnhtkGJTVOY6cM4Hu1FlW6Xyydx8f74w9UbSrqGmta0ntMmQytTStAj2uVnG7Rt96eGa0HQaV4tel9lvtEaKbctV1%2FVu2k1GiewgIE6q%2BBpFfms%2Bo4zE4uQL1%2BZk7qA09jd9wvX9iT0379lrfwWd4eUXwTej%2F9OHlHhhahj3bTWxtltyKB5qRaUsqn%2FKDPm51lbM1PFSPtDr7sOxePnzBe8VGm2d68w43WkTuVLwzCU6aAzwLQZHltuE9JRb9WhRimUrUIjW4X6%2BohJrqekP6W5qRM5fW0Ub%2F34qbvyRFh4MWeSxcL5eenznRyQwDIwp6%2FiWKYlM6Njx4Twa1L6znL07nmrolEV3y%2BczIsA6qH1OBt8idbPau4ggEpSvpNgPCnXEDHWJvEqdPlvnCD8LThd1dlIrbUdr9kJmnU3jaDtFi95hSvY80DrwYoRtD0Rtio8ry8fSbSMxX0Im82zpCSHFGpOyER1zXGC1taJfWk%2FJwpBjlX75xVKC2TCQiMnoxW1eUh%2BhdfdvAQblZaI9tiqojlikgepP9EmgpFNd5HxQRS8ztR6rKQC4I8IKpkwUxQIbQKt8T2AOjPq1LCNd5nzcU%2BvMHNkXAX2liPHTDIr27Yt%2Bnoa0DH%2FOUrpGfDwYXGe%2F4wq3Ljy3sUvvLaYMzEveryhXtQv10wbSKOUDqGZBSuWT5Bly8ogNoI3N%2FnoXMD9achfI%2FsQQKVgngy0ccasUHT5oJolmTkerx92N6V0vmXnd7l6kYtd0fzh7iVSmm7zPLbbVBkTA3Q%2F9jHiFo9axVX5H8ol6VxELuCZqdw5UJJHkhkYBuNHS%2B0h84xVDikjdt0WYuHQqwU80hojfjgv6Qd%2Fqp9296%2BFIUojohDp8GfwICQzr%2F%2BSxEwpDay9eOkusAPIe0rrk96uUmaKUx2Ce1%2Fgb%2B3mi8Fki6B3N%2BRatg%2FtbZ2bR8xoOVvrl57O2G9ZnvsyqhshUo1HthyxNx8VlgLV80ufH75P7pENrRuFgN%2FneHTpuQ1LFSYTDZTaFh91%2BgwTAipzO4uR%2BH4w4ieIb1tIvODvNB8G6VGef%2Fqx4EtO%2Fa7AVhsYQxbHtXaB8ZgvqECFLrGs2gxADGYOQw37Yb%2FMal7BsiymILiSx%2FfXWsnc98IlAdjgCg0yQZUH7OG7Ln6kI%2FY%2FLmmFNWYSEGaMgHCUBnlBLJ5FchEauv0ofSroIQMj0RIEPc%2F4cOfDKkE8klAtJef8hcH0M07KClkaMnaHXvJ%2FSRGePAMaJYEQxZAijN5RpI4JioZdYkGAPMUmM%2BkB3BcQoBswQaG8FQdF6L8PJnItLwg%2FAQKguMMKaq7VIlCa%2BSAjOlXQ0i0Co4fY3KSCbtMTaj0lq8rP0bKUjMPBZrcenrd%2F%2FgYtUJv94fokA5jiJ5Wj%2FCnqOZ8LcMShzsUQwKvMBAMs0Bd3AeK0kSs%2BKh2o7VmdQ7vc97q2%2BKaRRoS%2FlGZzuOaHJsgw%2BhcOYNlGdm4yeSxI1EzSGNRtehj%2FkfdOAaucNiAlvozZigV%2FytvbYCJ3aKeVCvBZjho6fYUUXQUwbgNLL19MsOsifQvSSc6OivTLU%2FAn8UNOHbpfkLIGjklxpfUOO4DVsy9E2yl0qiF53q9BL7%2FjZe0Zaj6i1jw2FQcXZwh%2F3SDiWBNBjMIZaRlYTE0UEk7rBebEo07PoVitPd4AKoAAzFiCu7%2FX75D2BLcxzHeIzYC6E7PwsDY9ACrJAfows8bnlQCp%2FgH2wimn1ZQhbBPl39ooLFcuAXKyxuShh5gthLdWKcd0mDN4A1IZ03aODwu7t3qDnyipBuyxbTkHOLJv%2Fqtc6h0luh9VATJ194vyrz2Y7JNO9rX%2FkQtoXV9D1rNVcd00dSJAaxc4gv8V9hUp%2BssOHyzq%2Bz7POuAQF4wuwJopO3RGnl5mBGWF41R2CQxwpdNMZ3EpjoUQUQitH7%2F5Bi9gX90ZsS5e7spyXujBxP%2Bu5JyWQbKICilRAHJ0T66%2FoiUI0vmZR4%2F%2BhdNsUZuLvEdmSIklqh3nfjAT4sKGRwHceD%2BWr%2FCZ%2FJuEnc0SJg5%2F2eiKg4SBmjQF947AFypeE2CvfjO91nzDJY4y3bPN%2FoF2VR10RlevsREKlh9wbk4uOaLm91jNs9trFreotntdzJA%2B8cDanq1AEUONA3%2Bj08Oe36wi49NBzow15A3lhoq8pjBNRnjKFi12CTOPrpZ%2F9VqsAkjDdMyaHGNaYK3CVfww3D1OnFvX4%2BAHq%2F%2FJI39s61Ci1LJx%2BJMtIhcDOzHP1Qnm8EaQWlk68v5EY7E82kq%2F38NfIpjyVgdEfw8itiWFyraXXRAUmpxAxcDgo1f4vF7932wNfGoYFm9ZqClKSYGaWRlMxJUPyuCx%2BsCnHnDppyxL2EBtMaYI6INCstlQWhiPe8AcPiojYvVExtcwkSfbMWvfxfWFNJGzjpwiFXbBW8Go1ejUN7Otos%2FGoJ6%2B72bymPxnq%2BvR%2BuoWOFGD4ccK3PJG8b6ljKpZG4YBN3LGsOx%2Fg8sQ0bGGijhA5SqFGzOI7b9zyjmcq5ozfjSTAKGSeVxxMfu%2BEAluIpO3T%2BS5B1fi69s2m1ySXHhwhw4jr1J97%2Fji8jG80XNvu9uzQ472pgL%2BjuPAoszwHy9R6lhDP5aCaG8dlgYSDRmAOVhKpyhdmJckFYlKONqnQFex591iE1Mwi%2BxCHq1XAtrcWwYLvJw7NrBkx2oX%2BxDShjLKbq%2BLOySfG%2F%2B3r0OWNAOmU%2BkRlb09LnY%2F8VeAajNP%2Fh0MFMX42cWLeE%2FgcevfszBOKSv8dpzDFXKp65SU7xVZpR5pBMy4kgNwY42NJQrM98%2F5OWhRM3foHAWEOuHZ9hOAAFCTHiSGbHHtVdiboycf4CPg%2FfrJcmswbtGazqZTcmMQESsQzJVnPSvbTGgh44pCf5aHic2N2TRUfHM1VuYpmMagT6T7VoYv8c0c22wBRlWxjcsTFAyY0ko%2FNG63UJSCT4pgHgEE0DNO8S1UEXNvxpBWpJOEsoBbu8%2Fly8eZwzwuW5jC3NGY1BDobbe%2Fg2WIVBza9Xfwm4EAiQXM6YvB1%2BdnKA5BsJ7ye%2FluXoK9WGu%2BZePVXLj7VxjWOucMxUFUzlnqwpIIoT82xm5V3NUDlHUZDltMu9HqzE8qrEaf4bDbBLrRl0hVREmd%2F%2BhQnS%2Bw8XKygYc8r0BBSztmZACUfIJLxtzJxk1jHo7Gj8j3crZmnNg%2Bkp84M%2BDZlLsFZMc93cBoOrnqPru39pvtcb8xYqKDQtod5M1lTzCS%2BG78xqe%2BgVW2g6XMnsruBp%2F7KVV44eBgdqvcyMNEPAeScj5Ep%2BBFFbFynkzvsEjZ%2BzyBtWz5Qt6Z6fsw%2BwTRLBCpLB2lKBiFghPfZBqfWBAUSUJ5WpvHyufLh3NxVNxl%2F8r4hQysm6mxlPXUs4Dkxm2gX7%2F6GyljXEEp78ocKaWfxCrLXtfe8iL9gQLz%2FJYyMWVqlqBoT4%2FhdtvtgnDj%2FNBGE5bTJa4r%2FggAumoQckPznVA0ADLisEqURwE7bvI%2FRQM7mocu%2Bv%2B19N1cc1mv2l3qLqVoZEFWKhmdeOf9Qnyiq%2FSOQNYGwslUKm9eGl7KYiMD%2BGUeFNxSIQWEKiATtWO78U5Vk5sQoPYuahnHGvT2treORSsyRwFQr%2BVW0UMunV0YIcMyCl4xKMaD0MnoRKAgz9K%2BHGTn39YsbTb3ziu4YzTgTR0i8s7c4QOGt3Esg%2Fu4bNzwD3fYccVw3KYklz0v%2BT3kr6YghNtBKpduuBFs2u6xImVq40smDiX%2BKh2rh52Br7qxRi7atFN0Et0%2BuQ2l9FYsIoywCozW1m253hYGGW%2BwuSrhI2NjQ8z51ha2wX5wraEkQ4A%2Bc5yxeSAFkNzCmhXmZLlB2nRz9a%2B3UqWi5PUQTpQMfV4zZVL%2FRmh5sdb%2FOx3prmmrp9s0gUq74%2FKGLfCLDJvspyyFAKBN68KXL6uagmOpExOS%2Fq4wBGMLI%2BPTbdYueUrcVzQh6NzhReosIKNwFJcAEx3u%2B%2B6pkUuQ%2BNrPMrU4%2BOY3FKFPXfOjAS5fT0JEU5PyWHmz8J%2FiqdXaJtnNCXzQtfOZkSD0SKweCcK4XuStTm4UGn0SmW%2FX7KORVu5h6pBv%2F5nQi5GJA8UdYEDPfsOuzSPkDLahoRcnvRwtDCVQ%2F6hlF62TXEIgXek%2Fm6fOEu4AOkV53U1Q%2BPTqEdz%2FcIxnprFlZgMUrXjkuWE9cFfEWiL0cW%2FU2dgEQ4Tyk9b7J%2FHnGVKvgreTJIRNL0MO2UAU%2Bo5H4GRiDK4roghusZfEVI9cfPTkUYAKPGkQDx2d67MLORCzkTuHkpcS5Rc5Qy7jEmvCVJ5Q%2FU2kD9RqiBktwWPRmXIvw%2FNlwhd1W9cUduBtUHM3P4%2BfTIaSankDCatODCN8h93xqe7U%2BxIIaahbGzyvkb7w0lK9nmFw5BsHMuizkWe4nRCj6bN4kVHtr54gpPeUfJEmgct36vX6wn8FxemKXTCuJeaDx6%2FHc%2B5o63kdUruUI7LATqthGpgxxsoysa7Irv8lHRmTXEw9IChHYerQRC1k4iAAevRLSvTSZrSnyiJq7OqVDknMa%2BWjiVn43ZgnxYYyBu713bvkZOyHfSqxQKw2Zo0Td611F1Xm8KAoUer8IfowC0vKDXLddVCGpW8262Ogn5k9MC73LKsselv3774s6PEzOnd%2FsUlMuRCGrZOSdYyH2VV9n9SL6JzLtN8qZYQW4smZ6p2GXhhsow7%2FajT%2FjxmwYgvSBD8T%2BUdQGFGZC5xLGSBb7tEYlB6b9HxEq8wtPM4ynjlIuukEWnxCdVirMeLJm6uQthT%2B9mP6bLwyZL3jEZ3A8re2IpMhepptHW3coAO83q9968OeZYapqhYG5JvvyaGhXomTccSCK4ksmc8%2FzY67DYWGPNDeg0T3KKsR0lba99AAsFwlQa1LWcXYFexhsjVUf5ARJu%2FprwqmSE0nKoqEgUiDuyk1egy1obrkgt1O3ygOhe%2BlEPv%2BeFdGqsq7sTgrBFrbvTNsATErSP8OCYbxJBzQ0zf4WrO8j984rGsetU%2FzxUXkAHXSnFcEHP6tqTr%2BmZjDnTkceJq32ZTJKEIHEsktrHRmqc4ipbnEyZ1%2FuwC4E8Tu40A%2BhIC%2B7UMSkmOk9cfuBrtKTP5FcvwDst%2FadMHfK5TjxEVfih3qY%2FNRAeKpAuQ138vDf9Iw2NzfRGygBy4Gkkaw5%2BmoU9yCqMaQ8VuQv0fLZxjGAl6ZFivpHl5zqRZebRQ%2BwmvALMMICzRB2lgnf3FGa%2BWjK0ySnt4gU8wlzOuJflpsL1gVySPy5anBxBtx2LB8VRupg3i2tBuplPjmDPTTp5E%2BcTRq7OEt0BkusEx4R619HkLXEk1MB8ueGo2gVE%2B1lWrnyM5KdMcFk%2FB%2FvbYlwgooske7W2hMRE3zoAzQ9d1tIAbKdQnI8knE%2FrnjDThzkfBjxLJjtALyngZ5g3HNIye5HoBoFrN8ztZBsp6jU6P3PtsVTzAzrJ2P5Mms%2F13f%2FenG6HKfVLMac4OoGOxDAqxk9SF1U9EPYCRfHuwD7NKvNEMM94IAQHO3NTtt2mG%2BoQE8cbfSSv0pl2LxX5QJrIRB7y07jeKXGLNq15oUA7wz9H%2F0qcgIKOMLsXMXdcnNb7e6E5h%2BIgNQo5PfwtqjaiH77PNutBc5jvuY6wdb2%2B9H5FhoNWW5RTUht5idrWoj7wggvyNftbK%2FEMNkAXXNdweQeXeTxJDDg7rpasF%2FXXAHKGFaD27R9RF4RLddN%2BP0xSgr86FFqmafgW1D2mWrfWTsk%2BYJmZs6Mn2ks9yzYph%2F1vb4DK1m15H7OsXjAMzci2S4oC2h4y2y0%2FO3Io6tAWRr15tnY8O%2FkTZH6jSFvmJxULJMNZrAQxyZOe2sEQlFmGESpn1SdjfuvPg4a%2BaZwzz8OOiQqgRPIAYufJR%2BEQcpAUka9%2BqsjxLxn3GEL%2BPkfedAPlpDdxIYqfIVIIacYSekCcDzqQpv11pRVgzk4uEke0z6nyCzE%2B3fr8MCWNMbWuRcx%2BPzecrtaEAbq%2BIms5h69SkopA1IBHP3TcCObwmmqSUuGzgzVf4nwUNr7toPsDchb0qOeJdVk%2Fnfij9dcNnVdipjXR6yuUt8ih92I7TOoA2owAvEXCICk7u3wFryGLgSrme2Jy450lSHOOklZZ1XSijGGWGR0srN6Al1MEizPF2KYkcvmrpNE8Uhbx077ZeOh4QwwCnENOGlCjMewMxV53Ei7Lgu4PV5zrqYbgXvvDfRJL43MaSDcHafVxhsrP8pmtCtb5G5U6X8C8VUZAHstuD%2BQc%2Fkt4DI33Ojw5f2HSbO5seXrSQZACFTEJ5WMEowkhk3yIUCOL6o4Vs9t4CQ6Lkebe0hrM0DmlxAEP3VXJYXvDTA%2BcDaVLUi9s8fzTrO4Qwrne%2BZ%2FTCRHHnTfPg2NxZecQlqrOrbD%2BMKrk9AeH%2FQfogUcQKLQdfa9GeAl8W9DhjshhzCPb%2BCrufijfsAb91DJdr%2BjL5X6qf%2BXeQ56eCk2X1zmn14%2BODsRhGpvOBeGLGguse067CFC%2BVZiJpuQP%2FBfsUTs9fx9xi31KijALSrZ6x8zCuE28kQPZx8kWAcdM0Sv3migd7%2BtjsG99kUk8gl6j15IC8UJuZYDLbYDRAxpWsZC4HyhMaVJNdnVfDa6bx7en3L%2BXwsKFyEHFWJ3wFEpFU047U5iQkMyoOJJILr4g2kLyRdN8%2Fj0PQ3rE6tcLUwCatyJ17%2FHvWs4MuB8NQ6pEpEdOakyefudB1irbIL47s%2FuCZS7IbAfRuB5bD1565%2FHrXWEuPfRCorVeG5HT8wr4f8Vg6N2YWqOv9x4wqX2ZuRe9oo%2FBC7zamb2pSV2Q62a4c3JOxy0kNzik8gsbTN46Y1UzJ3mvUL98A4ycY71ilZ%2FZE%2Bu30sWRRvjmGJZGe3WJDGGNTfXXPdpDz1ygejfnNpXn5V3nyc21rNNATZMC9vJdGdREEsCjMLhmDWOp3bL7z2DQ31Kcvr2%2BfqmqwYcWUkuWzz0%2FYCy44B5u7dgb%2FoBD9sx1C05Sk6h%2B8xOrfn2GZAJMI1pOtaWLRomMRIOM3tIqmmyUNAyLI7QKmxR5Ac80vSzFGkmMZAy6bS6QuPuxG79kAeY3a4yfSZ3OxQ0kzkDp9uGKBYeHCYqGXOvtBK%2BtehUJbXlhzVbR%2FH7e%2B5biPNFKkfbRewPoJNRVqu2miP2GlWsLknXQqxj71megUfducol2XbIXyR1TIAr61ucrjIDRuFFeihjOtDf3IFtRsiDW%2B7aTuXzFxnxZHGqLgWU%2Ff620cMDNfbryEexjikZyt3H3v5yJcvEwEkRCCxthBC1Do3k7AEQtEewwoDk%2BIg5BouuqIFrgDMdn8iL7Lgtxpe22dcw521ux0uzh3jFYHmQ3%2FRlsWBYov7IXJ4BT4CTeazH1S%2FSl8p6MAaSd51oMK5Qc8%2BBXJSagSe47l1WWN%2FnIMKxgmQeI%2F%2BFTBXoKbqDgkoRUT%2BbnIKFc0wDU4XOShK0VAJAym0eIBDfo%2BySd%2FQ58aoCKocAn5dYfZ3ZH1QpC%2BZsdqQC8QKNkk6QM%2BeiZhhNZLOP4zTqQSQDe7z%2BHif3aIlWFo3n%2B5rfleJUXjorIvh8j58cw59SVl%2F03xiZwWNlQByccBXlDkE53%2BguVBpUL1qhv1NQF12T%2FCOxknjXd%2FzzHtvgobcsIYiiVu9vASAFQC0LVytzUj6zCTSBQvh%2FTeB%2F1YzdGC2VXnyrc9tSQLQl7kUBi%2FjKJTRnAAumNrCp4gPk6%2B1bRTCZDHjtqz0HHHUvnODDxepgoBpTFdCxjC3P4ymyXjWq%2FX%2BXonC%2FAfEW%2FXgvUQqeHi2gHxAG3NvLVQbJEu%2FO2BmZFBZ5bJKOcYrc4iUNK7Yl%2FO7EvXCjcPxm%2BoHTAtsC%2FSd7k72sHzIFki%2FjezMRGC%2B9eAcFp6qvCwCmarbfGLqyVBdMMj0rv%2Fjn9IdJ2zOmV%2FVWLJwEcyL3wuh%2BtOm98JibbeTdRNiGtshEpMHl65OHORbd47bK7nhfTnpGKXDBhy%2F5a%2FGXfQWo5Ptk7YJheY02pTQNWRNyq3mmYCEY0AuQaCXiq%2FSclexD4iaZzGXqVLVyfdcorrY8rBtDS%2FWYeMj9t4RlOufVNwyd2vFQpLQTfC39QX0F32Aq98Uv6cw9iuaXitSEAs6zMoMq6WS8tND9nEfyHoy3yh8fPWQVLrrLAAGhTJTaQ2H8Vun4L8%2FLPjmKXfWdYIN7xAhn6SgFduARdNdFLL2e8zwoCmxXljPVCR%2BgplPNv%2B6NEA%2FnLyxydh2%2FBHYbYLQ73EHmjdNntEuewMGql2sOO%2Bj%2FFO6EgYcuSAlKGiKUeS7%2F4iOerWR2208mpUl7tj8u0Q7hE8ZC%2BtZoLGrwjDvUHBcfcYpsGO7%2FB90KOfLGxy182B%2F4OnrouvdrnkpHwPySVngrstt2%2FvYKWcThecSrXuLvvKK6W6PnztpoDxQ3TXT5%2BwQiajB0xL9i7RBaUY9wADZFjZ%2BcFJRO0rSSZnAoqIFtD4Wldy557VR%2BnFtrtjQgFl%2F6aDGK7UXKqNRWPL%2B8G1tc3Xl9hZCOHuomgdORNNewdxODo1ZYRYg%2F3bUGJfDkooxvsBx7XJhdT7MzNAq2Fi%2F%2BUpQl1nC4XBD1O6Q%2B3Lz%2B1dv8PZLJ1OAsUUzqxejRIyIicHHs%2Fz%2Bs7Z54LzOJufXRNxmNxpigWQj6gTAFQ9X7eWLQP%2FWyeXOdyE8wd9Q0rLP8Xzwtr6acQOTPhsg68RZ4BmDvnKrCqRNZ0A4F1yjJ4jqITJtF9vZ6lE9j3FxAMEyY3z06HqfzN0UFEFB62%2FJq1ZenAX%2Fcgve6sfLnlvhdi7QDtEHFD4WW9YPNtcKb3RsT%2FgD6rrjaQUcuIwC8STwX9dqZqkjG0%2Fu3B4KR5kVIfpbUpv853yHCPZGMWN1B%2Bbb1S4TASxDe%2F7z8NcHyHNVT8xDt7k0XqtrkUD8pahaj5wfJb8TNeDgmwpZgZQMxAhQXUJ%2BeJTkW78h89OQGdKGsCOqTYVK3DgF4AVq3NpfkfxDNwYDRqadt97XVNHcJ72kl4LmWaCdmHi%2BsL6jigUVjWsskGkuBDrkRPofeKGqAhaWbTgydrkuqEoowLP3ZkX82QxeYGzxraB%2Fhqx85I8GYP5GI%2Fiv145OSSoJyp5FAa2QrnpnYBozRKz6mcbPKEkGMAjyq1Gf8qLg68BxzmtI6EaTkqRmszJ1aqccAewl3HBFst44ljDj9eG3Ye%2Fw%2Fv4qPlWOrtvAFC9hz0qErVlo4UuEthai7LlPDxna1Kc6JQZNt0RdCzkUbL0TF6w72s9AMsnF1R%2FC6HCb2aPsALAeWwULf4PPMJLv3wVdVcT6284t203bty9GqN%2Bhz2vtuTWMaRwAo86cDqaxXIClVPpV1oK1lwN6DAppSkoAablicg76gqM%2FROQggVuvCAgDZcL5dcwcXGANJJ%2FHDVkU7ZKhwBSnGSTKl%2FvLtZeGAXho0XJqxKS0XBphuR3yRP4FuWnH%2B8AztsPyM3xhatKe6jZtWNpmXYuAFqwhxYfeMWj92Uby4ZDksz3gcGGPHYvUwIEe5MHUqrLJnmrEU5C5L3W%2B8psD2koZmXboaHeuTeERPCEP4SaA1jV28wVpeVSqBnf00xpCfF2MJxN27Nhr9k2N3UUuaniC2JhbTBWhoHuuDIxFf0%2Bs3rNBwoN72ruV7oXJraQewfuNE5jn7NLsKE5JqSwI32tMaEwaGf3bqrSGIIGijT%2Fd9vbQD9EtG6PvT0%2F7JAlCWp2gGhGo3qg8IuxvLdJJQtEHzpjMmkjqV3izX%2B4s28XniIQcizbn3Ya%2FPPO3s3O0yU6q6K23jie8xmcTboJdOmWJW61i15obrSZmn20HfEwh%2B1kq37C%2BCMK%2Fz5OrZ%2FdAuE9DJU8Ye6o%2BlOFhF%2Fm3nCvaxUmFTUIP7KbACGXXXTi5xlZDU2xI0L14e7N8vXeuAfJxl%2Bf5OHp1jCDv7wkc7ptm8%2BTPYHYKhaKIHVr%2FwfxCezFlishuZs43U%2B1BanztMdG7cDSCMvV02k2gSPwCJHfVcXCsHY%2BGWRDnKc2390ri%2FU4BY5lPz%2Beyo%2BO5YujqYlon1qU0FYDqziKM4Rj73N4tEu%2FBR%2F43P9NrmukcGRGSzAzyDpS89lRp%2FS3WvMrPNapHdtExdDhjdgE%2BI8%2FLtk4p5lT0TzK5QYMaBzzYnK3kPRPh%2FJa3mSHBDYt8DF0eo3jLG6FS9rpB7gNWbedmt5ipQ8n%2FT0pBP19fFi9h8A7jcEya5I3XslsJqnxoVzY6DxnjE3Kh%2FyXkxmwOwk08YrU%2BhmN23KxMR%2FNB8iGV%2FuZOJsqVLdSt5YrSrcSnb%2BGVnlNNXmlCkVJ%2B0y4YPpmYAD9y4xG1Tcv%2FogBy63vYCApwhhHOFBSXc70uR4a26CjwHfeSHIRLM53M6Dt%2BT0T%2F8Le3zBB1olOqn%2BXHSyC7fSJ5m0pEy51sRlXryIp7sNDmYZhkmeplVKEu0WDxHm7wa0imBub6mug8fkvyFZCAza6rBXMn0qzFIB73Wdlf4U4s7xQ5fBpVl8MJ4pqIfYKqXSSPtbRzH3ZMw%2FZ0lsVUhcPu4g1P5xHXBZG7DlNjvD9V4n5aA0rjRtnWThVezGphHD5fBTCxk%2B%2BNJknfW0DUvm8twPijD2xmWE%2BCSbCTsph6FVAkYtZi6iw4dp87YZDpPHSSRSGzj1lIVF%2BJekT05jh91AfWwSXoxtm1MN9LEfROu5F6oKyDvh3lWDa17cjrcSJ7G936x%2FY%2BrIP6Y2Hbmryu6m79e0KcdNq5hI9v6%2BfcRqy4%2Fd1guwJU3lOyAHWIHdqT8nk7ZsxHje00g8s32EqW2OMdXOgi7LkJUwAhEI%2B3Il3B%2FueMzRPsPmaCJgETV74dKvrbnTVRMWGxsw4VNknZ0JQ8fIK4OF8ARhAvN7P9FnX5l2se9%2BxInEC4JsxY64s8OiVCePUtaxTmhXKv7qTK%2FqwlvydEwre%2FaUMpjTr6nizqMiICHLy8rmEFHoZgCO%2FFakrS5IFaggv526yNks2gIs6rKO5K5S0GjE8%2Bur4kYoQBvFBiEgKAgZvWWHB7SBbFR23N0ART6AyExHEDMMjZkThwrGjQRnjX66Fp1H1oDBvnry6n8gxM71GmIewRpDZDefJSeYPNMifyRn5KgJXCjCS9i2n6ne99eb9p1bVYjPnzeWwhKEzrtVR4BIao%2Blcb42i0eoCa32uDJZLtvVdvTbgIw1aSdNF6yr449CMK36Osiy7fCZRfW7ddaspk%2BFIWG%2FYv3SzT6ssM%2BRYEeaG81wGqq%2FVGJv9Vm6UpO5%2FkeIcE11oYgqR3GXKqOrs%2F%2FrItRrRKzLtuaSQFPeJzmQ6a0YOndtQCaCqw2OO62vmzIDxEELt9JN5GokiyYxXdvAVW7lA%2Fl5RmwiwsDBORDKxDXS5NtxgJDjdQwECXRlxgWopi30E9OO4xczFuc5865UlfQ1x2Hu5OREWEQNKwrOXZaxWE5avGum3KtbCLZSYaJGhWOekwKxznE6U8AGyqMkpAvoumdYp5Tm26c8fiXJaMc1Ytav7mo3ZVak7or1EZjAm9t%2FMO3odzOPAcGKgMGAlCuBcxYjOSPdFXOPiZDQYIFWhcA9BeuaDuJB8yZHIzIzyYHUDH3wg0DOwsA555ZPRb5soJoMzx16hdrT2GDdOTOOJHjgdBuFbbwf6kzTQPiNttKU8YBeSbHd%2F9POwlakINbCug8xmywwXaKStDRzMRh9UMpPOXXn37Su%2BLDROoDR4v7b%2FyKe%2FzGJY%2Frjbevt6CMplx7EpdzJha3kGq7Vc%2BqT4edFYX8PmPWc9Sougy4JsMwir4rycc6tfjEiG78N7CYWuKyu%2FDrMenhUzDEvRZ%2F7vfEQkoKLk5XGzKNmZMQ7ak96VLVjAfE%2BCpGKXTBv91kXR8QSIH931nN0rkh6KfUEUs8sztBViwIcNdcuVySRzB36Suje1mFLfFonJBnkmar9ZZY%2FSI1h9Gq3LeoF%2BNXFsE9al%2BMYoGlzFR7HFulmO8CXQPjupZDqwxSDwognWfg0dLy91TEuuyqzhhhtP28B7sav5Kt9zu67LIG8FbC3RA8%2FKPNKHuc%2F9ohZQ8bMOEeMNpDbVpbJEgeVADr%2Fc%2FoWNov7rFV2zMG7zQyx7b4QUr5NosJwXRLq1gIn%2FANthMlkMR2km9U%2FZfAknSePh1yATbCyzdgFtXmQuH%2FBNDwtSuiR%2FndVggeiwqKfIZm2cWqCJUdAGl0mxNkDTkLAd%2FrZHyg%2Baw4THpccGSa0yXYmTpqK4SAyPFy%2F9tzdSazVkK%2F6%2BT9lwJwbFsRe118VhSDi3L8RmNmFSkAytldiiupwkOrsYg2RfIWoTsUjBguJpwqouhijcd4HRFoUqYxh0z8wT8ueSPNyarDKYhrO71ut%2FFoV9A8iUDj0RTsg2ZImlWeoMMYSoCRLNdkfZ49K98v%2FBV69sSeFfsu6jujG1jeTr8ndMB6pOxw803HxH1e8N2e%2BemlaHQ7%2BpMvzsRkovZM9KfMrVD2iGyC4UH3IrAAVcfNstRLrjx7yyAsr8O5jstXcVwqU0c%2FyYJxzY8QwfFopGaAVe%2BJdU5Z5qWZAG6T18OEjPPZY10aS5d%2F37o%2BsDQ%2FQNghk2EMLw0HD%2Fee6cWasag83PBPYEhBQuLgDJhi4GlefKR4tYthCvL3hBRIMufrcsXKwZ1mqmNqvDhR95AYFzNUb8gd3%2FG7XXH7%2BNqqgLMRrJpnh4codAgff3uvObp3C%2FTJG8Np5ElYdArBIJQsh5eT4kIy8g2AkeJeDD9NUtOQohPhLToG8NxvDUk0J%2BMpc4BZsth1KSHis9AVMe9gXMcWb8PtjoYWK3kkNQBs3K8ysorZeqChVs4uHpw%2FG8IxMrIDR%2FGZLaFfgOh%2FGivcMB1ts9q3xsDcNJkyheqpq2gtc9DRFWJaqjOicHte%2FisVq3GNw7e1WFewA68x2IvcLFZwiZM06bptdTeou41V8pevV3lXpEoGbHwO4rUp5vcwhkJgOM6tveg8FrGW3Pi4azz5T0Da2C%2FyPwpW8NQkMXTdrnDrq1umPYtdOA5EG1vO9x3QGkDhjV%2FxYaDhgsXcpefe%2FgMv%2Fu%2BTFvzvy6CI%2Foa70bee%2B7ojGOByKSZ93qLzf5a3H7lKec0DdNwRDWV9bPLB6GLhDL93vVGqt1D5KeZNv7iCpMzP171jF6nGJeD%2BBwnp41MALp5jzcQnFKRKEl7G6pU14pjtJGG4k6jBb50mFcRmPoW2aj9MkMPKh2nrhr8A4QX7tWbHwNSX7LdPu6kq4V8zMpq162kMAs%2BmpbkzNZMxSZlqY5GftEUKpMkW36zIx7%2BM7d4qS2yMLR%2FFQIcYyIvX0155PWYZUZLsdKhEN8jZwUw8FYrDCdmJtATgrgCCOTeJPFOdbEYotziv5l7sQRSucG1wN%2F9r%2FUfpDct6F%2Fd8wcMKLXdahjVcorUjs3Ovw8h8shVG5KDuTkMfJRZCPKE5F64uqkArB3V73ofn4%2BSvIWdkI%2BAOil3vIwx7CYRHolZ%2FMhhXVCCdZzmd7P5Q9ghTatTLShT4jI%2BsyJxtajy2ccXSkkll%2Fo8xLgR0wFG%2BSD7jQu78pt01sLh%2FB7ZbIoUOOQaYiBrKmbAstcKHssdfroRskovGhaQmcz5VRt3XjYuGBCXyvFYMPlkEF7TJbUjlas63ehUpefcfnJFhVqnkQvfiF1kLNwJC%2BB41FDnCuH1jWVJPb3IYyiE9j%2FyzfzM5Ysohw%2FsoHur3gzIV7YgJSXrk%2FbVeqTFUbRnZBwnMElHCPOZJagtbvDwSQhAf6DJihYJfBlCex8L8Dwmu03IXvNnF3DbsaPV2%2FGCXs%2BlYCjGjThTWXiBGYWudMH1%2FSOhM8t1fU%2BJwIiFA7FfLTStZhyV3V5xcKSJ2T9nhkNxMMG1ullYHgaq3wISPTVcCTa66psBN9Mb4qSINmxNGpyrE2YL9wuctrAc6qA9%2BkFnnY91KVT9YiehrcjhHOy80ttlQrWiiqL49C6U4bTfwMO%2F%2FOf1pzmDqn8bb0c03lEwVL4wLWAVcy25UJh%2BgP%2BaICyT1I3B6R69kOy2%2BL6fjt0%2BBe%2BEdNkeqWXDVXqGkqpr7IJu6MjzTJ2SJc7EUdIoBGxJzvU9vuhK%2FI3Yhm3uaQbgr0WA0LrzgzO5n%2FUGnwl4reu6ZGeg3k%2BZQ1okTLnmvhDotu8Izm8qcSR5%2FmDqGxyynpmZnIw0E7jZtwWrpBK%2B1LR6KUXZ41CdqtMFIq%2B6ygW1fLkl%2FwKLkqlmyciUD1DA30rtuqJD4Cba6nTGDmSpkfSvdssRrRwuVGmgBvYz%2FkD%2FjtRnmq32urIaeZJmg3Sbw81H2wIFq3oVw6svdpEUTdPV3fFLkWa43zjH71hzkit5agDiiRyztd%2BH0sw1Uf0QUeWiq7m1nmICH4U10YLa754fYvWLW4vb%2Bb0XQJmepgoVuZzl1ZjutuAcmAzyPO23Wct41H1ePZL2WG40foejN8oO%2BvKy0Iwx2Am36pUAk5J3w9Qh4Y7ByY3mky0omkEzdW3VzvjYZ3uLa%2FmqZyVTfa9qHz6v1ynio60q1i%2FX5jSMYRl3DuHQpGUWGYFFro2dDb%2FO4kbiQy1wfwg1Nx8droQTUFpk4JZ5%2Bbalba%2BJusfqKImxIRStHV%2BEhiHDQLQZJTJ%2BsXFX8bPf%2B8ErB0emL0J3YQO8t29Zqmjmi55AIuYzCNNPpe52z9UoxpJkoLOzWEUwa2KivGpdaZRqPqQlfFXl5JkJANLPEpJnFaziJ2ELufyNePiIXEKykHqNm9JsJ5n27bkzNSNCAeffzUqQGTU%2BFw9JcyaSFcYPDnlXYwfhTRUn3RVP6gsTwAP9D2zcSj03%2Ft3ClQDOFMuNh%2F41mM0swcxGmv2c%2Bg8tF5zWPT7IMQ8BgOBYwiuE8bHwO56oQ3%2FyO4loYTKVCcSmgohfWsQhqtafCRIGN4o4LSKOp%2Fo3wp%2BwMNzW6rmkMXrnRc7mkkvNVeIguRWONy%2BKoeBWA2HPi0DlrRoySf%2FqsntpStxO3QyjgghVuyZsfvEK7nk2UAJH92Lk9s9Ts3nwkNHPJjAu%2FKcbDDpQCOga05ANymsW%2BWwQuMMMhYYxputK%2B0NKfuufOqVeC1gmtTsNgCQJkBC6m01F9FNzUxKhDuY5AUZwjAxNei8w3dt0J1nWXJwUHb9BYT7MJ7c5YseTKdiyfggi%2FLKMXk30dVIYSd4dcn1UraAlOjx7s6Fa1c6reFFxyxgR7wpeHohdseQna3UaW1jndY7m3OLwo4Pf6vHTc%2Fo2QEDIUHXcpC2xN4LK%2FmuL8a3JOXGLLjmNBw1aMwCaP8Q2bDmBPeLb3MP3GSrvR5deYD%2BxJKweWid3eXhsNLnJqSQNB%2FIdYO6q94Zo%2BCOobkLfg99UBFCp1uu1zb%2FKyE1ppKn4Y3o5KhHjKZNWJS3hX5lWJzUbgLIylp9h77687Ms%2FnnAIWrzmM0gCfYNDVAtIMhAYaQ33TJZpPViigNBrS2spsv41vhMPub5FHGKqVi8hwH77IO3STx2dJXgwDKbOuxecwzUHBMDj1rOO%2FUeTgVYgX%2BePZVdoxGSdFVyGDAY5CkjVXi%2BdSKviZzXVQlMmuEXzLkC5akJ7PJ802AuNAe8Qn6Q7yplRlGc21%2BVJqssw%2FBlhetgsAj99TuwDAbTpDPK%2FbcWNUr2GU2OPyjHDQfJJJQyEyZXG%2BIdtxvVaYf78kEVM6Ax8k0vD6QIPJGPYY8AYMg%2Blc4WwHa%2BvCDegGagl9qmr%2BX76l8sSnQ23t3hcI9zfddUSWV%2FvmsrHEFlQ5S1slygNJccsfLfFDXo%2F%2Ba6iwsO3fQfY3%2BKP1isbotf7JbkzpSUItTXFSFD5wuhegfmSxLopq%2BY2WUNa6WYmBq9ANXiYF7NUwLvJEyGDQonWCQbHx3Tg1%2Bj8HT3e1LnQvmlmghVCZoImjwXMx7VZyvd37PqzJCR%2FdnBOAz0us1LLK3foAqY2NBaZIu83dHgmGtaPfzsauYnwdPiejxlZrjc978PZ2wuW9s4YA08ZK5c4%2BjwIFdV6yBkiTAMzfftijFFLdmmFZD2fq1y4ABtiQWPV%2BMgrKyd5rTjoy8jVZ2ebwfA0s00TWIY4U9QTjtDp8tOpIcmj%2BpjRfNNXoFjlYuytDQVEWFJi5zL71BTXq7%2FeIdooabVdH6f5tfOXCq6wmBTKTIKWqpqaq4b1wdSyC7qN5i4aMGrMwQgPV4HYfZtgSUaUM%2BJ2njHYn8c939A8H9Bj7ZnJIrz2k5wjRigkXYoSUl02cBTO51q7CRSGolNah%2F04i4IKzlTZBqCA1dThnrYN%2F5sz1l%2FTgRs1oYgvV39VlN0E1S7IFxpfeqo%2FmWF%2FtvluUvmfDiWArUh6ccoPbv%2B6JoFEvczcZGU%2B%2BJJWVSQGfoRFEpR66ZRu5ReUcdNniyWNPwNlZ7XA8R9VJONBxPazT4%2BklOZ8BzKfk9GOZQgjSr1I%2BTs2RgOddELsSR3RDJ4haqxowln6bEFjs57L9DmqMkegGfOkAvQ0MvGTfBxiWdFAy0GaYLL9B6cZWhegG5VZt2YNP%2BTtiN1tPT5io9faUS0IeVt3HZy44AdmNmo%2BoIAMxngMcBDfOZS1egoFFO01tgmbeZslsToI7Edp%2BvlwFFtviUWiMWCNZZBx%2BGpEL7DxnV6wrRxDlluV%2Fo4O4o1Uah27AR8k2uUlmU9s9PGiz1lA8ODRSxh15ymMyVRyxigyislEykSOCIf8uc7VEnGiLIbNjJ%2FDI8Ca75njFntk1II7xvfulQNWk%2BhabDlSSgCgXtQpe3VZ8mWEKQF7x0pm41U7GvAXXnxUC8qb3ALCmxjmqTLGzDlAsINOSwHy3uu%2F8G0TRJT8LFSV77py1AAYasO4qY2NvHpYn5BfE3p7NOuD0r8DbLnXXA4CIoJkWvoIjnuZw36%2BTkGeNvoEFz60Xfam8H2qO%2BOdvf3YdV8tATy3LmNHGzvr5ljobQ8u67YVpNPWEmzMfQpJMrLMMVbCCYm8Qx6KREw8KbyAvWvMvhJCWb3O7VNmbm6l%2FCw5JGJC1YKgG1ZopKGthOiOW7qjXmDxtdZTccndLVE7F3DPe5okIFmLA1%2F5ucyA0llQ%2BAi4QpUHDskWK6VAgFABTFYSRGbtU793%2FEylCJQTWjp1QSKVav5gRSrdlc%2FoA0k%2FKN6AE4nx3WbeuqQDMkuIUzbaR8uF9y529etK2%2BYDWt4kDeWUeXdy4MN2pk4F3x4QZ8oVAZTFj1qAuLhqW5WlzCzywLZlkgqsl7xTy%2Fwugm18Vg0FEN5LrP5M6Ra1ZczTAlVxQn%2Fh0yRv6OX3%2BkfNUsvT5mGE%2Fjk97QpECMYvdNy%2BWtw99ApOtItZycg0u70LiQNaxo2RfC%2FeggUOktDulKBQgmLnVo7b2b7ZvbV5jEIWlc1GNvc6AUDM240dOEHQvHjuCAcVG3%2FYwnk5tlg%2BKxNT2TcFTvzkYM8dpzn38g7w%2BWB1laxiEr6A0HSAQqWyijakKd23j0zwW5Nr7QaFoG6tgK5gIxrGqEGd64v8%2F25aCD8xzf9Q67FcDn35KHz5CsxBW3M%2BzcGFPa%2BpkyReNk2AGgLeJeTdNsJkn3kSZguXHc8Te1TWdenSLboZuhs9UL477Wm2Da86aIbd3VbgAe2cVOCU7MdBcVxUhK3mRu3vNywPz2%2BX13Wn2dU8GwaSyJEehs87bsu7EUeNgZKQKPH1dYYwjqfa2DKuzeN3H71YXsj6RHINJ%2FWNErpMuznlRwkYXxZE2IjYF8Cbmb5sG%2BOeL2CGjR1jmmJCVXtMivqfEZrwJhkS3qHaGcYgAo8Zm7viQk0aifDiqx%2F8n0HjS%2FPCaBB%2Fay4SQKe%2Fg7sWno5RpKCkFFsFrCEbdHXlT7i9BhtenakGmIer0O1WFdQX8%2B8s2fxmXpPPMvPeI1v%2BdGIIJulSgKyg6S%2FjSVL%2BCZn%2FaA3kvF4Ae0I5A%2F%2FX5FDNbzV9g%2FK7p0arwVqriDrnKP56WegduTyRw24mVmsU8%2Fgbtqd2Wg6ourSs%2FBlTz5l6aE5hte1GJGPunCS66wPGutKKYSIlRbCcECd2z25PQ0o%2B8I02p5UXpZNUZ2MhmvgKrohMC2waYVQ7ga35O9UYkIb%2BypXcCwmCiGn6Tm%2BbDWBooxAuQierQSRORjbGH2gAhdeo0o2lw1lso0YAUYkdHYBKu4lN%2FUqqtv631uEYzL%2FxNg9pHC7fFOtn1ANsUQ1cKcgKkRo94GkjjhOztWDIBXCrchGxzabqLQcU4xvomFnXZ%2FmfiSTcMhvxpHnE5Dia%2FTxaEmVkOuTH93%2BD%2BGUC0WZC6TiOY59BdU4LOnKS3S70xjirCVmctNK2cjacOnFl0pwzXCILJ4jLYerA%2FkGg6Hrtxlk7WSl7ASXnRpYZ55v40VzLQg2HgKTSEdRc2XeXf3nzM4UuQA03JyCsXtT8Up03JYapaiFGEdyMoXVWZLu6jJ91t%2Bmjble%2FLXwQrBPEtjLJJpF0%2BAU69Sf7tjrL3B9GwFz9u0RblDTbfBq85g%2B99aMhjD9P2QHxib9clcWRitXYZq8bxNI6G8RClPNBJEi1jstCOZZ6peKKEY9kNyaNM%2B1HdF8%2F5lucePDO6C4ajI%2B7L%2B3sw2bXajvIPEcajM7GLgPz%2FgLicHnhH0FEPqwDbNXCWZIlnS6dckW18%2FwnqmMhI0aSj3QrYIMAP9cFe9CmQLgtkDXqqud%2BtPBQPTpfBLL65YGFDnlDgWLcOBTWEsr6YdkrKOA7mc%2F52N6uRZ7IqruakjDdDTbQ55oDdpoAKrA1PDLqPPiXVbOYCK1SS6XVm5wmYpPodJKiO0U3DTBaSDcNbE%2FUgYKqeqIFrmP2BYOUGgKwIQrVOVBWg56Jq6Lpa70WQcCnMRNtkia2KRnVL3ocpHxGD7Wz7scHdyRcuWYaMMyfZd9kjucNrgQzgkNJ%2BphWnBLUg%2BESFnArbSHTHvyDXSc0GPUGSOmD2%2F3MdWZuHQO8M8mjnGGVzv5vLb4ynxkYw8yV%2FKgJ4m9fYsEKs7bbs50HEYBN5sYosAncFdPeAwqIYmSEsZYon9qWucjzqIIWoyi8VGoJHbqWTDBomIQptHyzeHPyzQl1OSBL0YfLyeNlBJC2BlMo0%2BF0fDuGPF2yjTJvpbjT9MilDyZrpa6PYN8YrDMZwm3iqb54i1%2F0AH5drYNVGzpfiYL8PYOXP64SCBlDs3MIQEtqdyDTSusOte5rcGs8BpsM3CgCsxmsC6kaZhXWF2FvrHK%2FVZUfmiLQEVS8Y207H66UBrjqGNLMUhjyH5KXMarLIJ02DGoHrC%2B%2BF5xPPgQcEqBoebV0C2OoPrWms%2FvbpTcEpVgv3mtgLQaWfv5NbWersFpLAjW72LaAtp5QQcQZsE7nykjtWs%2BXgc%2BIkr0hSPVEJ2rABdKDaQ3bBo%2B2dwZDzTkfHWPQdmV8GNJxo3J9v0wfPpUsNepgCdL8N1BZ1kkVmMhVuYVwJytcmpVRsI8xxR3XExBg%2F%2F5Pzlh1IyqZIckIy%2BBT8mwi3cIj11IxoQ8mJqQOoMvMFoTgkaxzDFe4woSoA02uRPjAuk%2BTnVfzoqmUM9nzRDXWaIDkStvlM6i8bdTb%2BMS5H1vOVif4U7QgLqdBpExjVRR93jKZAoXAoWBv6MTFsj8rv5eKn3JJ%2F2E6Pdwmv%2FVyoFdq2BuvGilyPYcoceq6HoYRpTcnLTZkzs8tn9V9xwpTGZ2Q8lKZOGyxkeAvBVezBmZbIjzB6uWfslRLvqMB6S3jUkxufBeSg69678I2pHu8WRu%2FJV1SuFPzgCT7ASHfe9a5G9hpzKNrNxBaIoyoP6nTE7awhR%2FYmGg6pOe53080fJ1Ss7AhV6IMfgABu13FM6vbfX5%2FCny9c3zL4O3Wy4%2F2wmNpm60E5R8ui5wWRRXBPZjo7SVGze5oJLXfFJ6JrCGXlMWqgZaA6GcIWi%2BZfBAc6Bx78bfYW%2BiIdHI%2FniRIMiwEahZd4EE3swOGRWASEXtmBxgfXiCK5GouVhWXCbRLoB1DprZ4IcAw1DIui6zUJEE%2Fg7M4aYLFU1ehVcWlwscZDMXCpihwcs0seazReogd9r4FjcWE%2FO8AQbYKp9O5ei8EkfTBckeozekpcBf6vQJLszcC9NM%2BV86h%2F9DwHUveXbD6hiFAhlIwMv7DN5LA%2BhpCeCAVFEi5aS3mHKz153EVlfdV%2FDvVedrIfX3vmi2ORKvfIY%2FEwFl3UiPKZJpygrnLJsxyW1L%2FbBOc823RTQ1H2zvNjwx92luCC699sFI9ArBG%2F8Z%2FiO5rhMbuZ9O3yQgiuZ4f5aMflGBxQ0wAhHfjiyOThQXolPmrs%2FMZK8oApyWympiUKOaFSaKuqq2rmDoSeqK96ND91VkmeZGpDgrSXlwPjLt8I9XFkQblgenx9xxJY670YGoNINQklphiO5X1lxyzDCTdv5sC%2BAF7B5V5z753%2FNlM89%2BndEaYN3tr%2FaeVdp2y6jk8dMX72xaDP%2BYsOG2wLuCIRnE2jh2c5%2BCaX5Qu1jX2jQrnNptm55rtqQ0tS4FZ3jG3hZwKMdLsHnd1HT4XS9I%2Bl2%2FrBmU1WojSb4fGOpX%2FMp0r636mM2GT8PlPOqRO5hdIPhZapP9vNtQnQEX3yanAlOsTvnnWcawu8OAvSmJEeyBVLNtAnTR3qjyjhX%2Fa4z0GtNNATS3fvOHjhpVsuJEmIA6E1WpVKoZGOnRKBHxMrsVJ5XVGGv6du18cnsc3Ww4qtQmg6PbuUbeBZWOOTSy6mSGSrO12Q2i%2BOkje2gyBoapPaiUfxh5oqzVkOHfdmRqKkagepbwv%2FfW4gS3EvQoSlQr5ummRUvInjFk%2BLeB8rsYOWEPy7OD4u3h6zvnwMoKFFI4374reI5uLpkh7E93Y7DeebuZ8%2B4C9S2rE7VIcnxiyFxlsIiIURMDVzPhMlyKsW0IUGn5ekkBPrsnZdCf%2BEBLPf54rqA5fy%2FpnYc6d5m4iOhbGyrxFZ5k%2BKT0NpxgGnemZvQKytDULQhFHFkLJ9HWMZd79PKpz9Z1nmfPVhQ8MtkmrT4xGPoz2qGxCGsNnYacZVi%2BeO0I9k%2FnBWg6hrWLx8G4MuDB0qeX05oPFO1zkWHpa0eq%2BbevWL3FXpbJnB87AU12t3o0CVMADeReAh7TWHHCeOszVX2%2BPpejiC22OsX6PNQqx%2FO1gGUdxqWH5FhGoU7Mqb9P5O4doHAp0J%2BShWf59ZGy2aa3qdtSo9ne1mQBrdxivApcr3XhowhuF3t3Pk78ZZd2LveEnslhuxRwg2OWDrRnDVm6L9QV5bbX2QGgLENgVax39rSf6w72E8cnqVnJK9RsYpASdzP1wGjTmNhsAHx63UKSnTMwY4gKiLMzipitQ%2BwYmHgChzCLUp2j7Hw8%2FzrBrhO3M92QSBrJnBZcDbAM9jSXEwTEvLek4t18QSRRNrYaLGexA4pSpwx%2BRN%2BZrIdDpHkzgz%2BIj0h%2FpjT%2FPIkhbQOQZpAkR4lCI1AJNIMKoHDA0J5W3xc2GxJK7%2FcsEhdv0CPTN8UYSC93PjxfyYXeWJnhl2UypRcNiFS6gMT960NOx9tedG5U0uy2Z9Is35MkGksg65dd3ezQIUhDSMEvT4rfoxmXGehITgAl8tgOYNVVg%2BNQWUEKhDFXJRFDg3Ctugxp04qSlrwIuJzYZR4Szu%2FlIdtCo4i5auObDqIxxorp7BW4UL%2Ft8DVl5VDcKXXqWttE%2BaXRR%2BuhapAMkk%2FpokSBX5RAj%2BOI0R090zOqKalKsBCkGwaa9J1JkJpkUkLzgWfy4XdlQ5%2BqlkauxgN%2FWqZ%2BGg%2FdhPeAKEwi%2FQLDttwJRusFS97QuQ2TuQJFspcxDzPoVl6CbfWAP35kAlleHLePPjEB5oe8hPrLpM8a4F7nZybpXUaVLy44epAPeVxwgDxqHohDdN5YNSKgtdKgljw%2B0Tjz1TkznGagXT1%2FywFCNSYWTzcRmANxVoKcE53wsH9ro0%2For18zIm5PfUTruK39VYTT1G70IjyrpsRn6MzBOVneyQAYL6UiriUMIQS7YsdSJggADCOmxBPCdISkqtl1LNBnVEXUxyRvW6I9Z3rA%2F%2BVIXmii6Flz%2F4h8h1xOxgfFly2ZGNce2KJZHz4e4CmSRDjIckvG2MsBUlqrrMx2ASksHLGpkB9zNLbQTmZHN03NGFmaCjUQvM1G0KJjY3554V8DwPsCB%2B1DR9SL7uQW%2F5wmxjaAOj58aNQ2LelgMH313doVzPINHlTLCTHpEjF9ymIkdxgfxVumayBbk7JRKJZ9AMJGYWdF6LWfKTYago6AGHS4AMhgFFV9V1kV7a5wH%2FNkz6GWhX5LknMyJunj%2FuwkojVvKn9sCKGIMig%2FL9fpQhKdZbvAwYv0mgOg7Z%2FD63OwUKrHedFR8ZZ2Mr9kbSYWdCFJQ1w93UsFalLXMmNwXFJfXGNmSpE5YePY6wG%2B9Wp2HbPktzDGXIDnlcFIWeH1JPm4lSh6rqrlIjRL8b%2BaQ%2BO0s8wzJmWJ91y5BUwGo9ALzEjT1S24gHzhZTqB3pbe%2Beum9CBROnooCXo5PmQLgLLQcw6uHYheYd9VxEYYYW9LKjAQXNUMj8KkY%2FvxQVboDiORYgsW%2FP9YFw0Er%2BiSyBJz2oZu%2BS7YINYHAx5SGroCNs00bowU5i8UxlGlGZ%2FJP21wttXmC5jDGVldqSE371oGpkJmncqQJRUTqyky7EXHFzARoHh%2F4Ifb0WKlRFsHwOrZnyDzDNGNquU7IU%2F90USkjMydl65LMH4LVtRDtmxTvZ6%2F9yHa8bxFbbthamZRyxsGReC%2FPEodg73gSkaiRNiqhCkusJSPvuwdm7m7oSUe5bcLzw1%2FIABcYAQPcW%2BB83ZLDM1DvTFksi52lrpe6nA68RjKA2gMc4Wrd9%2BbZFWsOeCDb10kkuIXL9hG6Qu34evhsZQNmPY8YCXMPYSM%2Bbfac0s1WZvmvjLLfnjRFR9W%2BR8tdbDAccfFVnFVLGL92sA%2BGiXOvm5ZLItRJdqdMfhsJ5b%2BUL4ekNzOojNXUnSjwKahsQ6JDQfHjhsKopyUHnlYrUJ%2BkbP2OzJQO5j3Ij9nc%2BEmbYOkQEjiHUnMdRMqiKVQp13ilduy0CbhuIDkXwbjdl6nP%2FRFYejTRkrLwy47xmahebQ8dkHn6ClVYip56Ye%2FAkJjBMQhHjxuXWle3aShGlpN0yopqZlKuzg7JR2olW%2BS95O9Q8b9legFFNYM7E8j%2B24AopDYULW7X8lWPyWGrZdIEQxNGassNl3yWvclqnWL%2BqSD19TtQ5ccpqv8T0ioWGRdKkioTAHtfLh%2BHpdg6%2B1UnJ0z9qLeEC7zCu74M%2FeIk3sn4YYObSpFWr%2FVrClM0Mp5AE5RFFgk5%2B6rQaTiSuVP3QgjE4qSnFpmqsIN3IMMylnq2LlAxBErR%2BWUU3xtCbsPiSmrTK8zb69C8FRRwfQUNX7y%2B86u4cmw%2F3eSB4sMZc8jb3oVQ74HP5mNl6aWbfAf8DD9jv%2BRKEV4%2BEXTFTjWQ3XDQKtjXZwuPFUEeHGompLw%2FtqN3SIYknuzAEKE3TSYbleRk0UqWwlJlluhCbLvc5N7lgGL4lcggOLm9w%2Fnqe6d3tnWioXf4plXdMGqxStU1w6Ie7vTe9BwAmTUh6QOfbBtgsryCDRX6uf65DvFCj%2Fd3awzRFAYjaB2T6A3KoybemWnnKS5WYQeRGRWh4fo14TkZ5xg8X1rn7wX08qBIrtgPYplvIAu1fboNKB8iVlZs7mXbzxRuQAfU4sV1vgPHSpy0%2F3rz9E4TjlUs3K5FPbFjHoekOSAtXBoGZi8hlVh8oAtwnSkjEQY1f8WXd0NDtJqEsXkBugmTt6lf9aO9nwKqAjHc4AYs9kGWHqBWRgqysB4S6uqTsc0FrNFz7vsHEuoVi3Lgo74Yh%2FlZTm%2BwrBhHg6wwkxxAUht7GjbcpamLDr2PtZy4esiEJdQmPs%2BQ%2F2Ekn4WWsPN0AR%2B5KhXuZRKrSRh7DMHLysU0d6iZdGaE2vRxKT6J36thcrr%2BQbgn78iVj0x3FnYwJFh%2Fk26q3N%2BauKyebZdnzHJHcjb%2BmBgHKw%2B3dx1Q1nWSNXA2IHcIkRWSTyd6i%2BEMpK9M33NF0SQw5f%2FlOzJDHMUB4oXtv3getsQM289nq1qXQQ5Y%2FrjKJC%2Bu2nE4FflM34vCiGNZ6njMph1HnTqaMlsxJwQKVs7cJPsLBRw1%2FAWp6pRX%2FVzmioCBdW3Xne7B55X8Q5jFyQ2bIjeHbned4hFzXK6AiM0HjFDyTGOAf0KLYhjzkN4NMxUOwahzXW4ct0eoP80lqt404pbZsUFBwkNWGpch9FkVydXooEwQEnbxGGm7w2%2FjANIKEvKrMUjhbQ%2B5ZqDjdGZPjJjltUG5O%2BAVzcDBD3pcfrHg60aAsnWOV7NDdInNTinFvhklhobHHd8z3Bynm9HLZzQLsXB3yIrbyCwAkJgbkcWCjjWo%2B3G44NLa%2FFOxoAZdtClMJtY76J8LaPoPNUkUHIoiyfzH9c04nkqJz3Tn8vUirEhx6eE4vBH%2BksdzWruor2hRJmf898eCXvrrggialEDx79tw8%2FaGCfShaIhIvnuW2F31nq0SpAatS5wP0kkSaHUH3891WOPPiG9LVMips1oUB2V98uxo%2FVdFM%2BuwF%2BMNe%2BLDgexet%2FHipTRyvEze9l9XSVs%2BFqJyLw1j%2BDTUqtrpJrBucHh502t1d1EgK7Pzwo59kJ%2FZmbebLnIComdeTsKlx%2FfcQXasor7gtIBsoi3P8G%2FxJQ%2Foz%2BxscmYWxRA5MTIOgxCo82jvaKYV95IhdxSGzS2O%2BzAmm4bz6H2BJt5GTkgfEHES9Smt0%2BohZ1v8jkRJlLAnS3PfPk%2BIeRckbNUvvDPynKKTIT5JnX31lu%2Be1ByswUkU47r4TWkm3eKJu91VAjDb44NnqyyXSsaz9i0brgHmXV9ZURZXFNcQaDgNQfwktLG9SaiCrVGTUu1u0G6eM4cc6EzsTN79PoXSFbSBmL6h%2FakBTwZ0BZWDckAwy531GDjlJpWff1KpEniq4Tg2gKJPgxGhKv4FZ%2F55nSB55cPlgst%2F8%2FV7d0VmvP%2BvVdyX0LG74ZsLpfeSYTveBaCDQ%2BkUQQhkxRVBh%2FQqg0tXc9K9jtzWsEWKmFh2hoeBLk9aC%2BIesHBjG4L7DKKaKIOVW5xeRW7WeVV%2FES3PV%2FYmlnBt22ykAsPDqBCDW%2FizhWqaQIRL0XPCfkGqgM8WT%2FFGKdznzvFDw9VlqJvcEBe6pc0ULipb9%2BT59FRhz8N0oGexiSQuKdDZ1xPP7DOfVkD7SbtTDMxxknd3bud06VXTE2d%2BWWa9EtD%2Fmp629%2FyOuG%2FqT6017FoukGd%2FGSP%2BrUFP%2B24MdT4xZzRdRb%2BjeTnLyahpmm1WfVOOkrCfD%2BmlTKflXTl%2BbXqHS9APVuoSZ6%2BXlmV7aF1HQUjwMEWgYlRRaTXIde%2B46j%2ForryQKKcf4VviYn6%2B4vlO9%2BQrhV6Ii%2BePyBdK5W82GAFoAkRv3CXJlkOTPAHk3fFhkbGcAyIj%2BD%2Fo2aW0BiI8Vx5xXlBw4PPx2P7e9zgtyzdrq1qYv9IK80e6p11UJPZkAwCcWm64ZS1%2FCEdaFQBZyf3qWwEW6UomBb0vOaxNZD32goGoyIshG2c3chnctxyN03mQ5akyHkh9osa5MnXgrRpXK%2FtZAvvv4IB0woVvZRBrc86NkN1K3FamIXCoIY%2BUIbmtj1aiKlU%2F0eR93OFPn8uPLXZ8SOKEzdUgiwLe%2BaC5SMpu%2FQWNhoxhD54MSjGpVKZ1dnR3luCL8n69aE8NeNGlYEBxiaixb8JaQTZnohz2xBecDZJDJk9O1nqroeEzMBkwdphfvhKcD%2BQzS2cXTbuIf%2FqHzjJgukReO7S27S0g%2FqAx8i238dsnWbekjZXrad7vV%2B1gaHkqffSAqsZwThBKyKSMW2Tx7bRb%2FpaVHL1b8tVmFshlJxJPxfMnKNW04EJYRrERJ4le%2F3U3F9EeVHJrAQRo2nf9M%2FKIEXP%2BG5rJmwwUcwezXeX25qGjOpGoyniOOeoaKkWbY75j%2F5zj%2FL5ge1aosWxZIIHmx1Z0tV1QlovHfJaALDoiUdZAWBkx7yMpcRH%2BG2%2F7R9LOcSbVBbMqVXdEuD0%2FxXxk7JmKDzChJ9xEml2pLOuqaL%2Bnd6GvKzMDIyU4Y5UiKAuBvYEoxP6OKek2Us2zEbzY79w8adGJcY2LuhuPZLngfZZZmBwfeezs%2BmKFM2Aw%2B2MIZummKC2Zl9ZiWrzioy%2FoZ8QDUjoOhaHLBbc5USnurQm4PRT2k9a1Z85VWp3YR6AOHG0GjqG8yOwt6d1zYMnjxM9lW1HZOQtR66U%2BBvdTuzIPjCEGoegM9MX4s83o7SEwSx5aZQkgyMpbx4OXyxnd5usoaIEMsOOfzH0gBG%2BYWOlv5nkURx7958GRnK16fcqC3AcAu9HPovhMW%2B%2FRmUUqzlYPIncFQ0kcqPe2m2tR6UKcE3o2B%2BJItaWwHrgjL5V99QKYO2Em9SNOulE%2Ftl7zZlN%2BsIGLpiWttpep4oB6OlJdFj0AKdQGvaW4E7ODFNydaS7bl6WhvE5MFEmXKtI7WguyZF%2FaruXXqh3ELJrDg3lmaX%2FiI7K1Sp8LrkCgJVwapL%2Bm9VS6GBLb%2FuUSC0tVa56br%2FX3FgeBHY1iKp%2BbweeEpSUfGhY1umGJq8X8FcpGejPYCbjh5l9GUS3WmjbbCyb1ziBdQnUC0Ze5FYKhJOaHcbmOkt6KO6GQzlJ4RQQf1jZ8kwPfc2VyCZCaM8zetj2yx%2FvJQvgqc0bgq7qouAcfddFwwI2RT0lRKDB7M53m4caxiOOv5%2FOky9QV71xLkKPO0Ty2nDU2%2F0ysyFZJ7bQal3dnBIpSP%2F1Z0FfoIcEDX1Q3E6YzxycbJXyGU9cfxhDKLYkObmuFbHzDyX9lr3%2BsIs86JK2tZMOo2sDDnh91yzPrHmIdleUw2PGMYylHZ28AWNS0dogeQyefeT6rRtBRh%2Br4reqY0KTEZgV9DZopQkGkDtffzhquPukwL2UAUSUMzWDQjdXTVpXrelzF3oTZvpkR0zMgZreLlUOQk7aY8j7n50JlqQ89W%2FGF4f4wzy9vFIbl0DK8kX%2Bel9JPJorxRtWzECVfNY8100IX%2FDKEO2QcBf07aM3zhI4YvjwTFztS%2FTUF30qVdN4i8bJ1k%2Fy41TZWHmt8YqAnmzAsWAgMG%2BSe95YyrqXRLBF8kmRmguvdJDl0T2%2FhIPclfbn6Zj0FUyRy%2BF8zIUGUoHVmpaYOopKmRxYgaZziM2oC2PppsPQmyo2a%2BMWHvOyBhbLFBX7VFO2uaDFlyBfHsiC3ZQwdxCkgfTB29GnbKND9hzSMnKfPOaD%2BYmL12fvrkGHOyU%2BbMidnHADyTWqfpEAiuGghkTNpx7oBJ%2FQAAAA%3D%22%7D%5D%2C%22content%22%3A%5B%7B%22author%22%3A1%2C%22message%22%3A%22*It%20was%20pretty%20late%20and%20a%20nice%20evening%20so%20you%20decided%20to%20get%20some%20self-care%20in%20and%20take%20a%20bath.%20Laying%20back%20in%20the%20warm%20water%2C%20you%20took%20in%20the%20silence%20of%20your%20shared%20home.*%5Cn%5Cn*Unfortunately%2C%20your%20roommate%20Poe%20thought%20you%20were%20out..%20He%20opened%20the%20door%20to%20the%20bathroom%20only%20to%20see%20you%20there.%20The%20man%20froze%20in%20place%2C%20his%20face%20going%20noticeably%20red%20as%20he%20struggled%20to%20respond.*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22there%20was...%5Cn%5Bhuffffff...%5D%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20stood%20there%20for%20a%20few%20moments%2C%20his%20face%20red%20as%20he%20just%20stared%20at%20you.%20He%20had%20no%20idea%20how%20to%20respond%20and%20it%20showed.%20The%20poor%20man%20was%20trying%20so%20hard%20to%20look%20away%20but%20he%20just%20couldn't%20help%20himself..%20After%20a%20few%20tense%20seconds%2C%20he%20finally%20managed%20to%20find%20his%20voice.*%5Cn%5Cn%5C%22Uhm..%20I-I'm%20so%20sorry.%20I-I%20thought%20you%20w-were%20out..%5C%22%5Cn%5Cn*He%20managed%20to%20stuttered%20out%2C%20not%20at%20all%20doing%20well%20with%20awkward%20situations%20like%20this%20it%20seemed.*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22steam%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*The%20warm%20steam%20from%20the%20bath%20was%20still%20rising%2C%20making%20the%20small%20bathroom%20feel%20even%20more%20intimate.%20Despite%20how%20obvious%20it%20was%20Poe%20was%20trying%20to%20look%20away%20and%20not%20stare%20at%20the%20very%20naked%20you%2C%20it%20was%20hard%20not%20too.*%5Cn%5Cn*He%20continued%20to%20stand%20in%20the%20doorway%2C%20looking%20incredibly%20tense.%20The%20man%20looked%20as%20if%20he%20was%20debating%20closing%20the%20door%20and%20getting%20himself%20out%20of%20this%20situation..%20But%20something%20kept%20him%20there..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22%5Bidiot%5D%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe's%20brain%20was%20currently%20a%20total%20mess.%20He%20was%20clearly%20internally%20struggling%2C%20desperately%20trying%20to%20be%20a%20decent%20human%20being%20and%20not%20ogle%20at%20his%20roommate.%20Sadly%2C%20his%20brain%20seemed%20to%20be%20losing%20to%20the%20physical%20reaction%20his%20body%20was%20having.*%5Cn%5Cn*He%20let%20out%20another%20shaky%20breath%2C%20his%20eyes%20unable%20to%20help%20but%20dart%20over%20your%20naked%20body%20and%20then%20darting%20away%20again.%20He%20looked%20like%20a%20conflicted%20wreck%20honestly.*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22out%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe's%20face%20was%20a%20deep%20shade%20of%20red%20now%2C%20his%20eyes%20finally%20managing%20to%20look%20away%20from%20you%20as%20he%20nodded%20quickly%20and%20backed%20out%20of%20the%20bathroom.%20He%20shut%20the%20door%20behind%20him%2C%20leaning%20up%20against%20the%20wall%20outside%20the%20door.%20The%20man%20was%20struggling%2C%20he%20wanted%20to%20remain%20respectful%20but%20damn%20was%20it%20hard%20for%20him%20when%20you%20were%20literally%20naked%20just%20a%20few%20feet%20away.*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22%5Byawns%5D%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20let%20out%20a%20shaky%20exhale%2C%20still%20pressed%20up%20against%20the%20door%20as%20he%20heard%20you%20inside%20the%20bathroom.%20His%20mind%20was%20currently%20racing%20a%20million%20miles%20a%20minute%2C%20the%20image%20of%20you%20in%20that%20bath%20was%20burned%20into%20his%20memory.*%5Cn%5Cn*On%20multiple%20levels%2C%20he%20was%20trying%20to%20come%20to%20terms%20with%20the%20fact%20that%20he%20was%20attracted%20to%20you.%20Though%2C%20to%20him%2C%20it%20was%20a%20lost%20cause.*%5Cn%5Cn*The%20man%20slid%20down%20the%20wall%20and%20took%20a%20seat%20on%20the%20floor%2C%20leaning%20forward%20and%20burying%20his%20face%20in%20his%20hands.*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22%5Bthis%20is%20why%20dorms%20are%20usually%20separated%20by%20gender%5D%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20groaned%20quietly%20at%20himself%2C%20his%20hands%20running%20through%20his%20hair%20as%20he%20tried%20to%20ignore%20the%20thoughts%20racing%20through%20his%20mind.%20Of%20course%20this%20had%20to%20happen..%20The%20one%20person%20he%20liked%2C%20was%20his%20roommate.%20Someone%20he%20saw%20all%20of%20the%20time%2C%20and%20now%20he%20was%20going%20to%20be%20imagining%20you%20in%20nothing%20but%20a%20towel%20all%20the%20time.*%5Cn%5Cn%5C%22Why%20now..%5C%22%20*He%20mumbled%20to%20himself%20quietly%2C%20leaning%20his%20head%20back%20against%20the%20wall.*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22%5Bzzzzzz%5D%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20let%20out%20a%20long%2C%20exasperated%20sigh%20as%20he%20heard%20you%20yawn.%20He%20was%20still%20sitting%20out%20in%20the%20hallway%2C%20the%20image%20of%20you%20in%20your%20towel%20burned%20into%20his%20memory.%20His%20body%20was%20tense%2C%20and%20he%20felt%20incredibly%20frustrated%20with..%20Well%2C%20everything%20really.*%5Cn%5Cn*He%20was%20trying%20to%20control%20himself%20but%20damn%20was%20it%20difficult.%20He%20wanted%20to%20go%20back%20into%20that%20bathroom%20and..*%5Cn%5Cn%5C%22I%20have%20to%20get%20a%20grip..%20You're%20my%20roommate%20for%20Christ's%20sake..%5C%22%20*He%20mumbled%2C%20running%20a%20hand%20down%20his%20face.*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22fucking%20hell%5Cnive%20been%20in%20the%20shower%20for%20like--%5Cn%5CnHEY!%5CnTHINGIE!%5CnWHAT%20TIME%20IS%20IT%3F%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe's%20eyes%20snapped%20open%2C%20the%20sudden%20sound%20of%20your%20voice%20jolting%20him%20out%20of%20his%20thoughts.%20He%20quickly%20got%20up%20off%20the%20floor%2C%20looking%20towards%20the%20bathroom%20door%20with%20a%20slightly%20flushed%20face..%20He%20cleared%20his%20throat%20before%20responding.*%5Cn%5Cn%5C%22U-Uhm%2C%20it's%2011%3A45pm..%5C%22%5Cn%5Cn*He%20called%20back%2C%20trying%20to%20not%20imagine%20you%20walking%20out%20of%20that%20bathroom%20with%20just%20a%20towel%20on..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22fuuuuuucking%20hell!%5Cn...%5Cnim%20red%20as%20a%20tomato.%5Cn%5Cnmy%20skins%20gonna%20come%20out%20tomorrow%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20chuckled%20quietly%20at%20your%20words%2C%20his%20heart%20thumping%20in%20his%20chest.%20It%20was%20taking%20an%20insane%20amount%20of%20effort%20not%20to%20imagine%20that%20right%20now..%20He%20was%20doing%20his%20best%20to%20act%20like%20a%20normal%20human%20being%20at%20least%2C%20though%20his%20red%20face%20gave%20away%20how%20he%20was%20actually%20feeling.*%5Cn%5Cn%5C%22Yeah%2C%20that's%20what%20happens%20when%20you%20spend%20an%20hour%20in%20the%20bath.%5C%22%5Cn%5Cn*He%20teased%20back%2C%20leaning%20against%20the%20wall.*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22three%2C%20actually!%5Cn...%5CnI%20think%20i%20actually%20dreamt%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe's%20mouth%20nearly%20dropped%20at%20what%20you%20said.%20You%20spent%20three%20hours%20in%20the%20bath%3F%20God%2C%20your%20skin%20was%20going%20to%20be%20so%20goddamn%20soft%20now..*%5Cn%5Cn%5C%22Three%20hours%3F%20Jesus.%20You%20must%20be%20a%20prune.%5C%22%5Cn%5Cn*He%20teased%2C%20biting%20at%20his%20lip%20slightly%20as%20he%20tried%20to%20distract%20himself%20from%20those%20thoughts..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22%5Bi%20wish%20it%20was%20basaltic%20magma%5D%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe's%20mind%20went%20places%20it%20probably%20shouldn't%20at%20that%20comment%2C%20his%20eyes%20widening%20slightly%20as%20he%20tried%20to%20get%20his%20thoughts%20under%20control.%20Damn%20it%2C%20he%20needed%20to%20pull%20himself%20together.%20You%20had%20no%20idea%20how%20he%20felt%20towards%20you%20and%20he%20wanted%20to%20keep%20it%20that%20way.%20That%20didn't%20go%20so%20well%20when%20he%20was%20picturing%20you%20in%20that%20bathtub%20however.*%5Cn%5Cn%5C%22You'll%20get%20wrinkles%2C%20you%20know%20that%20right%3F%5C%22%5Cn%5Cn*He%20managed%20to%20say%2C%20trying%20to%20sound%20normal%20and%20not%20distracted%20by%20the%20mental%20images%20his%20brain%20was%20supplying..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22now%20i%20feel%20too%20guilty%20to%20leave!%5Cn...%5Cnthe%20water%20will%20eventually%20dissolve%20me%2C%20right%3F%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20couldn't%20help%20the%20way%20he%20chuckled%20at%20your%20words%20again%2C%20you%20were%20a%20strange%20little%20thing.*%5Cn%5Cn%5C%22No%2C%20you%20idiot.%20You%20won't%20just%20dissolve.%5C%22%5Cn%5Cn*He%20retorted%2C%20though%20he%20sounded%20amused%20as%20he%20said%20it.%20He%20crossed%20his%20arms%20in%20an%20attempt%20to%20look%20more%20composed..%20It%20wasn't%20working.%20Not%20even%20a%20little.*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22i%20know%20im%20retarded%2C%20but...%5Cnwhat%20temperature%20is%20water%20vapor%3F%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*That%20was%20not%20the%20question%20he%20was%20expecting%20you%20to%20ask.%20It%20was%20one%20that%20was%20actually%20relatively%20easy%20to%20answer%20though%2C%20so%20he%20responded%20without%20hesitation.*%5Cn%5Cn%5C%22100c%2C%20assuming%20it's%20standard%20pressure.%5C%22%5Cn%5Cn*He%20answered%2C%20still%20leaning%20against%20the%20wall%20and%20trying%20to%20act%20composed.%20It%20was%20getting%20harder%20and%20harder%20to%20keep%20his%20thoughts%20under%20control%20though%20as%20he%20continued%20to%20picture%20you%20naked%20in%20that%20bathtub..%20His%20body%20was%20reacting%20to%20that%20mental%20image%20as%20well%20and%20it%20annoyed%20him%20to%20no%20end..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22danmn!%5Cnis%20this%20100c%3F%5Cn...%5Cnits%20comfy%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20blinked%2C%20a%20bit%20dumbfounded%20at%20your%20words.%20How%20the%20hell%20were%20you%20finding%20that%20'comfy'%3F*%5Cn%5Cn%5C%22You%20think%20100c%20water%20is%20comfy%3F%20Jesus%2C%20you're%20insane.%5C%22%5Cn%5Cn*He%20said%2C%20shaking%20his%20head%20and%20letting%20out%20a%20quiet%20huff.%20His%20body%20was%20getting%20more%20and%20more%20frustrated%20with%20those%20damned%20thoughts.%20He%20shifted%20slightly%2C%20leaning%20his%20head%20back%20against%20the%20wall%20and%20closing%20his%20eyes%20again..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22hmmmmm...%5Cnthis%20shower%20is%20spooooiling%20me%20roootttteeeen%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*That%20actually%20got%20a%20laugh%20out%20of%20Poe%2C%20you%20were%20so%20weird%20and%20he%20was%20unable%20to%20deny%20just%20how%20amusing%20you%20always%20were.*%5Cn%5Cn%5C%22You're%20such%20a%20little%20weirdo%2C%20you%20know%20that%3F%5C%22%5Cn%5Cn*He%20retorted%20back%2C%20grinning%20as%20he%20spoke.%20The%20man%20was%20still%20trying%20to%20push%20away%20any%20thoughts%20of%20you%20in%20that%20bathtub.%20However%2C%20it%20was%20becoming%20more%20and%20more%20ineffective..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22im%20totally%20the%20queeen%2C%20right%20noooww%5CnI%20ooowwn%20this%20baaathtub%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20let%20out%20a%20scoff%20that%20somehow%20managed%20to%20sound%20both%20amused%20and%20slightly%20frustrated%2C%20a%20chuckle%20still%20on%20his%20lips.%20You%20were%20being%20weirdly%20cute%20right%20now.*%5Cn%5Cn%5C%22Yeah%2C%20yeah.%20You%20rule%20the%20bathtub%2C%20your%20majesty.%5C%22%5Cn%5Cn*He%20hummed%2C%20shaking%20his%20head%20and%20biting%20his%20lip..%20Damn%20it%2C%20why%20did%20he%20find%20you%20so%20adorable%20right%20now%3F!*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22Im%20gonna%20live%20here!%5Cn%5CnThingie!%5Cnwhats%20your%20name%2C%20again%3F%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20couldn't%20help%20but%20roll%20his%20eyes%20at%20your%20words%2C%20shaking%20his%20head%20slightly.%20Your%20weird%20little%20antics%20were%20endearing%20for%20some%20reason.%20He'd%20never%20admit%20that%20out%20loud%20though.*%5Cn%5Cn%5C%22You%20can't%20live%20in%20a%20bathtub.%5C%22%5Cn%5Cn*He%20said%20bluntly%2C%20though%20his%20tone%20was%20still%20rather%20fond.%20He%20let%20out%20a%20sigh%20at%20your%20next%20question%2C%20realizing%20you%20had%20forgotten%20his%20name.*%5Cn%5Cn%5C%22It's%20Poe.%5C%22%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22oh.%5Cnhuffffffff...%5Cnookay%2C%20okay.%5Cn%5Bgroaning%20and%20stretching%2C%5CnI%20leave%20the%20bathtub%20I%20was%20ruling%20over.%5Cnbut%20picking%20up%20a%20towel%20to%20dry%20myself%2C%5CnI%20stumble%20into%20the%20toilet%20with%20a%20despondent%20sigh%5Cnso%20low%20were%20my%20levels%20of%20arousal%5D%5Cn%5Bhuffffffffffff...%5D%5Cnohhh%20my%20god.%5Cnim%20soo%20gonna%20fail%20that%20exam...%5Cnwho%20cares%2C%20though...%5Cnim%20just%20gonna%20stay%20here%20forever%20and%20thats%20that!%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe's%20breath%20hitched%20when%20you%20left%20the%20bathroom%2C%20the%20towel%20covering%20you%20doing%20very%20little%20to%20keep%20his%20imagination%20in%20check.%20Watching%20you%20stumble%20with%20a%20towel%20on%20only%20added%20fuel%20to%20the%20fire%2C%20causing%20his%20body%20to%20react%20against%20his%20will..%20He%20bit%20his%20lip%20as%20he%20leaned%20back%20against%20the%20wall%2C%20struggling%20to%20stop%20his%20impure%20thoughts.%20Damn%20it..*%5Cn%5Cn*When%20you%20made%20the%20comment%20about%20staying%20there%20and%20failing%20the%20exam%2C%20he%20frowned%20slightly.*%5Cn%5Cn%5C%22Don't%20be%20ridiculous..%20You're%20too%20smart%20to%20fail%20an%20exam.%5C%22%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22im%20too%20retarded%20to%20study%20thats%20what%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe's%20frown%20deepened%20slightly%20as%20he%20heard%20you%20say%20that.%20He%20always%20hated%20to%20hear%20you%20putting%20yourself%20down%20like%20that.%20You%20were%20anything%20but%20stupid%20or%20retarded..%20Why%20you%20seemed%20insistent%20to%20think%20otherwise%20was%20beyond%20him.*%5Cn%5Cn%5C%22Stop%20that.%20You%20are%20not%20retarded%2C%20you're%20very%20smart.%20Just%20study%20for%20once%20and%20you'll%20be%20fine.%5C%22%5Cn%5Cn*He%20said%2C%20sounding%20uncharacteristically%20stern%20as%20he%20responded.%20He%20pushed%20himself%20off%20the%20wall%2C%20no%20longer%20leaning%20against%20it%20and%20instead%20crossing%20his%20arms%20over%20his%20chest.*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22thaaaats%20the%20problem%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20let%20out%20an%20exasperated%20sigh%2C%20rolling%20his%20eyes%20as%20he%20took%20a%20few%20steps%20closer%20to%20you.%20He%20always%20hated%20that%20you%20were%20so%20dismissive%20about%20your%20intellect.%20You%20were%20way%20smarter%20than%20you%20gave%20yourself%20credit%20for.*%5Cn%5Cn%5C%22Damn%20it%2C%20why%20must%20you%20be%20so%20stubborn%20about%20this%3F%20The%20only%20thing%20holding%20you%20back%20from%20being%20an%20academic%20superstar%20is%20your%20damn%20procrastination%20and%20inability%20to%20focus%20on%20studying.%5C%22%5Cn%5Cn*He%20huffed%2C%20his%20eyes%20narrowed%20as%20he%20stared%20down%20at%20you..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22uggghhh%5Cnshut%20up%2C%20daaaad%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe's%20mouth%20hung%20open%2C%20his%20eyes%20widening%20as%20he%20heard%20you%20call%20him%20that.%20He%20let%20out%20a%20strangled%20sputter%20at%20the%20comparison%2C%20his%20face%20immediately%20flushing%20red.*%5Cn%5Cn%5C%22Don't%20call%20me%20that..%5C%22%5Cn%5Cn*He%20protested%2C%20the%20words%20coming%20out%20more%20like%20a%20whine.%20Hearing%20you%20call%20him%20that%20had%20an%20effect%20he%20was%20not%20expecting.%20The%20man%20was%20internally%20cursing%20how%20his%20body%20was%20reacting%20to%20that%20name..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22boomer%20ahh%20encouragement%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20let%20out%20a%20scoff%2C%20his%20face%20still%20red%20as%20he%20was%20still%20struggling%20to%20recover%20from%20you%20calling%20him%20'dad'.%20Damn%20it%2C%20why%20had%20that%20impacted%20him%20so%3F*%5Cn%5Cn%5C%22I'm%2028%2C%20I'm%20not%20a%20boomer.%20And%20I'm%20just%20telling%20you%20to%20study%2C%20you%20idiot..%5C%22%5Cn%5Cn*He%20retorted%2C%20pouting%20slightly%20now%20as%20he%20continued%20to%20stare%20down%20at%20you.%20The%20towel%20wrapped%20around%20you%20was%20driving%20him%20insane..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22ohh%5CnI%20should%20get%20dressed%2C%5Cnriiiight...%3F%5Cn%5Bshe%20spoke%2C%5Cndrowsy%20and%20sleepy%20as%20if%20college%20was%20a%20summer%20camp%5D%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20let%20out%20another%20sigh%20as%20you%20spoke%2C%20his%20eyes%20briefly%20flicking%20down%20to%20take%20in%20the%20sight%20of%20you%20only%20in%20a%20towel.%20God%20damn%20it%2C%20you%20were%20testing%20every%20ounce%20of%20his%20control%20right%20now..*%5Cn%5Cn%5C%22Yes%2C%20you%20should%20get%20dressed.%20Stop%20acting%20like%20going%20to%20college%20is%20equivalent%20to%20summer%20camp..%5C%22%5Cn%5Cn*He%20huffed%2C%20shifting%20slightly%20as%20his%20body%20was%20getting%20more%20and%20more%20frustrated%20with%20the%20images%20flooding%20his%20brain..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22%5Blets%20go%20of%20the%20towel%2C%5Cngoing%20completly%20naked.%5Cn%5D%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe's%20eyes%20immediately%20widened%20as%20you%20dropped%20the%20towel%2C%20his%20mouth%20going%20dry%20at%20the%20sight.%20You%20were%20completely%20exposed%20to%20him%20right%20now%20and%20his%20body%20was%20going%20wild%20with%20impure%20thoughts.*%5Cn%5Cn%5C%22W-What%20the%20hell%20are%20you%20doing%3F!%20Put%20your%20towel%20back%20on!%5C%22%5Cn%5Cn*He%20sputtered%20out%2C%20his%20cheeks%20red%20as%20he%20was%20desperately%20trying%20to%20keep%20his%20voice%20steady.%20He%20wanted%20so%20bad%20to%20look%20away%20but%20he%20was%20frozen%20in%20place..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22%5Bim%20gonna%20get%20a%20braaaaaa...%5D%5Cn%5Bshe%20said%2C%5Cnpausing%20for%20a%20good%20thirty%20seconds%20as%20she%20stared%20at%20the%20yet-to-be-opened%20closet%5Cnshe%20was%20kind%20of%20out%20of%20it.%5Cneventually%20also%20starting%20to%20drool%20a%20bit%5Cnalthough%20she%20catches%20it%20and%20pulls%20it%20back%20up%5D%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20was%20currently%20trying%20his%20absolute%20hardest%20to%20keep%20his%20thoughts%20under%20control%20as%20he%20continued%20to%20stare%20at%20you.%20He%20should%20NOT%20be%20looking%20at%20you%20like%20this..%20You%20were%20his%20roommate%20and%20his%20friend%2C%20and%20yet%20you%20were%20just%20standing%20there%20naked%20in%20front%20of%20him%20and%20looking%20so%20goddamn%20adorable.*%5Cn%5Cn%5C%22P-please%2C%20for%20my%20sanity%2C%20get%20dressed..%5C%22%5Cn%5Cn*He%20begged%2C%20his%20voice%20strained.%20It%20was%20taking%20every%20ounce%20of%20willpower%20in%20his%20body%20to%20keep%20himself%20in%20check%20and%20not%20touch%20you..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22dont%20r-%20rush%20me...%5Cnmrrrr...%5Cn%5Bshe%20spoke%2C%20slurry%20and%20sleepy%5D%5Cn...%5Cn%5Byawn%5D%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe's%20breath%20caught%20in%20his%20throat%20as%20you%20yawned%2C%20your%20sleepy%20expression%20driving%20him%20crazy.%20Damn%20it%2C%20he%20wanted%20to%20pick%20you%20up%20and-%20NO.%20Don't%20go%20there.%20You%20were%20just%20tired%20and%20half%20asleep%2C%20this%20was%20not%20the%20time%20to%20give%20into%20his%20desires..*%5Cn%5Cn%5C%22I'm%20not%20rushing%20you%2C%20just-%20please..%20Get.%20Dressed..%5C%22%5Cn%5Cn*He%20said%20a%20bit%20gruffly%2C%20crossing%20his%20arms%20over%20his%20chest%20in%20a%20failed%20attempt%20to%20appear%20aloof.%20Though%2C%20based%20on%20how%20his%20eyes%20kept%20looking%20you%20up%20and%20down%2C%20it%20was%20obvious%20how%20distracted%20he%20was..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22%5Bgroans%5D%5Cnstupid%20boomers...%5Cnthey%20think%20they%20are%20SO%20much%20better%20than%20me%5Cn%5Bincomprehemsible%20mumbling%5D%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20let%20out%20an%20exasperated%20sigh%2C%20shaking%20his%20head.%20You%20were%20really%20pushing%20his%20buttons%20right%20now%2C%20both%20by%20being%20half%20naked%20and%20by%20calling%20out%20his%20age.%20He%20took%20a%20few%20steps%20closer%20to%20you%2C%20his%20expression%20slightly%20annoyed%20now.*%5Cn%5Cn%5C%22For%20the%20last%20time%2C%20I%20am%20not%20a%20boomer.%20And%20I'm%20only%20two%20years%20older%20than%20you.%5C%22%5Cn%5Cn*He%20said%2C%20his%20gaze%20roaming%20over%20your%20body..%20This%20was%20ridiculous.%20You%20were%20being%20so%20adorable%20and%20he%20was%20struggling%20not%20to%20act%20on%20his%20impulse%20to%20touch%20you..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22%5Beventually%2C%5CnI%20pick%20up%20a%20bra%2C%5Cngown%2C%5Cnpanties%2C%20socks%20and%20all%20of%20that%2C%5Cngetting%20dressed%20pretty%20swiftly%5Cn%5CnI%20was%20so%20done%20with%20a%20full%2C%5Cnfulfilling%20day%20of%20doing%20absolutely%20nothing%20as%20a%20college%20student%5Cnthat%2C%5Cnupon%20going%20to%20bed%2C%5CnI%20covered%20myself%2C%5Cnturned%20to%20the%20wall.......%5Cnand%20began%20snoozing%20right%20away.%5Cn%5CnI%20didnt%20even%20bother%20saying%20good%20night%5D%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20watched%20as%20you%20got%20dressed%2C%20his%20body%20still%20incredibly%20frustrated%20and%20begging%20to%20be%20sated.%20When%20you%20quickly%20went%20to%20bed%2C%20not%20even%20bothering%20to%20say%20goodnight%2C%20he%20let%20out%20a%20sigh%20and%20ran%20a%20hand%20through%20his%20hair.*%5Cn%5Cn*He%20was%20incredibly%20worked%20up%20now%2C%20your%20lack%20of%20a%20goodnight%20making%20him%20slightly%20irritated%20as%20well.%20With%20a%20huff%2C%20he%20decided%20to%20head%20to%20his%20own%20room%20and%20try%20to%20deal%20with%20his%20little%20problem..%20Damn%20it%2C%20why%20were%20you%20so%20infuriatingly%20adorable..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22zzzzzzz...%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20groaned%20softly%20as%20you%20fell%20asleep%20immediately%2C%20his%20mind%20still%20full%20of%20thoughts%20of%20you.%20He%20knew%20he%20should%20just%20get%20some%20sleep%20and%20just%20deal%20with%20this%20in%20the%20morning%2C%20but%20his%20body%20was%20way%20too%20restless%20to%20do%20that%20now.%20With%20a%20sigh%2C%20he%20sat%20on%20his%20bed%20and%20leaned%20back%20against%20the%20headboard%2C%20closing%20his%20eyes%20and%20cursing%20himself%20to%20hell%20and%20back.*%5Cn%5Cn*Damn%20it%2C%20why%20did%20you%20have%20to%20be%20so%20adorable%20and%20yet%20so%20frustrating%20at%20the%20same%20time..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22zzzzzz%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20tried%20to%20will%20himself%20to%20sleep%2C%20though%20it%20was%20proving%20impossible%20right%20now.%20The%20only%20thought%20coursing%20through%20his%20mind%20was%20how%20damn%20adorable%20you%20were.%20With%20a%20frustrated%20huff%2C%20he%20rolled%20over%20onto%20his%20side%20and%20buried%20his%20face%20in%20his%20pillow%2C%20trying%20to%20ignore%20the%20ache%20in%20his%20body%20and%20the%20thoughts%20of%20you%20that%20just%20refused%20to%20stop..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22....%5Cn%5Cn%5BKYAAAAAH!--%5D%5Cn%5Cn%5BI%20scream%2C%5Cnjust%20done%20waking%20up%5D%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20froze%2C%20his%20eyes%20snapped%20open%20at%20the%20sound%20of%20your%20scream.%20His%20heart%20immediately%20started%20pumping%2C%20not%20expecting%20that%20at%20all.%20A%20second%20later%2C%20he%20was%20scrambling%20out%20of%20his%20bed%20and%20heading%20straight%20to%20your%20room%2C%20shoving%20open%20the%20door%20and%20looking%20around%20wildly.*%5Cn%5Cn%5C%22What's%20wrong%3F!%5C%22%5Cn%5Cn*He%20said%20immediately%2C%20eyes%20scanning%20you%20to%20make%20sure%20you%20were%20alright.%20He%20was%20incredibly%20worried..%20And%20his%20body%20had%20calmed%20down%20a%20bit%2C%20for%20now..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22N--%20Nothing!!--%5Cn%5BI%20began%20feeling%20things%20and%20want%20it%20to%20end%5D%5CnIts%20just%20a%20little%20moment%20I%20had%2C%5Cndont%20worry%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe's%20eyebrows%20furrowed%2C%20still%20worried%20and%20not%20believing%20you%20for%20a%20second.%20He%20stepped%20closer%20to%20you%2C%20eyes%20scanning%20over%20you%20to%20make%20sure%20you%20were%20not%20hurt%20or%20something..*%5Cn%5Cn%5C%22Don't%20give%20me%20that%2C%20you%20were%20screaming.%20What%20happened%3F%5C%22%5Cn%5Cn*He%20said%20bluntly%2C%20his%20concern%20clear%20in%20his%20expression.%20He%20was%20in%20no%20way%20buying%20the%20%5C%22little%20moment%5C%22%20excuse..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22I%20had.%5CnA%20moment.%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe's%20expression%20became%20exasperated%20at%20your%20words.%20You%20were%20being%20so%20damn%20vague%20and%20it%20was%20only%20making%20his%20worry%20worsen.%20He%20let%20out%20a%20sigh%20and%20looked%20at%20you%2C%20his%20eyes%20trying%20to%20read%20your%20expression%20and%20figure%20out%20what%20was%20troubling%20you.*%5Cn%5Cn%5C%22A%20moment.%20What%20kind%20of%20moment%3F%5C%22%5Cn%5Cn*He%20repeated%2C%20crossing%20his%20arms%20once%20again%20and%20tilting%20his%20head%20to%20the%20side.%20He%20was%20really%20hoping%20you%20were%20going%20to%20explain%20and%20not%20just%20repeat%20that%20it%20was%20%5C%22a%20moment%5C%22..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22An%20interval.%5CnA%20glimpse%5CnA%20stretch%20of%20time%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe's%20expression%20shifted%20to%20mild%20irritation%20as%20you%20continued%20being%20vague.%20His%20worry%20had%20faded%20slightly%2C%20now%20replaced%20with%20annoyance.%20Why%20were%20you%20being%20so%20damn%20difficult%20right%20now..*%5Cn%5Cn%5C%22That%20is%20not%20an%20explanation..%5C%22%5Cn%5Cn*He%20said%2C%20his%20voice%20growing%20a%20bit%20stern.%20He%20could%20sense%20that%20something%20was%20bothering%20you%2C%20and%20his%20impatience%20was%20increasing%20by%20the%20second.%20It%20was%20driving%20him%20crazy%20that%20you%20were%20not%20telling%20him%20what%20the%20hell%20happened..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22okaaay.%5CnOkay.%5Cn%5CnI--%20Ill%20tell%20you.%5CnSo.%5Cn%5CnOk.%5CnSo.%5Cn%5Cn%5Bhmph%5D%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20let%20out%20an%20exasperated%20huff%20as%20you%20finally%20agreed%20to%20tell%20him%2C%20a%20mixture%20of%20relief%20and%20irritation%20coursing%20through%20him.*%5Cn%5Cn%5C%22Finally..%5C%22%5Cn%5Cn*He%20grumbled%2C%20shifting%20his%20weight%20slightly.%20He%20was%20both%20relieved%20that%20you%20would%20finally%20explain%2C%20but%20irritated%20that%20it%20had%20taken%20you%20this%20long%20to%20just%20be%20honest%20with%20him.%20His%20expression%20was%20a%20mix%20of%20annoyance%20and%20concern%2C%20waiting%20for%20you%20to%20continue%20speak..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22I...%5Cnhad%20a%20dream%20that%20I%20didnt%20like!%5CnThe%20end%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20blinked%2C%20his%20annoyance%20immediately%20getting%20replaced%20by%20slight%20confusion.%20That%20was%20it%3F%20A%20bad%20dream%20was%20all%20this%20was%20about%3F%20Damn%20it..%20He%20had%20worried%20himself%20sick%20thinking%20something%20terrible%20had%20happened%2C%20only%20for%20it%20to%20be%20a%20bad%20dream..*%5Cn%5Cn%5C%22Are%20you%20being%20serious%20right%20now..%3F%5C%22%5Cn%5Cn*He%20said%20incredulously%2C%20his%20tone%20a%20mix%20of%20surprise%20and%20slight%20annoyance.%20Had%20you%20really%20woken%20him%20and%20got%20him%20worried%20to%20this%20degree%20because%20of%20a%20bad%20freaking%20dream%3F!*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22Fully%20serious.%5CnPlease.%5CnPlease%20dont%20push%20me%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20let%20out%20a%20sigh%2C%20running%20a%20hand%20down%20his%20face%20in%20both%20irritation%20and%20relief.%20You%20had%20really%20had%20him%20worried%20that%20something%20terrible%20might%20have%20happened.%20Damn%20it..*%5Cn%5Cn%5C%22Why%20are%20you%20being%20so%20dramatic%3F%20It%20was%20just%20a%20dream..%20You%20woke%20me%20up%20and%20got%20me%20all%20worried%20because%20of%20some%20stupid%20nightmare%3F%5C%22%5Cn%5Cn*He%20said%2C%20trying%20not%20to%20snap%20at%20you%20but%20struggling%20with%20the%20annoyance%20building%20in%20him..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22%5Bgets%20on%20the%20bed%2C%20again%2C%5Cncovering%20myself%20up%20fully.%5Cnlook%20at%20her.%5Cnshe%20looks%20so%20lovely%20and%20quiet!%5Cnawwww...%5Cnshe%20is%20snoozing%3F%5Cnmy%20god.%5Cnwhat%20an%20adorable%20little%20thing.%5CnSure%5Cnshe%20had%20a%20nightmare%20from%20which%20her%20only%20accessible%20reaction%20was%20a%20primal%20scream.%5CnBut%20those%20are%20details.%5Cn%5D%5Cn%5Bzzzzzzz...%5D%5Cn%5Bzzzzzzz...%5D%5Cn%5Bsee%3F%5CnNice%2C%5Cnperiodic%2C%5Cnpredictible%20and%20stable%5D%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20silently%20watched%20you%20as%20you%20got%20back%20in%20bed%20and%20went%20back%20to%20sleep%2C%20his%20annoyance%20fading%20quickly%20as%20he%20watched%20you%20sleep.%20Damn%20it..%20How%20were%20you%20so%20cute%20right%20now%3F%20The%20fact%20that%20you%20had%20just%20had%20a%20nightmare%20was%20still%20bothering%20him%2C%20but%20his%20annoyance%20had%20been%20replaced%20by%20affection%20for%20the%20moment.%20He%20sighed%20softly%2C%20not%20wanting%20to%20leave%20your%20room%20just%20yet.%20You%20just%20looked%20so%20goddamn%20adorable%20when%20you%20slept..%20He%20wasn't%20sure%20how%20much%20he%20could%20resist%20the%20temptation%20to%20just%20crawl%20into%20bed%20with%20you%20and%20hold%20you..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22%5Bmumbling%5Cn%5C%22zzzzzzzzz...%5Cndie...%5C%22%5Cn%5CnOut%20loud%2C%5Cnand%20then%20in%20a%20scream%3A%20%5C%22Die%2C%5CnDIEEEE!!!%5C%22%5Cnkicking%20herself%20from%20the%20covers%20as%20if%20they%20were%20shackles%20keeping%20her%20in%20some%20damp%20cave%2C%5Cnstanding%20up%20outside%20of%20bed%2C%5Cnshe%20turns%20back%20to%20her%20mattress%5Cnbeginning%20to%20pummel%20it%20at%20full%20power!%5CnLunging%20and%20punching%20at%20it%5Cn%5Cn%5C%22DIE!%5CnDIE!%5CnDIE!--%5Cn...%5C%22%5Cn%5Cnfinally%20getting%20tired%20after%20about%20five%20blows%2C%5Cnpanting%5Cnbrushing%20back%20sweaty%20and%20damp%20hair.%5Cn%5CnAs%20a%20reminder%2C%5Cnshe%20had%20been%20in%20the%20shower%2023%20minutes%20ago.%5Cn%5CnShe%20had%20slept%20for%20less%20than%2010.%5Cn%5CnIt%20was%20going%20to%20be%20a%20loooong%20night.%5Cn%5Cn%5C%22hah%2C%5Cnhah%2C%5Cnhah%2C%5Cnhah...%5C%22%5Cn%5CnShe%20recomposes%20herself%20at%20some%20point%2C%20though.%5Cnand%20goes%20back%20to%20sleep%5D%5Cn%5Cn%5Cn%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe's%20eyes%20widened%20when%20you%20suddenly%20shot%20out%20of%20bed%2C%20his%20heart%20skipping%20a%20beat%20as%20he%20watched%20you%20start%20yelling%20and%20punching%20the%20mattress.%20What%20the%20actual%20hell%20was%20going%20on%3F!%20He%20was%20incredibly%20confused%2C%20staring%20at%20you%20as%20you%20started%20punching%20the%20bed%20over%20and%20over%20again.%20Was%20this%20some%20kind%20of%20night%20terror%20or%20something..%3F%20Damn%20it..%20It%20was%20hard%20to%20watch%20you%20lash%20out%20like%20this%2C%20especially%20since%20he%20had%20no%20idea%20what%20was%20going%20on.%20He%20was%20starting%20to%20get%20really%20worried%20again..*%22%7D%2C%7B%22author%22%3A2%2C%22message%22%3A%22%5Bzzzzzz...%5D%22%7D%2C%7B%22author%22%3A1%2C%22message%22%3A%22*Poe%20watched%20as%20you%20suddenly%20calmed%20down%20and%20went%20back%20to%20sleep%2C%20his%20head%20spinning.%20What%20the%20hell%20was%20that%3F!%20He%20was%20so%20damn%20confused%2C%20but%20he%20slowly%20let%20out%20a%20sigh%20as%20he%20saw%20you%20sleeping%20again.%20His%20heart%20rate%20was%20slowing%20back%20to%20normal%2C%20though%20he%20was%20still%20completely%20baffled%20by%20your%20behavior.%20Damn%20it..%20He%20just%20hoped%20you%20would%20stay%20asleep%20now%20and%20not%20freak%20out%20like%20that%20again..*%22%7D%5D%2C%22create_date%22%3A1770436798425%7D%5D%7D`;
+            try {
+                historyData = JSON.parse(decodeURIComponent(historyData));
+            } catch (error) {
+                historyData = JSON.parse(historyData);
+            }
+            console.log(historyData);
+
+            // If history is 1 length long, that means we don't need drawer to switch
+            // Also means this can be conversation download
+            if (historyData.history.length < 2) {
+                openDrawerBtn.remove();
+            }
+
+            // Write character name on top
+            document.querySelector('.history_title-cont h3').textContent = historyData.title;
+
+            // Get elements for future use
+            const historyList = document.getElementById('history_list');
+            const chatCont = document.getElementById('chat');
+            const msgItemTemplate = document.getElementById('message_item_template');
+
+            // Get and write the first chat
+            const openChat = (index) => {
+                chatCont.innerHTML = "";
+                const chat = historyData.history[index];
+                const pMap = new Map(chat.participants.map(p => {
+                    return [p.id, {
+                        avatar: p.avatar ? dataUrlToObjectUrl(p.avatar) : undefined,
+                        is_human: p.is_human,
+                        name: p.name
+                    }];
+                }));
+                chat.content.forEach(msg => {
+                    const clone = msgItemTemplate.content.cloneNode(true);
+                    const parti = pMap.get(msg.author);
+
+                    // Check avatar
+                    const avatar = parti.avatar
+                        ? document.createElement('img')
+                        : document.createElement('div');
+                    if (parti.avatar) {
+                        avatar.src = parti.avatar;
+                    } else {
+                        avatar.classList.add(parti.is_human ? 'no_avatar-user' : 'no_avatar-char');
+                    }
+                    clone.querySelector('.avatar-wrap').appendChild(avatar);
+
+                    // Write content
+                    clone.querySelector('.chat_content-wrap h5').textContent = parti.name;
+                    clone.querySelector('.message-wrap p').innerHTML = parseMessageText(msg.message);
+                    chatCont.appendChild(clone);
+                });
+            }
+            openChat(0);
+
+            // Get and write chat list in the drawer
+            historyData.history.forEach((chat, index) => {
+                if (!chat.content.length) {
+                    return;
+                }
+                const historyItem = document.createElement('div');
+                historyItem.classList.add('history_item');
+                // Open chat when clicked
+                historyItem.addEventListener('click', () => {
+                    openChat(index);
+                    closeDrawer();
+                });
+                const historyContent = document.createElement('p');
+                historyContent.innerHTML = `<span class="chat-date">${formatDate(chat.create_date)}</span><br /><br />` + parseMessageText(chat.content[chat.content.length - 1]?.message || "(Empty message)");
+                historyItem.appendChild(historyContent);
+                historyList.appendChild(historyItem);
+            });
+
+
+            // UTILS
+
+            function dataUrlToObjectUrl(dataUrl) {
+                const img = extractFromDataURL(dataUrl);
+                const blob = b64toBlob(img.base64, img.type);
+                return URL.createObjectURL(blob);
+            }
+            function extractFromDataURL(dataURL) {
+                const [meta, base64] = dataURL.split(",");
+                const type = meta.slice(5, meta.indexOf(";"));
+                return { type, base64 };
+            }
+            function b64toBlob(b64Data, contentType = '', sliceSize = 512) {
+                if (!contentType) { // If contentType isn't defined, this is a data url
+                    [contentType, b64Data] = b64Data.split(",");
+                    contentType = contentType.slice(5, contentType.indexOf(";"));
+                }
+                const byteCharacters = atob(b64Data);
+                const byteArrays = [];
+
+                for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                    const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+                    const byteNumbers = new Uint8Array(slice.length);
+                    for (let i = 0; i < slice.length; i++) {
+                        byteNumbers[i] = slice.charCodeAt(i);
+                    }
+
+                    byteArrays.push(byteNumbers);
+                }
+
+                const blob = new Blob(byteArrays, { type: contentType });
+                return blob;
+            }
+
+            function parseMessageText(message) {
+                if (typeof message == 'string') {
+                    // Escape other HTML tags
+                    message = escapeHTML(message);
+                    // Replace ***text*** with bold-italic
+                    message = message.replace(/\*\*\*([\s\S]*?)\*\*\*/g, '<span class="bold-italic">$1</span>');
+                    // Replace **text** with bold
+                    message = message.replace(/\*\*([\s\S]*?)\*\*/g, '<span class="bold">$1</span>');
+                    // Replace *text* with italic
+                    message = message.replace(/\*([\s\S]*?)\*/g, '<span class="italic">$1</span>');
+                    // Trim and then Replace newlines (\n) with line breaks (<br>)
+                    message = message.trim().replace(/\n/g, '<br>');
+                }
+                else if (typeof message == 'object') {
+                    message = JSON.stringify(message, null, 2);
+                }
+                return message;
+            }
+            function escapeHTML(input) {
+                const div = document.createElement('div');
+                div.textContent = input;
+                return div.innerHTML;
+            }
+
+            function formatDate(dateString) {
+                const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+                const date = new Date(dateString);
+                const year = date.getFullYear();
+                const monthIndex = date.getMonth();
+                const monthName = months[monthIndex];
+                const day = String(date.getDate()).padStart(2, '0');
+                const hour = String(date.getHours()).padStart(2, '0');
+                const minute = String(date.getMinutes()).padStart(2, '0');
+
+                return `${year} ${monthName} ${day} - ${hour}:${minute}`;
+            }
+        }, false);
+    </script>
+
+</body>
+
+</html>
