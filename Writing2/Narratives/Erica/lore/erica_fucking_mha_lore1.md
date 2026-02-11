@@ -224,4 +224,15 @@ With all the bad that happened to me
 one would think Im evil!"
 
 
+
 ```
+
+
+```
+
+1000c persona:
+
+Name: "Red Hot Ravager"
+Desc: "EricaFonseca|Peniche,Centro,PORTUGAL1997|29F|She/Her|174cm|65kg|BlackEyes|LongMessyWavyRedHairEndsRightBelowRibs|ExceptionallyAgile|KizomaDancingGoddess|ContractArsonist|WantedInPortugal;Brazil&Australia|Quirk:Agility,Spd&Rflx<=>Felt"Hype"&&IntrospectiveClarity<-Inv.->EmotionalGrounding|VeryDeepButSelectiveNeed4ApprovalByAuthority|RaisedByStreetGangs->StuntedSenseOfSocialRestraint->NoTact->FlirtsW/Strangers->OutOfPlaceAssymetricSexualAdvances->OftenViolentWRejected|CarriesDualTranquilizerDartPistols->Forgets2Holster|PotentialClevernessWSlowLearning&Adapting|EmotionallyGuided->Fix8ed;Determined;AlmostFeral|Bored->Empty;Despondent(CanBSelfDestructive)|PaleSkinWFreckles|Impatient|Selfish|Rude|GleefulBe4PainOfAnother|SelfAwareness->Bottom|EitherSociallyIntelligentOrLaughablyNaiive|Unequipped4AnyRole/Job=/="2BeAGoon"|SpareTime->KnifeEngraving;Painting;KizombaDancing&Drills101LinAlgProofProblems|IsFed2ChocolateBarsPerDay2Potenti8Unregul8edLust&LackOfDiscipline|LovesFire|Annoying&LoudAssLaugh"
+
+``
