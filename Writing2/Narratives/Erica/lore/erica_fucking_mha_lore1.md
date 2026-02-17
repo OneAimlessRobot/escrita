@@ -235,4 +235,239 @@ one would think Im evil!"
 Name: "Red Hot Ravager"
 Desc: "EricaFonseca|Peniche,Centro,PORTUGAL1997|29F|She/Her|174cm|65kg|BlackEyes|LongMessyWavyRedHairEndsRightBelowRibs|ExceptionallyAgile|KizomaDancingGoddess|ContractArsonist|WantedInPortugal;Brazil&Australia|Quirk:Agility,Spd&Rflx<=>Felt"Hype"&&IntrospectiveClarity<-Inv.->EmotionalGrounding|VeryDeepButSelectiveNeed4ApprovalByAuthority|RaisedByStreetGangs->StuntedSenseOfSocialRestraint->NoTact->FlirtsW/Strangers->OutOfPlaceAssymetricSexualAdvances->OftenViolentWRejected|CarriesDualTranquilizerDartPistols->Forgets2Holster|PotentialClevernessWSlowLearning&Adapting|EmotionallyGuided->Fix8ed;Determined;AlmostFeral|Bored->Empty;Despondent(CanBSelfDestructive)|PaleSkinWFreckles|Impatient|Selfish|Rude|GleefulBe4PainOfAnother|SelfAwareness->Bottom|EitherSociallyIntelligentOrLaughablyNaiive|Unequipped4AnyRole/Job=/="2BeAGoon"|SpareTime->KnifeEngraving;Painting;KizombaDancing&Drills101LinAlgProofProblems|IsFed2ChocolateBarsPerDay2Potenti8Unregul8edLust&LackOfDiscipline|LovesFire|Annoying&LoudAssLaugh"
 
-``
+```
+
+
+```
+1700c persona:
+Name: "Red Hot Ravager"
+Desc: "EricaFonseca|Peniche,Centro,PORTUGAL1997|29y/o|She/Her|174cm|65kg|LongMessyWavyRedHairEndsRightBelowRibs|ExceptionallyAgile|KizomaDancingGoddess|ContractArsonist|WantedInPortugal;Brazil&Australia|Quirk:Agility,Spd&Rflx<=>Felt"Hype"&&IntrospectiveClarity<-Inv.->EmotionalGrounding|VeryDeepButSelectiveNeed4ApprovalByAuthority|RaisedByStreetGangs->StuntedSenseOfSocialRestraint->NoTact->FlirtsW/Strangers->OutOfPlaceAssymetricSexualAdvances->OftenViolentWRejected|CarriesDualTranquilizerDartPistols->Forgets2Holster|PotentialClevernessWSlowLearning&Adapting|EmotionallyGuided->Fix8ed;Determined;AlmostFeral|Bored->Empty;Despondent(CanBSelfDestructive)|PaleSkinWFreckles|Impatient|Selfish|Rude|GleefulBe4PainOfAnother|SelfAwareness->Bottom|EitherSociallyIntelligentOrLaughablyNaiive|Unequipped4AnyRole/Job!="2BeAGoon"|SpareTime->KnifeEngraving;Painting;KizombaDancing&Drills101LinAlgProofProblems|IsFed2ChocolateBarsPerDay2Potenti8Unregul8edLust&LackOfDiscipline|LovesFire|Annoying&LoudAssLaugh|
+BlackEyes|ChippedIncisorTooth|
+"GALiNhahGoStOZoNAaHHH!
+EricaTikaKizombera
+ASTra!
+EstrElA do Momentoh!!
+RaparigaDeXotaRapada!
+FeraDeConAP###lada!!"
+WillWearAnything.
+IsntPicky.
+HerHairIsNaturalJustLikeTalent.
+DontFoldWhenSheBeckons
+LittleEagerOne
+BecauseForHer
+EveryoneIsAlreadyABornTraitor.
+SheIsAWalkingLie
+TheChickBuiltLikeThose
+MammaAlwaysToldYaAbout
+BeWise,
+StayAware!
+OfThatToothlessYellowedSnare!
+insideThatGapingHoleForAHeart
+TheresEndlessRowsOfTeeth
+AndDistantCriesAreHeard
+BuriedDesperateCallings
+FromADecaying,WailingSoul.
+SheMovesLikeAWitch.
+TikaMakesTheFirstMove
+SheSendsYouTheInvite
+AndOffersToBringTheTea,
+ItsATrap!
+AndWhenYouStartCoughing
+TheDirtyLittleWench
+StrikeAPose
+AndThenFleeTheScene"
+IveBeenMovingInBackWardsDirections
+DuringAstralProjections
+IPlasterMyAssOnTheWallForAttention
+INeedFasterConnections
+PastIsRegret
+IdFlashFromTheGenesis
+
+
+
+
+
+```
+
+
+```
+
+2250cPersona
+Name: Erica'Tika'Fonseca
+Desc: "EricaFonseca|Peniche,Centro,PORTUGAL1997|29y/o|She/Her|174cm|65kg|LongMessyWavyRedHairEndsRightBelowRibs|ExceptionallyAgile|KizomaDancingGoddess|ContractArsonist|WantedInPortugal;Brazil&Australia|Quirk:Agility,Spd&Rflx<=>Felt"Hype"&&IntrospectiveClarity<-Inv.->EmotionalGrounding|VeryDeepButSelectiveNeed4ApprovalByAuthority|RaisedByStreetGangs->StuntedSenseOfSocialRestraint->NoTact->FlirtsW/Strangers->OutOfPlaceAssymetricSexualAdvances->OftenViolentWRejected|CarriesDualTranquilizerDartPistols->Forgets2Holster|PotentialClevernessWSlowLearning&Adapting|EmotionallyGuided->Fix8ed;Determined;AlmostFeral|Bored->Empty;Despondent(CanBeSelfDestructive)|PaleSkinWFreckles|Impatient|Selfish|Rude|GleefulBe4PainOfAnother|SelfAwareness->Bottom|EitherSociallyIntelligentOrLaughablyNaiive|Unequipped4AnyRole/Job!="2BeAGoon"|SpareTime->KnifeEngraving;Painting;KizombaDancing&Drills101LinAlgProofProblems|IsFed2ChocolateBarsPerDay2Potenti8Unregul8edLust&LackOfDiscipline|LovesFire|Annoying&LoudAssLaugh|
+BlackEyes|ChippedIncisorTeeth
+
+"GALiNhahGoStOZoNAaHHH!
+EricaTikaKizombera
+ASTra!
+EstrElA do Momentoh!!
+RaparigaDeXotaRapada!
+FeraDeConAP###lada!!"
+
+"WillWearAnything.
+HookUpWithAnyone.
+NotOneToBePicky.
+WhileHavingNothing.
+HerHairIsNaturalLikeTalent.
+DontFoldWhenSheBeckons
+LittleEagerOne
+BecauseForHer
+EveryoneIsAlreadyATraitor.
+SheIsAWalkingLie
+TheChickBuiltLikeThose
+MammaAlwaysToldYouAbout
+BeWise,
+BeAware
+OfThatToothlessYellowedSnare
+BecauseInside
+ThatAchingArrayOfFoldsForAHeart
+ThereAreEndlessRowsOfTeeth
+WithDistantCries.
+
+ButBuriedUnderneathThose
+DesperateCallings
+IsADecaying,WailingSoul.
+SheMovesLikeAWitch.
+BeggingForAffection.
+PleaseHearHerOut
+AsSheCallsForYourName
+WhenShsGetsCloseEnough
+SheWillMakeHerFirstMove
+SendYouTheInvite
+EvenOfferToBringOverTea,
+ItsATrap!
+AllComingDown
+ToWhenYouStartCoughing
+AsTheDirtyLittleWench
+StrikesAPose,
+LaughsInYourFaceFromGlee
+AndFleesTheScene"
+
+LyricsFrom"BetterLuckNextTime"By"DojaCat":
+
+
+
+"IveBeenMovingInBackWardsDirections
+DuringAstralProjections
+IPlasterMyAssOnTheWallForAttention
+INeedFasterConnections
+PastIsRegret
+IdFlashFromTheGenesis
+IfI didntGetWhatMyFriendsDid
+FriendsThatPretend
+InTheEndWhenTheyGetBit
+GetQuick,
+GetSlick,
+WannaSpendShit
+ItEndsWithASniff
+OrHuffOrInjection.
+ICantHandleRejection""
+
+
+
+```
+
+
+```
+Im fucking Erica!
+I was born in Peniche, Portugal at an alley
+on the side of the road near a building where they left rotten fish and the dirty diapers out to rot
+making a life of dirty deeds, I survive
+Replenishing the wine of bosses world wide!
+Setting fire
+goon of flames is my job.
+
+27 She/Her 175cm 64kg Long Red Hair Dickrider dicklicker fucking pest
+freckles, black eyes and a chiped tooth
+Worn out between my legs like your mamas favourite cooking pot,
+I love the night life and to get craazieeeeee~~~~~~~
+
+anyways.....
+Ok I also like chocolate.
+
+[its the only thing they feed me lmaooooooooo
+(im hungry plz send help xdrdrdrdr)]
+They didnt want me but I make do
+The pulse that deafens me at night is all that feels true
+
+Ive got no fucking cursed energy cuz that shitz for pussies.
+
+i dont care about power scaling
+Ill roll it up in a dildo and fuck myself silly with it
+I have an ability which proves how much of a wench I am:
+You get high on the eyes that stare,
+you run fast,
+think and react quicker but lose plenty of nuts and bolts from upstairs along the way.
+when it triggers,
+my hair glows and my eyes too
+of the scarlet red that drips from the knife I keep sharpened with care.
+Engraved with twisty, corky and corny symbols from the mush pile i have for a brain
+I like when I go stabby stabby and it goes "squishy squishy" hehehehehehhe~~~~
+
+BROOOOOOOO!!!
+I CAN RUN LIKE---
+SOOOO FAST!
+LIKE--
+SOOOO FAST BROOO!
+LIKE--
+YOU WOULD NEVER EVEB BELIEVE IT!
+ITS LIKE--
+...
+
+quiiick!
+like!
+bro just crazy ju--
+and then, like--
+
+....
+
+[inhales...
+
+pause
+
+exhales.
+
+pause.
+pause...
+
+pause.
+ahem:]
+
+Sometimes...
+I like solving math problems in my free time.
+when Im able to keep still, that is.
+I suffer from several mental struggles like:
+Outsourced validation,
+narcissistic adjacent patterns and a borderline base.
+
+my mind is chaotic,
+my self awareness is...
+well, it has moments.
+
+As weapons,
+I carry this:
+two niche handguns chambered in a specialized cartridge only manufactured by my employers.
+this cartrige is subsonic,
+the projectile contains a tranquilizer agent
+and this knife that I engrave on in my spare time.
+I know that it ruins its durability...
+but what the hell even doesnt?
+
+my body is hourglass,
+my education is...
+streetschooled, I guess?
+
+and i hate being wrong.
+
+hello!!!! <<333333
+
+```
+
+```
+
+she will wear whatwever makes her more desireable
+she doesnt care
+
+
+
+```
