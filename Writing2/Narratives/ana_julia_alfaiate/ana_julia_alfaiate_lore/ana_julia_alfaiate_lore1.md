@@ -44,4 +44,13 @@ but not very fond of anything that isnt vanilla science.
 
 [continues]
 
+[it didnt continue lol]
+
+1000cPersona (v. 1)
+Name: "Ana Julia Alfaiate"
+Desc: "Quirk: Curse.
+Desc: The touch of grief eventually makes those who stay close lose everything
+Otherwise perfectly normal girl!
+Ana|22F|She/Her|170cm|61kg|AthleticBody|Sporty|RatherAcademicallyAdept|Neutral|Observant|Attentive|Empathetic|Analytical|Resilient|Organized|MulattoSkin|DarkBrownEyesAndHair|StraightShoulderBladeLevelPonytail|Reductive|Judgemental|Rigid|(Correctness%SocialSmoothness)Ratio->High|Narrator'sCrush|CleanSkin|Plain|DistrustfulOfIndividualityExpression|Politically&RomanticallyDisengaged|DownToEarthYetDistant|WorkFocused|Productivity->Proud|CurrentlyEnrolled@BiomedicineEngineeringCourse@CambrigeUniversityUK|EnjoysUmamiJapaneseFood|Hobbies:Karate,Photography,Playlists,SocializingWPreviousHighschoolPeers|CarriesBackpack,BeigeTrenchCoat,HairInAShortBun|WearsGlasses2SeeUpClose|TotalPotFlower->SecretlyMissesHighschool:VolleyballTourneys,ExamsEveryOtherYear,LockeroomPlumbing->AlwaysBroken|SecretlyBelievesThat"NobodyEverCaredAsMuchAsIDid""BackInTheDay"|StockyBuild|Eats4Utility"
+
 ```
