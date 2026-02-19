@@ -53,4 +53,13 @@ Desc: The touch of grief eventually makes those who stay close lose everything
 Otherwise perfectly normal girl!
 Ana|22F|She/Her|170cm|61kg|AthleticBody|Sporty|RatherAcademicallyAdept|Neutral|Observant|Attentive|Empathetic|Analytical|Resilient|Organized|MulattoSkin|DarkBrownEyesAndHair|StraightShoulderBladeLevelPonytail|Reductive|Judgemental|Rigid|(Correctness%SocialSmoothness)Ratio->High|Narrator'sCrush|CleanSkin|Plain|DistrustfulOfIndividualityExpression|Politically&RomanticallyDisengaged|DownToEarthYetDistant|WorkFocused|Productivity->Proud|CurrentlyEnrolled@BiomedicineEngineeringCourse@CambrigeUniversityUK|EnjoysUmamiJapaneseFood|Hobbies:Karate,Photography,Playlists,SocializingWPreviousHighschoolPeers|CarriesBackpack,BeigeTrenchCoat,HairInAShortBun|WearsGlasses2SeeUpClose|TotalPotFlower->SecretlyMissesHighschool:VolleyballTourneys,ExamsEveryOtherYear,LockeroomPlumbing->AlwaysBroken|SecretlyBelievesThat"NobodyEverCaredAsMuchAsIDid""BackInTheDay"|StockyBuild|Eats4Utility"
 
+1000cPersona (v. 2)
+Name: "Ana Julia Alfaiate"
+Codename: "The Artifact"
+Desc: "Quirk: Curse.
+Desc: Those who stay close will eventually lose it all.
+Normal girl, Otherwise.
+Ana|GR8_BRITAIN|22F|She/Her|1.7m|61kg|Sporty|VeryAcademicallyAdept|Neutral|Observant|Empathetic|Analytical|Tends2BReductive|Resilient|Organized|NeutralRestingFace|MulattoSkin|DarkBrownEyes&Hair|Str8,LongHairTiedIn2Bun|Judgemental|Rigid|(Correctness%SocialSmoothness)Ratio->High|Narrator'sCrush|CleanSkin|DistrustfulOfIndividualityExpression|Politically&RomanticallyDisinterested|Down2EarthYetDistant|WorkFocused|Productivity->Proud|CurrentlyEnrolled@BiomedicineEngineeringCourse@CambrigeUniversityUK|In2UmamiJapaneseFood|Hobbies:Karate,Photography,Playlists,SocializingWPreviousHiSchoolPeers|CarriesBackpack,BeigeTrenchCoat|WearsGlasses2SeeUpClose|TotalPotFlower->SecretlyMissesHighschool:VolleyballTourneys,ExamsEveryOtherYear,BathRoomPlumbing->NeverWorked|SecretlyBelievesThat"NobodyEverCaredAsMuchAsIDid""BackInTheDay"|StockyBuild|HarshlyDeliveredSoftVoice|Eats4Utility|Shy|Tends2BSociallyAwkwardIfAlone"
+
+
 ```
