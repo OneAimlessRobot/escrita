@@ -4,6 +4,14 @@
 ((rm -rf /mnt/FASTstorage/FASTprogs/webcrookedstuff/pages/BotchatsFASTNEWEST)&&(cp -rv /mnt/FASTstorage/BotchatsFASTNEWEST /mnt/FASTstorage/FASTprogs/webcrookedstuff/pages/))&
 ((rm -rf /mnt/FASTstorage/FASTprogs/webcrookedstuff/pages/BotchatsFASTNEWEST2)&&(cp -rv /mnt/FASTstorage/BotchatsFASTNEWEST2 /mnt/FASTstorage/FASTprogs/webcrookedstuff/pages/))&
 
+((rm -rf /mnt/REBORN/botchatsFAST)&&(cp -rv /mnt/FASTstorage/botchatsFAST /mnt/REBORN/))&
+((rm -rf /mnt/REBORN/BotchatsFASTNEWEST)&&(cp -rv /mnt/FASTstorage/BotchatsFASTNEWEST /mnt/REBORN/))&
+((rm -rf /mnt/REBORN/BotchatsFASTNEWEST2)&&(cp -rv /mnt/FASTstorage/BotchatsFASTNEWEST2 /mnt/REBORN/))&
+
+((rm -rf /mnt/SUPER_CAVALEIRO/botchatsFAST)&&(cp -rv /mnt/FASTstorage/botchatsFAST /mnt/SUPER_CAVALEIRO/))&
+((rm -rf /mnt/SUPER_CAVALEIRO/BotchatsFASTNEWEST)&&(cp -rv /mnt/FASTstorage/BotchatsFASTNEWEST /mnt/SUPER_CAVALEIRO/))&
+((rm -rf /mnt/SUPER_CAVALEIRO/BotchatsFASTNEWEST2)&&(cp -rv /mnt/FASTstorage/BotchatsFASTNEWEST2 /mnt/SUPER_CAVALEIRO/))&
+
 wait
 echo "Done replacing botchats!!!"
 
@@ -16,6 +24,7 @@ echo "Replacing Writing!!!!!"
 ((rm -rf /mnt/FASTstorage/FASTprogs/webcrookedstuff/texts/Writing2)&&(cp -rv ~/Desktop/Writing2 /mnt/FASTstorage/FASTprogs/webcrookedstuff/texts/))&
 wait
 
+rm -rf /mnt/FASTstorage/GithubFAST/escrita/writing_updating_script.sh && cp -rv ~/Desktop/writing_updating_script.sh /mnt/FASTstorage/GithubFAST/escrita
 pushd /mnt/FASTstorage/GithubFAST/escrita && bash up* && popd
 echo "Done replacing Writing!!!!"
 
