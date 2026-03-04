@@ -4,6 +4,10 @@
 ((rm -rf /mnt/FASTstorage/FASTprogs/webcrookedstuff/pages/BotchatsFASTNEWEST)&&(cp -rv /mnt/FASTstorage/BotchatsFASTNEWEST /mnt/FASTstorage/FASTprogs/webcrookedstuff/pages/))&
 ((rm -rf /mnt/FASTstorage/FASTprogs/webcrookedstuff/pages/BotchatsFASTNEWEST2)&&(cp -rv /mnt/FASTstorage/BotchatsFASTNEWEST2 /mnt/FASTstorage/FASTprogs/webcrookedstuff/pages/))&
 
+((rm -rf /mnt/REBORN/webcrookedstuff/pages/botchatsFAST)&&(cp -rv /mnt/FASTstorage/botchatsFAST /mnt/REBORN/webcrookedstuff/pages/))&
+((rm -rf /mnt/REBORN/webcrookedstuff/pages/BotchatsFASTNEWEST)&&(cp -rv /mnt/FASTstorage/BotchatsFASTNEWEST /mnt/REBORN/webcrookedstuff/pages/))&
+((rm -rf /mnt/REBORN/webcrookedstuff/pages/BotchatsFASTNEWEST2)&&(cp -rv /mnt/FASTstorage/BotchatsFASTNEWEST2 /mnt/REBORN/webcrookedstuff/pages/))&
+
 ((rm -rf /mnt/REBORN/botchatsFAST)&&(cp -rv /mnt/FASTstorage/botchatsFAST /mnt/REBORN/))&
 ((rm -rf /mnt/REBORN/BotchatsFASTNEWEST)&&(cp -rv /mnt/FASTstorage/BotchatsFASTNEWEST /mnt/REBORN/))&
 ((rm -rf /mnt/REBORN/BotchatsFASTNEWEST2)&&(cp -rv /mnt/FASTstorage/BotchatsFASTNEWEST2 /mnt/REBORN/))&
