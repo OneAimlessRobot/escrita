@@ -26,6 +26,7 @@ echo "Replacing Writing!!!!!"
 ((rm -rf /mnt/FASTstorage/Writing2)&&(cp -rv ~/Desktop/Writing2 /mnt/FASTstorage/))&
 ((rm -rf /mnt/FASTstorage/GithubFAST/escrita/Writing2)&&(cp -rv ~/Desktop/Writing2 /mnt/FASTstorage/GithubFAST/escrita/))&
 ((rm -rf /mnt/FASTstorage/FASTprogs/webcrookedstuff/texts/Writing2)&&(cp -rv ~/Desktop/Writing2 /mnt/FASTstorage/FASTprogs/webcrookedstuff/texts/))&
+((rm -rf /mnt/REBORN/webcrookedstuff/texts/Writing2)&&(cp -rv ~/Desktop/Writing2 /mnt/REBORN/webcrookedstuff/texts/))&
 wait
 
 rm -rf /mnt/FASTstorage/GithubFAST/escrita/writing_updating_script.sh && cp -rv ~/Desktop/writing_updating_script.sh /mnt/FASTstorage/GithubFAST/escrita
