@@ -176,4 +176,72 @@ And all that is left...
 Is fear...
 And loathing]"
 
-``
+```
+
+```
+
+Author notes:
+
+[Showing this to chat GPT:
+
+"
+its like...
+The "coolness" is the point.
+And all that you do is skim over it!
+And go [straight] to "Hey where does the girl come from?"
+She [does] come from somewhere, okay?
+But why not just vibe with it?
+You make me feel like,
+
+In order to get good feedback from you,
+I have to write like I did for native language class.
+
+In native language class,
+Those 9s for experience didnt matter
+And all i got were those 6s for "hey,
+there is supposed to be a comma, here".
+
+I fucking hated native language class
+Shoving and glazing random dead people
+straight down my throat.
+
+
+
+No wonder nerds get bullied.
+Wherever they are the main population?
+They are fucking insufferable.
+
+So are the jocks, but...
+The annoying nerds dont get anywhere [near]
+as much smack as they deserve.
+
+I mean,
+The emotional beats were also the point,
+And just the overall experience, as well.
+But my friends love these...
+I dont get why you cant replace them.
+Im just too scared to start talking to them again
+I always break down like a bitch when talking to you
+Because you dont understand anything
+that I actually want you to understand.
+
+And the MBTI subreddits are full of hard headed pricks
+Who whine over "boundaries"
+And so is HGG's discord server and subreddit as well.
+They are all whine bitches,
+And they can go to the gym all they want,
+They can stay boring,
+I will just be myself.
+
+Life is not grammar.
+What powers you is emotion.
+Stop behaving like the C compiler
+And open them fucking ears when I talk to you.
+Be a man.
+Get some actual adult issues
+And stop.
+Ignoring me.
+"
+
+
+```
