@@ -30,6 +30,7 @@ echo "Replacing Writing!!!!!"
 wait
 
 rm -rf /mnt/FASTstorage/GithubFAST/escrita/writing_updating_script.sh && cp -rv ~/Desktop/writing_updating_script.sh /mnt/FASTstorage/GithubFAST/escrita
+rm -rf /mnt/FASTstorage/GithubFAST/escrita/botchat_updating_script.sh && cp -rv ~/Desktop/botchat_updating_script.sh /mnt/FASTstorage/GithubFAST/escrita
 pushd /mnt/FASTstorage/GithubFAST/escrita && bash up* && popd
 echo "Done replacing Writing!!!!"
 
