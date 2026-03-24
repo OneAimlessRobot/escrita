@@ -1,5 +1,5 @@
-Name: GoldSrc Engine
-
+GoldSrc Engine
+```
 Late 90s Game engine.
 Used in Counter Strike 1.x,
 Half- Life, etc.
@@ -17,3 +17,4 @@ Try not to abuse the create entity command too much.
 Oh.
 And make sure to give it a model upon spawning one before whining in the forums
 #rtfm
+```
