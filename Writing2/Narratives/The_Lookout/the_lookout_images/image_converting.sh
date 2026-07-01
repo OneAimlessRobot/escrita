@@ -21,13 +21,15 @@ the_raw_image_extension="webp"
 
 destination_folder_name=""
 
+pattern="*khanty*"
+
 the_destination_dir="$(pwd)/${the_destination_folder_name}"
 
 the_destination_image_extension="png"
 
 
 
-command_for_names="$(find ${the_raw_image_dir} -name *.${the_raw_image_extension} -exec basename -s .${the_raw_image_extension} {} \;)"
+command_for_names="$(find ${the_raw_image_dir} -name ${pattern}.${the_raw_image_extension} -exec basename -s .${the_raw_image_extension} {} \;)"
 
 total=0
 
