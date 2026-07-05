@@ -17,11 +17,11 @@ raw_image_folder_name="raw"
 
 the_raw_image_dir="$(pwd)/${raw_image_folder_name}"
 
-the_raw_image_extension="webp"
+the_raw_image_extension="jpg"
 
 destination_folder_name=""
 
-pattern="*khanty*"
+pattern="*"
 
 the_destination_dir="$(pwd)/${the_destination_folder_name}"
 
