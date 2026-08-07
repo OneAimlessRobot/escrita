@@ -188,7 +188,7 @@ The imagery began.
 
 
 
-Flora.
+Orchid.
 It opens and closes.
 One bit at a time
 rotating around itself
