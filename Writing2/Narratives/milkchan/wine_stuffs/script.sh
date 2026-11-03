@@ -11,10 +11,5 @@ export WINE="$RUNNER/bin/wine"
 export WINESERVER="$RUNNER/bin/wineserver"
 export PATH="$RUNNER/bin:$PATH"
 
-"$RUNNER/bin/wineserver" -k
 
-"winetricks" -q winxp
-"winetricks" jet40
-"winetricks" dotnet35sp1 
-
-"$RUNNER/bin/wine" "/home/addysmagic/Downloads/MSChart.exe"
+"$RUNNER/bin/wine" "/mnt/SUPER_CAVALEIRO/Attic/ISOs/mga/Metal_Gear_Acid_USA_PSP-LIGHTFORCE/mga/psound/PSound.exe"
