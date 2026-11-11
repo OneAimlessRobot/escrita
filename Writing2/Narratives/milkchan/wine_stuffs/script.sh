@@ -12,4 +12,4 @@ export WINESERVER="$RUNNER/bin/wineserver"
 export PATH="$RUNNER/bin:$PATH"
 
 
-"$RUNNER/bin/wine" "/mnt/SUPER_CAVALEIRO/Attic/ISOs/mga/Metal_Gear_Acid_USA_PSP-LIGHTFORCE/mga/psound/PSound.exe"
+"$RUNNER/bin/wine" "/mnt/FASTstorage/audioprojects/loop_waver/Wavosaur.exe"
